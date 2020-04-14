@@ -15,7 +15,7 @@
 <div class = "col-4 p-5">
 <div><h2>{{ $user->name }}</h2></div>
 <div><h5>lived in</h5></div>
-<div><h6>dhaka, bangladesh</h6></div>
+<div><h6>{{ $user->country }}</h6></div>
 </div>
 <div class = "col-3 p-5 text-center">
     <div><strong>123</strong></div>
@@ -24,7 +24,7 @@
     <div><h5>reviews</strong></div>
 </div>
 <div>
-    <div><h3>job name</h3></div>
+    <div><h3>{{ $user->job }}</h3></div>
     <div><strong>sample profile description</strong></div>
     <div><p>
         A paragraph contains a group of sentences intertwined with each other to discuss, or debate, or explain a central idea. It conventionally begins with an indented line. A beginner writer or a student usually starts writing a paragraph having seven sentences, while some professors of composition advise beginners to start with nine sentences, and some others ask them to start with eleven sentences. Some, however, teach all three paragraph types step by step.</p></div>
