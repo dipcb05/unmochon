@@ -25,10 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {      
-       // $users = DB::table('users')->get();
-       //     @foreach ($user as $users) 
-       //            {{ $users->name }}
-       //             @endforeach
         $id = Auth::id();
         $user = DB::table('users')->find($id);
         return view('home', ['user' => $user]);
