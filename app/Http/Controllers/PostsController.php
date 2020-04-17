@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
-use DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 class PostsController extends Controller
 {
     public function index()
@@ -13,7 +13,7 @@ class PostsController extends Controller
         $user = DB::table('users')->find($id);
         return view('posts', ['user' => $user]);
     }
-    public function _construct()
+    public function __construct()
     {
     	$this->middleware('auth');
     }
@@ -23,13 +23,16 @@ class PostsController extends Controller
     {
     	//dd(request()->all());
     	$data = request()->validate(['pcaption' => 'required']);
-         Auth()->users()->post()->create($data);
+         Auth()->user()->posts()->create($data);
          dd(request()->all());
-    //     $uniqueFileName = uniqid() . $request->get('upload_file')->getClientOriginalName() . '.' . $request->get('upload_file')->getClientOriginalExtension());
 
-    //     $request->get('upload_file')->move(public_path('files') . $uniqueFileName);
-
-    //     return redirect()->back()->with('success', 'File uploaded successfully.');
-    // }
 }
 }
+
+
+//     $uniqueFileName = uniqid() . $request->get('upload_file')->getClientOriginalName() . '.' . $request->get('upload_file')->getClientOriginalExtension());
+
+//     $request->get('upload_file')->move(public_path('files') . $uniqueFileName);
+
+//     return redirect()->back()->with('success', 'File uploaded successfully.');
+// }
