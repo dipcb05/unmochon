@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -21,18 +19,19 @@ class PostsController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store()
     {
 
     	$data = request()->validate(['pcaption' => 'required']);
-         dd($data);
-//        $path = request('post')->store('uploads', 'public');
-//        Auth()->user()->posts()->create(
-//            [
-//                'pcaption' => $data['pcaption'],
-//                'post' => $data['post'],
-//            ]);
+         //dd(request('post')->store('uploads', 'public'));
+         $path = request('post')->store('uploads', 'public');
+         Auth()->user()->posts()->create(
+           [
+              'pcaption' => $data['pcaption'],
+             'post' => $path,
+            ]);
 //        dd(request()->all());
+        return redirect()->route('home');
     }
     }
 
