@@ -22,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile/{user}', 'ProfileController@index')->name('profile.show');
 Route::get('/p/create', 'PostsController@create')->name('posts.create');
 Route::post('/p', 'PostsController@store')->name('posts.store');
+Route::get('/profile/{user}/edit', 'EditProfile@index')->name('EditProfile.edit');

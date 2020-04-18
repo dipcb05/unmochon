@@ -1,9 +1,9 @@
 @extends('layouts.appprofile')
 @section('content')
 <div class="container">
-  
+
 <div class = "row">
-<div class = "col-2 p-8"><h3>profile</h3></div> 
+<div class = "col-2 p-8"><h3>profile</h3></div>
 <div class = "row">
 
 <div class = "col-3 p-5">
@@ -19,9 +19,9 @@
 </div>
 <div class = "col-3 p-5 text-center">
     <div><strong>123</strong></div>
-    <div><h5>researchs</strong></div>
+    <div><h5>researchs</h5></div>
     <div><strong>123</strong></div>
-    <div><h5>reviews</strong></div>
+    <div><h5>reviews</h5></div>
 </div>
 <div>
     <div><h3>{{ $user->job }}</h3></div>
@@ -34,46 +34,22 @@
 </div>
 </div>
 <div class="row">
+
+
+    @foreach($user->posts as $post)
         <div class="col-sm-3 pt-4">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="images/1.jpeg" alt="Card image cap">
+                <img class="card-img-top" src="images/1.jpeg" alt="image of paper">
                 <div class="card-body">
                     <h5 class="card-title">New Paper</h5>
                     <p class="card-text">description</p>
-                    <a href="#" class="btn btn-primary">Read</a>
+                    <a href="/storage/{{ $post -> post }}" class="btn btn-primary">Read</a>
                 </div>
             </div>
         </div>
-         <div class="col-sm-3 pt-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="images/1.jpeg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">New Paper</h5>
-                    <p class="card-text">description</p>
-                    <a href="#" class="btn btn-primary">Read</a>
-                </div>
-            </div>
-        </div>
-         <div class="col-sm-3 pt-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="images/1.jpeg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">New Paper</h5>
-                    <p class="card-text">description</p>
-                    <a href="#" class="btn btn-primary">Read</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 pt-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="images/1.jpeg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">New Paper</h5>
-                    <p class="card-text">description</p>
-                    <a href="#" class="btn btn-primary">Read</a>
-                </div>
-            </div>
-        </div>
+    @endforeach
+
+
 
 
 

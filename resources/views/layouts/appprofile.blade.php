@@ -34,8 +34,8 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                       
-                         
+
+
 
                         @guest
 
@@ -48,6 +48,9 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('EditProfile') }}">{{ __('Edit Profile') }}</a>
+                            </li>
                         <li class="nav-item">
                                 <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                             </li>

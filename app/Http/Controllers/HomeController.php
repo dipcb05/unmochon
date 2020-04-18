@@ -27,7 +27,8 @@ class HomeController extends Controller
     {
         $id = Auth::id();
         $user = DB::table('users')->find($id);
-        return view('home', ['user' => $user]);
+        $posts = DB::table('posts')->get();
+        return view('home', ['user' => $user], ['posts' => $posts]);
 
       }
 
