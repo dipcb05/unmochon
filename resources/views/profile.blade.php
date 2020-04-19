@@ -8,7 +8,7 @@
 
 <div class = "col-3 p-5">
 <div>
-<img class="img-thumbnail img-fluid rounded mx-auto d-block"src = "{{ asset('images/pro.jpg')}}"alt = "profile picture">
+<img class="img-thumbnail img-fluid rounded mx-auto d-block" src = "{{ asset('images/pro.jpg')}}" alt = "profile picture">
 </div>
 </div>
 
@@ -39,7 +39,7 @@
     @foreach($user->posts as $post)
         <div class="col-sm-3 pt-4">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="images/1.jpeg" alt="image of paper">
+                <img class="card-img-top" src="{{ asset('images/1.jpeg') }}" alt="image of paper">
                 <div class="card-body">
                     <h5 class="card-title">New Paper</h5>
                     <p class="card-text">description</p>

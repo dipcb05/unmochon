@@ -44,6 +44,9 @@ class User extends Authenticatable
     {
     return $this->hasMany(post::class);
     }
-
+    public function editprofile()
+    {
+        return $this->hasMany(EditProfile::class);
+    }
 
 }
