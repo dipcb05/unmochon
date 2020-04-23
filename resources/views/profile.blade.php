@@ -34,25 +34,18 @@
 </div>
 </div>
 <div class="row">
-
-
-    @foreach($user->posts as $post)
+    @foreach($posts as $post)
         <div class="col-sm-3 pt-4">
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="{{ asset('images/1.jpeg') }}" alt="image of paper">
                 <div class="card-body">
-                    <h5 class="card-title">New Paper</h5>
-                    <p class="card-text">description</p>
+                    <h5 class="card-title">{{ $post -> pcaption }}</h5>
+                    <p class="card-text">short description</p>
                     <a href="/storage/{{ $post -> post }}" class="btn btn-primary">Read</a>
                 </div>
             </div>
         </div>
     @endforeach
-
-
-
-
-
     </div>
 
 </div>

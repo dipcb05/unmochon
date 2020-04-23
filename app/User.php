@@ -42,11 +42,11 @@ class User extends Authenticatable
     }
     public function posts()
     {
-    return $this->hasMany(post::class);
+    return $this->hasMany(post::class, 'user_id');
     }
     public function editprofile()
     {
-        return $this->hasMany(EditProfile::class);
+        return $this->hasOne(EditProfile::class);
     }
 
 }

@@ -49,7 +49,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('EditProfile.edit', $user->id) }}">{{ __('Edit Profile') }}</a>
+                                <a class="nav-link" href="{{ route('EditProfile.edit', Auth::user()->id) }}">{{ __('Edit Profile') }}</a>
                             </li>
                         <li class="nav-item">
                                 <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>

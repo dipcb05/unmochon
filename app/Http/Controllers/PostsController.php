@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,20 +19,26 @@ class PostsController extends Controller
     	$this->middleware('auth');
     }
 
-
-    public function store()
+    public function store(Request $request)
     {
-
-    	$data = request()->validate(['pcaption' => 'required']);
-         //dd(request('post')->store('uploads', 'public'));
-         $path = request('post')->store('uploads', 'public');
+        $data = $request->validate(['pcaption' => 'required', 'post' => 'required']);
+        //$path = $request->file('post')->store('upload');
+        $path = request('post')->store('upload', 'public');
+        $post = new post();
+        $post->pcaption = $data['pcaption'];
+        $post->post = $path;
          Auth()->user()->posts()->create(
            [
-              'pcaption' => $data['pcaption'],
-             'post' => $path,
+               'pcaption' => $post->pcaption,
+               'post' => $post->post,
             ]);
-//        dd(request()->all());
         return redirect()->route('home');
     }
+
+    public function show(\App\post $post)
+    {
+        return view('postview', compact('post'));
     }
 
+
+    }
