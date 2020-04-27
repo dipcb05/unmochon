@@ -14,20 +14,16 @@ class PostViewController extends Controller
         //$pos = post::find($post);
         $posts = DB::table('posts')->find($post);
         //dd($posts);
-
         return view('postview', ['post' => $posts]);
     }
     public function show($post)
     {
-            //$file = post::find($post);
-           $file = DB::table('posts')->find($post);
+            $file = DB::table('posts')->find($post);
             $header = ['Content-Type', 'application/pdf'];
-          $a = "/storage/";
-          $b = $file->post;
-          $c = $a . $b;
-
-      //  dd($b);
-        dd(response()->file($c, $header));
+            $path = storage_path('app/public/'.$file->post);
+            $d = storage_path($file->post);
+           // dd(response()->file($path));
+           return view('posts.postview', ['post' => response()->file($path)]);
 
     }
 

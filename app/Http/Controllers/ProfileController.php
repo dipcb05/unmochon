@@ -6,6 +6,14 @@ use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
+
+    public function __construct()
+    {
+        //$this->middleware('auth');
+        //$this->middleware('verified');
+    }
+
+
     public function index($user)
     {
         //$use = DB::table('users')->find($user);
@@ -13,6 +21,6 @@ class ProfileController extends Controller
         $posts = DB::table('posts')->where('user_id', $user)->get();
         //dd($posts);
 
-        return view('profile', ['user' => $use], ['posts' => $posts]);
+        return view('profile.profile', ['user' => $use], ['posts' => $posts]);
     }
 }

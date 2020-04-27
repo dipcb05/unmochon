@@ -16,6 +16,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('verified');
     }
 
     /**
@@ -31,7 +32,7 @@ class HomeController extends Controller
         $user = User::find($id);
         //$post = $user->posts;
         //dd($post);
-        return view('home', ['user' => $user], ['posts' => $posts]);
+        return view('homeview.home', ['user' => $user], ['posts' => $posts]);
 
       }
 

@@ -26,11 +26,12 @@
 @foreach($posts as $post)
     <div class="col-sm-3 pt-4">
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="images/1.jpeg" alt="image of paper">
+            <img class="card-img-top" src=" asset{{ 'images/1.jpeg' }} " alt="image of paper">
             <div class="card-body">
-                <h5 class="card-title">New Paper</h5>
+                <h5 class="card-title">{{ $post -> pcaption }}</h5>
                 <p class="card-text">description</p>
-                <a href="/storage/{{ $post -> post }}" class="btn btn-primary">Read</a>
+                <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">read</a>
+                <a href="/storage/{{ $post -> post }}" class="btn btn-primary">download</a>
             </div>
         </div>
     </div>

@@ -4,8 +4,8 @@
 
         <div class="row">
             <div class="col-8">
-                <h3>{{ $post->pcaption }}</h3>
-                <iframe src="/storage/{{ $post->post }}" width=”200%” height=”200%”>
+                <h3>abcd</h3>
+                <iframe src="/storage/{{ $post }}" width=”200%” height=”200%”>
                 </iframe>
             </div>
 {{--            <div class="col-4">--}}

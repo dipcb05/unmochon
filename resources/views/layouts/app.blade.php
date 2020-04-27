@@ -49,9 +49,18 @@
                                 </li>
                             @endif
                         @else
-                        <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.show', Auth::user()->id) }}">{{ __('profile') }}</a>
-                            </li>
+                            @if(Route::current()->getName() == 'home')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('profile.show', Auth::user()->id) }}">{{ __('Profile') }}</a>
+                                </li>
+                            @elseif(Route::current()->getName() == 'profile.show')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('EditProfile.edit', Auth::user()->id) }}">{{ __('Edit Profile') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
+                                </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->username }} <span class="caret"></span>
