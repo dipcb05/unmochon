@@ -33,7 +33,6 @@
                         </div>
 
 <div class = "row">
-
       <input id = "post"
        type = "file"
        class = "form-control-file pt-2 pl-6"

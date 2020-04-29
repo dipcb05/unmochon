@@ -12,7 +12,7 @@ class PostsController extends Controller
     {
         $id = Auth::id();
         $user = DB::table('users')->find($id);
-        return view('posts', ['user' => $user]);
+        return view('posts.posts', ['user' => $user]);
     }
     public function __construct()
     {
@@ -22,7 +22,6 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate(['pcaption' => 'required', 'post' => 'required']);
-        //$path = $request->file('post')->store('upload');
         $path = request('post')->store('upload', 'public');
         $post = new post();
         $post->pcaption = $data['pcaption'];

@@ -1,4 +1,5 @@
 @extends('layouts.new')
+@section('content')
 <div id="carousel01" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
@@ -97,3 +98,4 @@
 
 
 <section><footer><p class="p-3 bg-dark text-white text-center">Developed by Dip Chakraborty</p></footer></section>
+@endsection

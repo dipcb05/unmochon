@@ -24,7 +24,6 @@ class firstpageController extends Controller
                 ->join('posts', 'users.id', '=', 'posts.user_id')
                 ->select('users.name', 'users.job')
                 ->get();
-            //dd($find);
            return view('query.author', ['find' => $find], ['user' => $users]);
         }
     }

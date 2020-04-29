@@ -1,14 +1,17 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-
 <div class = "row">
 <div class = "col-2 p-8"><h3>profile</h3></div>
 <div class = "row">
 
 <div class = "col-3 p-5">
 <div>
-<img class="img-thumbnail img-fluid rounded mx-auto d-block" src = "{{ asset('images/pro.jpg')}}" alt = "profile picture">
+    @if(is_null($user->pic))
+        <img class="img-thumbnail img-fluid rounded mx-auto d-block" src = " {{ asset('images/default.jpg')}}" alt = "profile picture">
+    @else
+        <img class="img-thumbnail img-fluid rounded mx-auto d-block" src = " /storage/{{ $user->pic }}" alt = "profile picture">
+    @endif
 </div>
 </div>
 
@@ -25,12 +28,10 @@
 </div>
 <div>
     <div><h3>{{ $user->job }}</h3></div>
-    <div><strong>sample profile description</strong></div>
-    <div><p>
-        A paragraph contains a group of sentences intertwined with each other to discuss, or debate, or explain a central idea. It conventionally begins with an indented line. A beginner writer or a student usually starts writing a paragraph having seven sentences, while some professors of composition advise beginners to start with nine sentences, and some others ask them to start with eleven sentences. Some, however, teach all three paragraph types step by step.</p></div>
-   <div class = "d-flex">
+    <div><strong>Profile Description</strong></div>
+    <div><p>{{ $user->description ?? 'N/A' }}</p></div><div class = "d-flex">
    <div class="pr-3"><strong>website: </strong></div>
-   <div><a href = "http://www.f.com">www.f.com</a> </div>
+   <div><a href = "{{ $user->website }} ?? #">{{ $user->website ?? 'N/A' }}</a> </div>
 </div>
 </div>
 <div class="row">

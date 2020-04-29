@@ -18,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'country', 'job', 'password'
+        'name', 'username', 'email', 'country', 'bdate', 'job', 'wdate', 'pic', 'description', 'website','password'
     ];
 
     /**
@@ -40,15 +40,13 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
+
     protected static function boot()
     {
         parent::boot();
 
         static::created(function ($user) {
-//            $user->profile()->create([
-//                'title' => $user->username,
-//            ]);
-            if($user->hasVerifiedEmail())
+          //  $user->profile()->create(['title' => $user->username,]);
             Mail::to($user->email)->send(new WelcomeMail());
         });
     }

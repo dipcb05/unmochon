@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\post;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
@@ -26,13 +27,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $id = Auth::id();
-       // $user = DB::table('users')->find($id);
+
         $posts = DB::table('posts')->get();
-        $user = User::find($id);
-        //$post = $user->posts;
-        //dd($post);
-        return view('homeview.home', ['user' => $user], ['posts' => $posts]);
+        $users = DB::table('users')
+            ->join('posts', 'users.id', '=', 'posts.user_id')
+            ->select('users.name')
+            ->get();
+
+        return view('homeview.home', ['posts' => $posts], ['user' => $users]);
 
       }
 

@@ -134,7 +134,11 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
-
+    'custom' => [
+        'pic1' => [
+            'required' => 'We need your email address also.',
+        ],
+    ],
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

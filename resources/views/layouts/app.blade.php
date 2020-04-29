@@ -6,8 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Unmochon') }}</title>
     <!-- Scripts -->
+    <!-- Stylesheet -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/countrypicker.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -41,39 +41,74 @@
                         @guest
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link"
+                                   href="{{ route('login') }}">
+                                    {{ __('Login') }}
+                                </a>
                             </li>
                              @if(Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link"
+                                       href="{{ route('register') }}">
+                                        {{ __('Register') }}
+                                    </a>
                                 </li>
                             @endif
                         @else
                             @if(Route::current()->getName() == 'home')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('profile.show', Auth::user()->id) }}">{{ __('Profile') }}</a>
+                                    <a class="nav-link"
+                                       href="{{ route('profile.show', Auth::user()->id) }}">
+                                        {{ __('Profile') }}
+                                    </a>
                                 </li>
                             @elseif(Route::current()->getName() == 'profile.show')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('EditProfile.edit', Auth::user()->id) }}">{{ __('Edit Profile') }}</a>
+                                    <a class="nav-link"
+                                       href="{{ route('home') }}">
+                                        {{ __('Home') }}
+                                    </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Profile Settings
+                                    </a>
+                                    <div class="dropdown-menu"
+                                         aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item"
+                                           href="{{ route('profile.edit', Auth::user()->id) }}">
+                                            Edit Profile
+                                        </a>
+                                        <a class="dropdown-item" href="#">Change Password</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
                                 </li>
                             @endif
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->username }} <span class="caret"></span>
+                                <a id="navbarDropdown"
+                                   class="nav-link dropdown-toggle"
+                                   href="#"
+                                   role="button"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false" v-pre>
+                                    {{ Auth::user()->username }}
+                                    <span class="caret">
+                                    </span>
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                     aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item"
+                                       href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                            document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form"
+                                          action="{{ route('logout') }}"
+                                          method="POST"
+                                          style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
