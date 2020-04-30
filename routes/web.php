@@ -32,3 +32,4 @@ Route::post('/edit', 'EditProfile@update')->name('profile.update');
 Route::get('/query/{key}', 'firstpageController@see_paper')->name('query.show');
 Route::get('test', 'Auth\RegisterController@ipfinder');
 Route::redirect('profile.update', 'home');
+Route::get('p/{post}/review', 'ReviewController@index')->name('post.reviews');

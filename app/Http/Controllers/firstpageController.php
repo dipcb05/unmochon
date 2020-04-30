@@ -14,6 +14,7 @@ class firstpageController extends Controller
 
     public function see_paper($element)
     {
+
         if($element == 'author') {
             $find = DB::table('posts')
                 ->select(DB::raw('count(post) as number_of_post, user_id'))
@@ -24,8 +25,12 @@ class firstpageController extends Controller
                 ->join('posts', 'users.id', '=', 'posts.user_id')
                 ->select('users.name', 'users.job')
                 ->get();
-           return view('query.author', ['find' => $find], ['user' => $users]);
         }
+        elseif ($element == 'subject')
+        {
+
+        }
+        return view('query.author', ['find' => $find], ['user' => $users]);
     }
 
 }

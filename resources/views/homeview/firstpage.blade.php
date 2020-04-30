@@ -2,14 +2,14 @@
 @section('content')
 <div id="carousel01" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-        <div class="carousel-item active">
+        <div class="carousel-item">
             <img class="d-block w-100" src="{{ asset('images/1.jpeg') }}" alt="First slide">
             <div class="carousel-caption">
                 <h3>Unmochon</h3>
                     <p>A reseacher blog</p>
             </div>
         </div>
-        <div class="carousel-item">
+        <div class="carousel-item active">
             <img class="d-block w-100" src="{{ asset('images/3.jpg') }}" alt="Second slide">
             <div class="carousel-caption">
                 <h3>Unmochon</h3>
@@ -91,11 +91,5 @@
                 </div>
             </div>
         </div>
-
-
     </div>
-</section>
-
-
-<section><footer><p class="p-3 bg-dark text-white text-center">Developed by Dip Chakraborty</p></footer></section>
 @endsection

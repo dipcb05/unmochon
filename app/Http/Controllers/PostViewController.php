@@ -21,10 +21,11 @@ class PostViewController extends Controller
             $file = DB::table('posts')->find($post);
             $header = ['Content-Type', 'application/pdf'];
             $path = storage_path('app/public/'.$file->post);
-            $d = storage_path($file->post);
-           // dd(response()->file($path));
-           return view('posts.postview', ['post' => response()->file($path)]);
-
+            //$d = '/app/public/'.$file->post;
+            //dd(response()->file($path)->getFile()->getPath());
+        //dd($file);
+           //return view('posts.postview', ['post' => response()->file($path)], ['file' => $file]);
+        return view('posts.postview', ['file' => $path]);
     }
 
 }
