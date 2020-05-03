@@ -13,8 +13,23 @@ class CreateReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
-            $table->id();
+        Schema::create('reviews', function (Blueprint $table)
+        {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('posts_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('posts_id')
+                  ->references('id')
+                  ->on('posts');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users');
+            $table->index('posts_id');
+            $table->text('summary')->nullable();
+            $table->text('algo')->nullable();
+            $table->string('sub')->nullable();
+            $table->string('link')->nullable();
+            $table->string('res')->nullable();
             $table->timestamps();
         });
     }

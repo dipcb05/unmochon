@@ -31,13 +31,28 @@ class PostsController extends Controller
                'pcaption' => $post->pcaption,
                'post' => $post->post,
             ]);
+
+
+
         return redirect()->route('home');
     }
 
-    public function show(\App\post $post)
+
+    public function showdata($post)
     {
-        return view('posts.postview', compact('post'));
+        $file = DB::table('posts')->find($post);
+        $header = ['Content-Type', 'application/pdf'];
+        $path = storage_path('app/public/'.$file->post);
+        //$d = '/app/public/'.$file->post;
+        //dd(response()->file($path)->getFile()->getPath());
+        //dd($file);
+        //return view('posts.postview', ['post' => response()->file($path)], ['file' => $file]);
+        return view('posts.postview', ['file' => $path]);
     }
+
+
+
+
 
 
     }

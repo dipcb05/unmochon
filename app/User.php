@@ -18,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'country', 'bdate', 'job', 'wdate', 'pic', 'description', 'website','password'
+        'name', 'username', 'email', 'password',
     ];
 
     /**
@@ -39,30 +39,37 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-
-
     protected static function boot()
     {
         parent::boot();
 
         static::created(function ($user) {
-          //  $user->profile()->create(['title' => $user->username,]);
-            Mail::to($user->email)->send(new WelcomeMail());
+            static::created(function ($user) {
+                $user->profile()->create([
+                    'user_id' => $user->id,
+                ]);
+                Mail::to($user->email)->send(new WelcomeMail());
+            });
         });
+
     }
 
 
     public function profile()
     {
-    return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class);
     }
     public function posts()
     {
-    return $this->hasMany(post::class, 'user_id');
+    return $this->hasMany(post::class);
     }
-    public function editprofile()
+    public function reviews()
     {
-        return $this->hasOne(EditProfile::class);
+        return $this->hasMany(Review::class);
+    }
+        public function editprofile()
+    {
+        return $this->hasMany(EditProfile::class);
     }
 
 }

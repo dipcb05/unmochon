@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -74,48 +74,6 @@
                                 @enderror
                             </div>
                         </div>
-
-
-                        <div class="form-group row">
-                            <label for="country"
-                                   class="col-md-4 col-form-label text-md-right">
-                                {{ __('Country') }}
-                            </label>
-                            <div class="col-md-6">
-                                <input id="country"
-                                       type="text"
-                                       class="form-control @error('country') is-invalid @enderror"
-                                       name="country"
-                                       value="{{ old('country') }}"
-                                       required autocomplete="country">
-                                @error('country')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="bdate"
-                                   class="col-md-4 col-form-label text-md-right">
-                                {{ __('Birthday') }}
-                            </label>
-                            <div class="col-md-6">
-                                <input id="bdate"
-                                       type="date"
-                                       class="form-control @error('bdate') is-invalid @enderror"
-                                       name="bdate"
-                                       value="{{ old('bdate') }}"
-                                       required autocomplete="bdate">
-                                @error('bdate')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
                         <div class="form-group row">
                             <label for="password"
                                    class="col-md-4 col-form-label text-md-right">

@@ -38,9 +38,9 @@
                                         <a href="/storage/{{ $new -> post }}"
                                            class="btn btn-primary">download</a>
                                         <a href="/storage/{{ $new -> post }}"
-                                           class="btn btn-secondary">reviews</a>
-                                        <a href="/storage/{{ $new -> post }}"
-                                           class="btn btn-outline-success">upvote</a>
+                                           class="btn btn-secondary">upvote</a>
+                                        <a href="{{ route('post.reviews', $new->id) }}"
+                                           class="btn btn-outline-success">reviews</a>
                                         <a href="/storage/{{ $new -> post }}"
                                            class="btn btn-outline-dark">save</a>
                                     </div>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
+<div class="container-fluid">
         	<form action ="{{ route('posts.store') }}" enctype="multipart/form-data" method="post">
             @csrf
         	<div class = "row pt-3 pb-3">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\post;
+use App\Profile;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         $posts = DB::table('posts')->get();
         $users = DB::table('users')
             ->join('posts', 'users.id', '=', 'posts.user_id')
@@ -37,5 +37,6 @@ class HomeController extends Controller
         return view('homeview.home', ['posts' => $posts], ['user' => $users]);
 
       }
+
 
 }

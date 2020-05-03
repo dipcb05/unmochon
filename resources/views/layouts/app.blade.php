@@ -13,15 +13,13 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-
-
+    @livewireStyles
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <!-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm"> -->
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand">
                     {{ config('app.name', 'Unmochon') }}
                 </a>
@@ -84,6 +82,32 @@
                                         <a class="dropdown-item" href="#">Something else here</a>
                                     </div>
                                 </li>
+                            @elseif(Route::current()->getName() == 'profile.edit')
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="{{ route('profile.show', $user) }}">
+                                        {{ __('Back to Profile') }}
+                                    </a>
+                                </li>
+                            @elseif(Route::current()->getName() == 'post.reviews')
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="{{ route('home') }}">
+                                        {{ __('Home') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="{{ route('profile.show', Auth::user()->id) }}">
+                                        {{ __('Profile') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="#">
+                                        {{ __('Settings') }}
+                                    </a>
+                                </li>
                             @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown"
@@ -122,6 +146,7 @@
             @yield('content')
         </main>
     </div>
+    @livewireStyles
 </body>
 <footer>
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
