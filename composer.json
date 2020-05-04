@@ -20,9 +20,18 @@
         "laravel/ui": "^2.0",
         "livewire/livewire": "^1.0",
         "nao-pon/flysystem-google-drive": "^1.1",
-        "phpmailer/phpmailer": "^6.1",
-        "stevebauman/location": "^5.0"
+        "stevebauman/location": "^5.0",
+        "vicgonvt/press": "dev-master"
     },
+
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/vicgonvt/press.git"
+        }
+    ],
+
+
     "require-dev": {
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",

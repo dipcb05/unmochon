@@ -2,12 +2,14 @@
 
 namespace App;
 
+use App\Mail\WelcomeMail;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
-class post extends Model
+class posts extends Model
 {
 	protected $guarded = [];
-    protected $table = 'posts';
+
     /**
      * @var mixed
      */
@@ -28,11 +30,11 @@ class post extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'users_id', 'id');
     }
     public function reviews()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class, 'posts_id', 'id');
     }
 
 }

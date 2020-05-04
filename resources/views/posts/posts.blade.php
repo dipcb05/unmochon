@@ -37,7 +37,7 @@
        type = "file"
        class = "form-control-file pt-2 pl-6"
        name  = "post">
-      @error('post')
+      @error('posts')
        <span class="invalid-feedback" role="alert">
        <strong>{{ $message }}</strong>
        </span>

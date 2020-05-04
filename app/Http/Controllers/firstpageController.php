@@ -17,9 +17,9 @@ class firstpageController extends Controller
 
         if($element == 'author') {
             $find = DB::table('posts')
-                ->select(DB::raw('count(post) as number_of_post, user_id'))
+                ->select(DB::raw('count(posts) as number_of_post, user_id'))
                 ->groupBy('user_id')
-                ->orderByRaw('count(post) DESC')
+                ->orderByRaw('count(posts) DESC')
                 ->get();
             $users = DB::table('users')
                 ->join('posts', 'users.id', '=', 'posts.user_id')

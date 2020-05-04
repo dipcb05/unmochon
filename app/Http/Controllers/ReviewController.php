@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\post;
+use App\posts;
 use App\Review;
 use App\User;
 use Illuminate\Http\Request;
@@ -13,9 +13,9 @@ class ReviewController extends Controller
 {
     public function index($post)
     {
-        //$posts = DB::table('posts')->find($post);
+        //$posts = DB::table('posts')->find($posts);
         //dd($posts->reviews);
-        $posts = Post::find($post);
+        $posts = posts::find($post);
         //dd($posts->reviews);
 //        if($posts->reviews) {
 //            $reviews = new Review();
@@ -38,86 +38,60 @@ class ReviewController extends Controller
 
     public function update($post, Request $request)
     {
-        $user = new User();
-        //$post = DB::table('posts')->find($post);
-        //dd($post);
-        $summary = $request->input('summary');
-        $algo = $request->input('algorithms');
-        $sub  = $request->input('sub');
-        $link = $request->input('link');
-        $resources = $request->input('resources');
+          $user = DB::table('users')
+                ->find(Auth::id());
+          $post = DB::table('posts')
+                ->find($post);
+        $status = DB::table('reviews')
+                ->select(DB::raw('count(users_id) as status'))
+                ->where('users_id', '=', $user->id)
+                ->get();
 
-
-
-        $data = $request->validate([
-            'summary' => '',
-            'algorithms' => '',
-            'sub' => '',
-            'link' => '',
-            'resources' => ''
-        ]);
-        if($request->input('resources'))
-        $path = $request->input('resources')->store('upload/review_resources', 'public');
-        else $path = null;
-        $review = new Review();
-        $review->summary = $data['summary'];
-        $review->algorithms = $data['algorithms'];
-        $review->sub = $data['sub'];
-        $review->link = $data['link'];
-        //$path = $data['resources'];
-        $post = // your reviewed post
-
-            $user->reviews()->create([
-                'post_id' => $post->id
-                // other fields
-            ]);
-
-//            //->create(
-//            [
-//                'summary' => $review->summary,
-//                'algorithms' => $review->algorithms,
-//                'sub' => $review -> sub,
-//                'link' => $review -> link,
-//                'resources' => $path,
-//            ]);
-
-
-
-
-
-
-
-
-        if($resources) $resources = $resources->store('upload/review_resources', 'public');
-        if($summary || $algo || $sub || $link || $resources)
-        {
-            $user->reviews->posts_id = $post;
-            //$user->reviews->save();
-            if ($summary) {
-                $user->reviews->summary = $summary;
-                $user->reviews()->save();
-            }
-            if ($algo) {
-                $user->reviews->algo = $algo;
-                $user->review->save();
-            }
-            if ($sub) {
-                $user->review->sub = $sub;
-                $user->profile->save();
-            }
-            if ($link) {
-                $user->review->link = $link;
-                $user->profile->save();
-            }
-            if ($resources) {
-                $user->review->res = $resources;
-                $user->review->save();
-            }
-            echo 'updated';
+        if($status[0]->status < 1) {
+            $review = new Review();
+            $summary = $request->input('summary');
+            $algo = $request->input('algorithms');
+            $sub = $request->input('sub');
+            $link = $request->input('link');
+            $resources = $request->input('resources');
+            if ($resources)
+                $resources = $resources->store('upload/review_resources', 'public');
+            if ($summary || $algo || $sub || $link || $resources) {
+                $review->posts_id = $post->id;
+                $review->users_id = $user->id;
+                $review->save();
+                if ($summary) {
+                    $review->summary = $summary;
+                    $review->save();
+                }
+                if ($algo) {
+                    $review->algo = $algo;
+                    $review->save();
+                }
+                if ($sub) {
+                    $review->sub = $sub;
+                    $review->save();
+                }
+                if ($link) {
+                    $review->link = $link;
+                    $review->save();
+                }
+                if ($resources) {
+                    $review->res = $resources;
+                    $review->save();
+                }
+                echo 'updated';
+            } else echo 'nothing to update';
         }
-        else echo 'nothing to update';
-
-        return redirect()->route('reviews.show', $user);
+        else echo 'you cant give more than one review. you can edit request your previous';
+        $use = User::find($user->id);
+        $pos = posts::find($post->id);
+        //dd($user1, $post1);
+     //  return redirect()->route('reviews.show', $pos, $use);
+    }
+    public function show($posts, $user)
+    {
+        return view('posts.reviews.reviewshow', ['posts' => $posts], ['user' => $user]);
     }
 
 }

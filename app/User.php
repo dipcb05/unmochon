@@ -44,13 +44,12 @@ class User extends Authenticatable implements MustVerifyEmail
         parent::boot();
 
         static::created(function ($user) {
-            static::created(function ($user) {
                 $user->profile()->create([
                     'user_id' => $user->id,
                 ]);
                 Mail::to($user->email)->send(new WelcomeMail());
             });
-        });
+
 
     }
 
@@ -61,11 +60,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function posts()
     {
-    return $this->hasMany(post::class);
+    return $this->hasMany(posts::class, 'users_id', 'id');
     }
     public function reviews()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class, 'users_id', 'id');
     }
         public function editprofile()
     {

@@ -17,7 +17,6 @@
                    </div>
                         <div class = "text-center"><h3><br>New Posts</h3></div>
                         @foreach($posts as $post => $new)
-
                             <div class="row justify-content-center">
                                 <div class="col-md-8">
                                 <div class="card" style="width: 35rem; height: 35rem;">
@@ -39,7 +38,7 @@
                                            class="btn btn-primary">download</a>
                                         <a href="/storage/{{ $new -> post }}"
                                            class="btn btn-secondary">upvote</a>
-                                        <a href="{{ route('post.reviews', $new->id) }}"
+                                        <a href="{{ route('posts.reviews', $new->id) }}"
                                            class="btn btn-outline-success">reviews</a>
                                         <a href="/storage/{{ $new -> post }}"
                                            class="btn btn-outline-dark">save</a>

@@ -8,6 +8,6 @@ class postview extends Model
 {
     public function posts()
     {
-        return $this->belongsTo(post::class);
+        return $this->belongsTo(posts::class);
     }
 }

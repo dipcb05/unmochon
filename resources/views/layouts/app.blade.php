@@ -89,7 +89,7 @@
                                         {{ __('Back to Profile') }}
                                     </a>
                                 </li>
-                            @elseif(Route::current()->getName() == 'post.reviews')
+                            @elseif(Route::current()->getName() == 'posts.reviews')
                                 <li class="nav-item">
                                     <a class="nav-link"
                                        href="{{ route('home') }}">

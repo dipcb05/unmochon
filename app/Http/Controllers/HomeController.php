@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\post;
+use App\posts;
 use App\Profile;
 use Illuminate\Http\Request;
 use App\User;
