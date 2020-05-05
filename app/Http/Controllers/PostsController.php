@@ -23,15 +23,25 @@ class PostsController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate(['pcaption' => 'required', 'post' => 'required']);
-        $path = request('post')->store('upload', 'public');
+        $data = $request->validate([
+            'pcaption' => 'required',
+            'posts' => 'required',
+            'author' => '',
+            'subject' => 'required'
+        ]);
+        $path = request('posts')->store('upload/posts', 'public');
         $post = new posts();
         $post->pcaption = $data['pcaption'];
-        $post->post = $path;
+        $post->posts = $path;
+        if($data['author'])
+        $post->author = $data['author'];
+        $post->subject = $data['subject'];
          Auth()->user()->posts()->create(
            [
                'pcaption' => $post->pcaption,
-               'post' => $post->post,
+               'posts'     => $post->posts,
+               'author'   => $post->author,
+               'subject'  => $post->subject,
             ]);
          return redirect()->route('home');
     }

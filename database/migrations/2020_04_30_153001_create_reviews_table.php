@@ -17,7 +17,7 @@ class CreateReviewsTable extends Migration
         {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('posts_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('users_id');
             $table->foreign('posts_id')
                   ->references('id')
                   ->on('posts');

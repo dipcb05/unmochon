@@ -108,6 +108,38 @@
                                         {{ __('Settings') }}
                                     </a>
                                 </li>
+                            @elseif(Route::current()->getName() == 'posts.create')
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="{{ route('home') }}">
+                                        {{ __('Home') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="{{ route('profile.show', Auth::user()->id) }}">
+                                        {{ __('Profile') }}
+                                    </a>
+                                </li>
+                            @elseif(Route::current()->getName() == 'reviews.show')
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="{{ route('posts.reviews', $review->posts_id) }}">
+                                        {{ __('Post') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="{{ route('home') }}">
+                                        {{ __('Home') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="{{ route('profile.show', Auth::user()->id) }}">
+                                        {{ __('Profile') }}
+                                    </a>
+                                </li>
                             @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown"

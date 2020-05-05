@@ -9,7 +9,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action ="{{ route('reviews.update', $post->id) }}"
+                        <form action ="{{ route('reviews.update', $posts->id) }}"
                               enctype="multipart/form-data"
                               method="post">
                               @csrf
@@ -89,8 +89,6 @@
                                            class="form-control
                                        @error('link') is-invalid @enderror"
                                            name="link">
-
-
                                     @error('link')
                                     <span
                                         class="invalid-feedback" role="alert">
@@ -100,28 +98,22 @@
                                 </div>
                             </div>
 
-
                             <div class="form-group row">
-                                <label for="resources"
-                                       class="col-md-4 col-form-label text-md-right">
-                                    {{ __('Any file content(Image/resources/dataset') }}
+                                <label for="res"
+                                       class="col-md-1 col-form-label text-md-right">
+                                    {{ __('Any resources(dataset/pic') }}
                                 </label>
-                                <div class="col-md-6">
-                                        <input id="resources"
-                                               type="file"
-                                               class="form-control @error('pic') is-invalid @enderror"
-                                               name="resources"
-                                               value="{{ old('resources') }}">
-                                        @error('resources')
-                                        <span class="invalid-feedback"
-                                              role="alert">
-                                        <strong>{{ $message  }}</strong>
+                                <div class = "col-md-8">
+                                    <input id = "res"
+                                           type = "file"
+                                           class = "form-control-file @error('res') is-invalid @enderror pt-2 pl-6"
+                                           name  = "res">
+                                    @error('res')
+                                    <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
                                     </span>
-                                        @enderror
-                                </div>
-                            </div>
-
-
+                                    @enderror
+                                </div></div>
 
 
                             <div class="form-group row">
@@ -146,7 +138,7 @@
                                                                             <div class="modal-header">
                                                                                 <h5 class="modal-title"
                                                                                     id="exampleModalLabel">
-                                                                                    Edit Profile
+                                                                                    Review Submission
                                                                                 </h5>
                                                                                 <button type="button"
                                                                                         class="close"

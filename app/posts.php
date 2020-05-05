@@ -2,14 +2,13 @@
 
 namespace App;
 
-use App\Mail\WelcomeMail;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Mail;
 
 class posts extends Model
 {
 	protected $guarded = [];
-
+    protected $fillable = ['pcaption', 'posts', 'author', 'subject'];
+    protected $table = 'posts';
     /**
      * @var mixed
      */

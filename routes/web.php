@@ -3,7 +3,6 @@
  use App\Mail\WelcomeMail;
  use Illuminate\Support\Facades\Auth;
  use Illuminate\Support\Facades\Route;
- use Stevebauman\Location\Location;
 
  /*
  |--------------------------------------------------------------------------
@@ -36,11 +35,14 @@ Route::get('/p/{posts}', 'PostsController@showdata')->name('posts.show'); //post
 Route::get('/query/{key}', 'firstpageController@see_paper')->name('query.show');//paper see query 1st page
 Route::get('test', 'Auth\RegisterController@ipfinder');//track the location
 //review section
-Route::get('p/{posts}/review', 'ReviewController@index')->name('posts.reviews'); //review page
+Route::get('p/{posts}/review/', 'ReviewController@index')->name('posts.reviews'); //review page
 Route::get('p/{posts}/review/reviewform', 'ReviewController@form')->name('reviews.edit'); //review writing
 Route::post('p/{posts}/r', 'ReviewController@update')->name('reviews.update'); //review posts
-Route::get('p/{posts}/review/{user}','ReviewController@show')->name('reviews.show'); //review post show
-//admin login not worked yet
+Route::get('p/{posts}/review/by{user}/{review}','ReviewController@show')->name('reviews.show'); //review post show
+
+//experiment
+Route::post('/test', '/Auth/RegisterController@ipfinder');
+ //admin login not worked yet
 //Route::get('/custom_login', 'AuthController@login')->name('custom_login');
 //Route::posts('posts-login', 'AuthController@postLogin')->name('login_confirm');
 //Route::get('/registration', 'AuthController@registration')->name('register');

@@ -25,12 +25,29 @@ class ProfileController extends Controller
     {
 
         $use = User::find($user);
-        $posts = DB::table('posts')->where('user_id', $user)->get();
-        return view('profile.profile', ['user' => $use], ['posts' => $posts]);
+        $posts = DB::table('posts')->where('users_id', $user)->get();
+        $count_review = DB::table('reviews')
+                        ->select(DB::raw('count(id) as review_count'))
+                        ->where('users_id', '=', $user)
+                        ->get();
+        $count_post = DB::table('posts')
+                      ->select(DB::raw('count(id) as post_count'))
+                      ->where('users_id', '=', $user)
+                      ->get();
+
+           return view('profile.profile',
+                           ['user' => $use,
+                            'posts' => $posts,
+                            'count_review' => $count_review[0]->review_count,
+                            'count_post' => $count_post[0]->post_count]);
     }
     public function edit(User $user)
     {
-        $this->authorize('update', $user->profile);
+        try {
+            $this->authorize('update', $user->profile);
+        } catch (AuthorizationException $e) {
+            echo "hoynai";
+        }
         return view('profile.EditProfile', ['user' => $user]);
     }
 

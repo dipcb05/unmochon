@@ -30,7 +30,7 @@ class HomeController extends Controller
     {
         $posts = DB::table('posts')->get();
         $users = DB::table('users')
-            ->join('posts', 'users.id', '=', 'posts.user_id')
+            ->join('posts', 'users.id', '=', 'posts.users_id')
             ->select('users.name')
             ->get();
 

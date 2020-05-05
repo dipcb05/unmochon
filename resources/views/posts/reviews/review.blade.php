@@ -24,7 +24,8 @@
                 <div>
                     <h4><b>review section</b></h4>
                 </div>
-{               <div>
+
+               <div>
                     <a class="btn btn-primary"
                        href="{{ route('reviews.edit', $posts->id) }}"
                        role="button">Create a review</a>

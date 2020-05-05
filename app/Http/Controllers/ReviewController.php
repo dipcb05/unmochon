@@ -25,7 +25,7 @@ class ReviewController extends Controller
 //        }
 
         $users = DB::table('users')
-            ->leftJoin('posts', 'users.id', '=', 'user_id')
+            ->leftJoin('posts', 'users.id', '=', 'users_id')
             ->where('posts.id', $post)
             ->get();
         return view('posts.reviews.review', ['posts' => $posts], ['user' => $users]);
@@ -46,14 +46,15 @@ class ReviewController extends Controller
                 ->select(DB::raw('count(users_id) as status'))
                 ->where('users_id', '=', $user->id)
                 ->get();
-
-        if($status[0]->status < 1) {
-            $review = new Review();
+        $use = User::find($user->id);
+        $pos = posts::find($post->id);
+        $review = new Review();
+        if($status[0]->status < 11) {
             $summary = $request->input('summary');
             $algo = $request->input('algorithms');
             $sub = $request->input('sub');
             $link = $request->input('link');
-            $resources = $request->input('resources');
+            $resources = $request->file('res');
             if ($resources)
                 $resources = $resources->store('upload/review_resources', 'public');
             if ($summary || $algo || $sub || $link || $resources) {
@@ -80,18 +81,19 @@ class ReviewController extends Controller
                     $review->res = $resources;
                     $review->save();
                 }
-                echo 'updated';
-            } else echo 'nothing to update';
+
+                return redirect()->route('reviews.show', [$pos, $use,$review]);
+            }
+            else echo 'nothing to update';
+
         }
         else echo 'you cant give more than one review. you can edit request your previous';
-        $use = User::find($user->id);
-        $pos = posts::find($post->id);
-        //dd($user1, $post1);
-     //  return redirect()->route('reviews.show', $pos, $use);
+
     }
-    public function show($posts, $user)
+    public function show(posts $posts, User $user, Review $review)
     {
-        return view('posts.reviews.reviewshow', ['posts' => $posts], ['user' => $user]);
+
+        return view('posts.reviews.reviewshow', ['posts' => $posts, 'user' => $user, 'review' => $review]);
     }
 
 }

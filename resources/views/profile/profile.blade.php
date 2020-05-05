@@ -25,8 +25,8 @@
 <div><h5>lived in {{ $user->profile->country }}</h5></div>
 </div>
 <div class = "justify-content-center">
-    <div><strong>123</strong> researchs</div>
-    <div><strong>123</strong> reviews</div>
+    <div><strong>{{ $count_post }}</strong> post</div>
+    <div><strong>{{ $count_review }}</strong> reviews</div>
 </div>
 <div>
     <div><h3>{{ $user->profile->job }}</h3></div>
@@ -45,7 +45,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $post -> pcaption }}</h5>
                     <p class="card-text">short description</p>
-                    <a href="/storage/{{ $post -> post }}" class="btn btn-primary">Read</a>
+                    <a href="/storage/{{ $post -> posts }}" class="btn btn-primary">Read</a>
                 </div>
             </div>
         </div>
