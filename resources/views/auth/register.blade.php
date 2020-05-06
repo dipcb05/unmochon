@@ -74,6 +74,25 @@
                                 @enderror
                             </div>
                         </div>
+
+
+                         <div class="form-group row">
+                             <label for="gender"
+                                    class="col-md-4 col-form-label text-md-right">
+                                 {{ __('Gender') }}
+                             </label>
+                             <div class="col-md-3">
+                                 <div class="input-group mb-3">
+                                     <select class="custom-select" id="gender" name="gender">
+                                         <option selected>Choose...</option>
+                                         <option value="male">Male</option>
+                                         <option value="female">Female</option>
+                                         <option value="others">Others</option>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+
                         <div class="form-group row">
                             <label for="password"
                                    class="col-md-4 col-form-label text-md-right">

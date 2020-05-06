@@ -13,8 +13,12 @@
 
     <div>
     @if(is_null($user->profile->pic))
+     @if($user->gender == 'male')
         <img class="img-thumbnail img-fluid rounded mx-auto d-block max-width: 100% height: auto" src = " {{ asset('images/default.jpg')}}" alt = "profile picture">
-    @else
+            @else
+                <img class="img-thumbnail img-fluid rounded mx-auto d-block max-width: 100% height: auto" src = " {{ asset('images/defaultfemale.jpg')}}" alt = "profile picture">
+    @endif
+                @else
         <img class="img-thumbnail img-fluid rounded mx-auto d-block" src = " /storage/{{ $user->profile->pic }}" alt = "profile picture">
     @endif
     </div>

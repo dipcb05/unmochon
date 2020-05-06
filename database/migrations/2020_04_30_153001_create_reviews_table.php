@@ -21,7 +21,7 @@ class CreateReviewsTable extends Migration
             $table->foreign('posts_id')
                   ->references('id')
                   ->on('posts');
-            $table->foreign('user_id')
+            $table->foreign('users_id')
                   ->references('id')
                   ->on('users');
             $table->index('posts_id');

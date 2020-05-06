@@ -9,7 +9,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action ="{{ route('reviews.update', $posts->id) }}"
+                        <form action ="{{ route('reviews.update', $post->id) }}"
                               enctype="multipart/form-data"
                               method="post">
                               @csrf

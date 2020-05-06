@@ -16,23 +16,17 @@ class ReviewController extends Controller
         //$posts = DB::table('posts')->find($posts);
         //dd($posts->reviews);
         $posts = posts::find($post);
-        //dd($posts->reviews);
-//        if($posts->reviews) {
-//            $reviews = new Review();
-//            $reviews->posts_id = $posts->id;
-//            //dd($reviews->posts_id);
-//            $reviews->save();
-//        }
-
         $users = DB::table('users')
             ->leftJoin('posts', 'users.id', '=', 'users_id')
             ->where('posts.id', $post)
             ->get();
-        return view('posts.reviews.review', ['posts' => $posts], ['user' => $users]);
+        return view('posts.reviews.review', ['posts' => $posts, 'user' => $users]);
     }
+
     public function form($post)
     {
-        $post = DB::table('posts')->find($post);
+        $post = posts::find($post);
+
         return view('posts.reviews.ReviewForm', ['post' => $post]);
     }
 
@@ -49,7 +43,7 @@ class ReviewController extends Controller
         $use = User::find($user->id);
         $pos = posts::find($post->id);
         $review = new Review();
-        if($status[0]->status < 11) {
+        if($status[0]->status < 1) {
             $summary = $request->input('summary');
             $algo = $request->input('algorithms');
             $sub = $request->input('sub');
@@ -94,6 +88,15 @@ class ReviewController extends Controller
     {
 
         return view('posts.reviews.reviewshow', ['posts' => $posts, 'user' => $user, 'review' => $review]);
+    }
+    public function showreviews(posts $posts)
+    {
+        $reviews = DB::table('reviews')
+                 ->rightJoin('users', 'reviews.users_id', '=', 'users.id')
+                 ->where('posts_id', '=', $posts->id)
+                 ->select('users.name', 'reviews.users_id', 'reviews.posts_id', 'reviews.id')
+                 ->get();
+        return view('posts.reviews.showreviews', ['posts' => $posts, 'reviews' => $reviews]);
     }
 
 }

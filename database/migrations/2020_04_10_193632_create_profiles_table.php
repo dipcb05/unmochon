@@ -23,6 +23,7 @@ class CreateProfilesTable extends Migration
             $table->index('user_id');
             $table->string('country')->nullable();
             $table->date('bdate')->nullable();
+            $table->string('gender')->nullable();
             $table->string('job')->nullable();
             $table->date('wdate')->nullable();
             $table->string('pic')->nullable();

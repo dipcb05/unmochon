@@ -88,6 +88,30 @@
 
 
                             <div class="form-group row">
+                                <label for="gender"
+                                       class="col-md-4 col-form-label text-md-right">
+                                    {{ __('Gender') }}
+                                </label>
+                                <div class="col-md-6">
+                                    <input id="gender"
+                                           type="gender"
+                                           class="form-control @error('gender') is-invalid @enderror"
+                                           name="gender"
+                                           value="{{ old('gender') }}"
+                                           placeholder="{{ $user->gender }}"
+                                           readonly>
+
+                                    @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group row">
                                 <label for="country"
                                        class="col-md-4 col-form-label text-md-right">
                                     {{ __('Country') }}

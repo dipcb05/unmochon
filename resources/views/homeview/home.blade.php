@@ -15,9 +15,13 @@
                  hello {{ Auth::user()->name }}   You are logged in!
           <a href="{{ route('posts.create') }}">Create New Post</a>
                    </div>
-                        <div class = "text-center"><h3><br>New Posts</h3></div>
+                        <div class = "text-center">
+                            <h3><br>New Posts</h3>
+                        </div>
                         @foreach($posts as $post => $new)
-                            @if(is_null($new->posts))<div class = "text-center"><h3><br>No New Posts</h3></div>
+                            @if(is_null($new->posts))<div class = "text-center">
+                                <h3><br>No New Posts</h3>
+                            </div>
                             @else
                             <div class="row justify-content-center">
                                 <div class="col-md-8">

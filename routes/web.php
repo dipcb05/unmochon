@@ -38,8 +38,8 @@ Route::get('test', 'Auth\RegisterController@ipfinder');//track the location
 Route::get('p/{posts}/review/', 'ReviewController@index')->name('posts.reviews'); //review page
 Route::get('p/{posts}/review/reviewform', 'ReviewController@form')->name('reviews.edit'); //review writing
 Route::post('p/{posts}/r', 'ReviewController@update')->name('reviews.update'); //review posts
-Route::get('p/{posts}/review/by{user}/{review}','ReviewController@show')->name('reviews.show'); //review post show
-
+Route::get('p/{posts}/review/by{user}/{review}','ReviewController@show')->name('reviews.show'); //show single review of post
+Route::get('p/{posts}/allreviews/', 'ReviewController@showreviews')->name('reviews.showall'); //show all review link of a post
 //experiment
 Route::post('/test', '/Auth/RegisterController@ipfinder');
  //admin login not worked yet

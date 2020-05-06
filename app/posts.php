@@ -23,10 +23,7 @@ class posts extends Model
      */
 
 
-    public function postview()
-    {
-        return $this->hasOne(postview::class);
-    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
