@@ -1,25 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Policies\ProfilesPolicy;
-use App\Profile;
 use App\User;
-use Faker\Provider\Image;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
-
-    public function __construct()
-    {
-        //$this->middleware('auth');
-        //$this->middleware('verified');
-    }
-
 
     public function index($user)
     {
@@ -34,12 +23,17 @@ class ProfileController extends Controller
                       ->select(DB::raw('count(id) as post_count'))
                       ->where('users_id', '=', $user)
                       ->get();
+        $count_comment = DB::table('comments')
+            ->select(DB::raw('count(id) as comment_count'))
+            ->where('users_id', '=', $user)
+            ->get();
 
-           return view('profile.profile',
+        return view('profile.profile',
                            ['user' => $use,
                             'posts' => $posts,
                             'count_review' => $count_review[0]->review_count,
-                            'count_post' => $count_post[0]->post_count]);
+                            'count_post' => $count_post[0]->post_count,
+                            'count_comment' => $count_comment[0]->comment_count]);
     }
     public function edit(User $user)
     {

@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Review extends Model
+class comments extends Model
 {
     protected $guarded = [];
-    protected $fillable = ['users_id', 'posts_id', 'summary', 'algo', 'sub', 'link', 'res'];
-    protected $table = "reviews";
+    protected $fillable = ['users_id', 'posts_id', 'reviews_id', 'comment'];
+    protected $table = "comments";
 
     public function user()
     {
@@ -18,8 +18,8 @@ class Review extends Model
     {
         return $this->belongsTo(posts::class, 'posts_id', 'id');
     }
-    public function comments()
+    public function reviews()
     {
-        return $this->hasMany(comments::class, 'reviews_id', 'id');
+        return $this->belongsTo(Review::class, 'reviews_id', 'id');
     }
 }

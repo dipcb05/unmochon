@@ -31,6 +31,7 @@
 <div class = "justify-content-center">
     <div><strong>{{ $count_post }}</strong> post</div>
     <div><strong>{{ $count_review }}</strong> reviews</div>
+    <div><strong>{{ $count_comment }}</strong> comments </div>
 </div>
 <div>
     <div><h3>{{ $user->profile->job }}</h3></div>

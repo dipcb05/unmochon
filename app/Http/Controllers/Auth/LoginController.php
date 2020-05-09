@@ -42,10 +42,8 @@ class LoginController extends Controller
     public function username()
     {
         $login = request()->input('identity');
-
         $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         request()->merge([$field => $login]);
-
         return $field;
     }
     protected function validateLogin(Request $request)
@@ -60,7 +58,7 @@ class LoginController extends Controller
         $request->validate([
             'identity' => 'required|string',
             'password' => 'required|string',
-            'email' => 'string|exists:users',
+            'email' => 'email|exists:users',
             'username' => 'string|exists:users',
         ], $messages);
     }

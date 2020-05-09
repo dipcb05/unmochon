@@ -127,7 +127,8 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-4  offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit"
+                                        class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                             </div>
