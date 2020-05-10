@@ -22,13 +22,19 @@ class ReviewController extends Controller
     public function index($post)
     {
         $posts = posts::find($post);
+        //dd($posts);
         $users = DB::table('users')
             ->leftJoin('posts', 'users.id', '=', 'users_id')
-            ->where('posts.id', $post)
+            ->where('posts.id', $posts->id)
             ->get();
-        return view('posts.reviews.review', ['posts' => $posts, 'user' => $users]);
+        $reviews = DB::table('reviews')
+            ->rightJoin('users', 'reviews.users_id', '=', 'users.id')
+            ->where('reviews.posts_id', '=', $posts->id)
+            ->select('users.name', 'reviews.users_id', 'reviews.posts_id', 'reviews.id')
+            ->get();
+        return view('posts.reviews.review',
+            ['posts' => $posts, 'user' => $users, 'reviews' => $reviews]);
     }
-
     public function form($post)
     {
         $post = posts::find($post);
@@ -42,14 +48,25 @@ class ReviewController extends Controller
                 ->find(Auth::id());
           $post = DB::table('posts')
                 ->find($post);
+
           $status = DB::table('reviews')
-                ->select(DB::raw('count(users_id) as status'))
-                ->where('users_id', '=', $user->id)
+                ->select(DB::raw('count(users_id) as status, posts_id'))
+                ->groupBy('posts_id')
+                ->where('reviews.users_id', '=', $user->id)
                 ->get();
+        if($status->isEmpty())
+            $e = 0;
+        else
+        {
+            $e = $status[0];
+            if($e->posts_id != $post->id)
+                $e = 0;
+            else $e = $e->status;
+        }
         $use = User::find($user->id);
         $pos = posts::find($post->id);
         $review = new Review();
-        if($status[0]->status < 1) {
+        if($e < 1) {
             $summary = $request->input('summary');
             $algo = $request->input('algorithms');
             $sub = $request->input('sub');
@@ -97,23 +114,20 @@ class ReviewController extends Controller
     public function show(posts $posts, User $user, Review $review)
     {
 
-        return view('posts.reviews.reviewshow',
-            ['posts' => $posts, 'user' => $user, 'review' => $review]);
-    }
-    public function showreviews(posts $posts)
-    {
-        $reviews = DB::table('reviews')
-                 ->rightJoin('users', 'reviews.users_id', '=', 'users.id')
-                 ->where('posts_id', '=', $posts->id)
-                 ->select('users.name', 'reviews.users_id', 'reviews.posts_id', 'reviews.id')
-                 ->get();
         $total = DB::table('comments')
             ->select(DB::raw('count(*) as count, comments.reviews_id'))
             ->groupBy('comments.reviews_id')
+            ->where('reviews_id', '=', $review->id)
+            ->get();
+        $com = DB::table('comments')
+            ->join('reviews', 'comments.reviews_id', '=', 'reviews.id')
+            ->leftJoin('users', 'comments.users_id', '=', 'users.id')
+            ->where('reviews.id', '=', $review->id)
+            ->select('comments.*', 'reviews.id', 'users.name', 'comments.users_id')
             ->get();
         $e = ($total->isEmpty()) ? '0' : $total;
-        return view('posts.reviews.showreviews',
-            ['posts' => $posts, 'reviews' => $reviews, 'total' => $e]);
+        return view('posts.reviews.reviewshow',
+            ['posts' => $posts, 'user' => $user, 'review' => $review, 'total' => $e, 'comments' => $com]);
     }
     public function postcomment(posts $posts, User $user, Review $review)
     {
@@ -130,16 +144,7 @@ class ReviewController extends Controller
         $comment->comment = $request->input('comment');
         $comment->save();
         $user = User::find(Auth::id());
-        return redirect()->route('comment.show', [$posts, $user, $reviews]);
+        return redirect()->route('reviews.show', [$posts, $user, $reviews]);
     }
-    public function commentshow(posts $posts, User $user, Review $review)
-    {
-        $com = DB::table('comments')
-            ->join('reviews', 'comments.reviews_id', '=', 'reviews.id')
-            ->leftJoin('users', 'comments.users_id', '=', 'users.id')
-            ->where('reviews.id', '=', $review->id)
-            ->select('comments.*', 'reviews.id', 'users.name', 'comments.users_id')
-            ->get();
-        return view('posts.reviews.comments.showcomment', ['com' => $com]);
-    }
+
 }

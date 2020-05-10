@@ -28,7 +28,7 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
                 <a class="nav-link"
-                   ref="{{ route('home') }}">
+                   href="{{ route('home') }}">
                     Home
                     <span class="sr-only">
                         (current)

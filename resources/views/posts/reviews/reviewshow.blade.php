@@ -23,6 +23,49 @@
                                  @endif
                              </div>
                          </div>
+
+                        @if($total == '0')
+                            <div class = "pl-2"> no one comment yet</div>
+                        @else
+                           <div> {{ $total[0]->count }} comments</div>
+                            <div class="pl-2">
+                                <div class="card">
+                                    <div class="card-header">show all comments</div>
+                                    <div class="card-body">
+                                        @foreach($comments as $comment)
+                                            <div class="row justify-content-center">
+                                                <div>comment by
+                                                    <a href="{{ route('profile.show', $comment->users_id) }}">
+                                                        {{ $comment->name }}</a>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="background-color: #ebe0b2">
+                                                {{ $comment->comment }}
+                                            </div>
+                                            <div class = "row" style="background-color: #ced4da">
+                                                comment time:
+                                                {{ $comment->updated_at }}
+                                            </div>
+                                        @endforeach
+                                    </div>
+
+                                </div>
+                        @endif
+
+                        <div class="pb-2 pl-2">
+                            <a class="btn btn-primary"
+                               href="{{ route('comment.create',
+                                 [$review->posts_id, $review->users_id, $review->id]) }}"
+                               role="button">
+                                Comment
+                            </a>
+                            <a class="btn btn-primary"
+                               href="#"
+                               role="button">
+                                Upvote
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
