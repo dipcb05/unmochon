@@ -220,20 +220,6 @@
                                     {{ __('Profile Picture') }}
                                 </label>
                                 <div class="col-md-6">
-                                    @if(is_null($user->pic))
-                                        <input id="pic"
-                                               type="file"
-                                               class="form-control @error('pic') is-invalid @enderror"
-                                               name="pic"
-                                               value="{{ old('pic') }}"
-                                               required autocomplete="pic">
-                                        @error('pic')
-                                        <span class="invalid-feedback"
-                                              role="alert">
-                                        <strong>{{ $message  }}</strong>
-                                    </span>
-                                        @enderror
-                                    @else
                                         <input id="pic"
                                                type="file"
                                                class="form-control @error('pic') is-invalid @enderror"
@@ -242,10 +228,9 @@
                                         @error('pic')
                                         <span class="invalid-feedback"
                                               role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ $message  }}</strong>
                                     </span>
                                         @enderror
-                                    @endif
                                 </div>
                             </div>
 

@@ -57,45 +57,43 @@ class ProfileController extends Controller
         $web = $request->input('website');
         $pic = request('pic');
         if($pic) $pic = $pic->store('upload/pro_pic', 'public');
-        if($name || $country || $bdate || $job || $wdate || $pic || $web || $des) {
-            if ($name) {
-                $user->name = $name;
-                $user->save();
-            }
-            if ($country) {
-                $user->profile->country = $country;
-                $user->profile->save();
-            }
-            if ($bdate) {
-                $user->profile->bdate = $bdate;
-                $user->profile->save();
-            }
-            if ($job) {
-                $user->profile->job = $job;
-                $user->profile->save();
-            }
-            if ($wdate) {
-                $user->profile->wdate = $wdate;
-                $user->profile->save();
-            }
-            if ($pic) {
-                $user->profile->pic = $pic;
-                $user->profile->save();
-            }
-            if ($des) {
-                $user->profile->description = $des;
-                $user->profile->save();
-            }
-            if ($web) {
-                $user->profile->website = $web;
-                $user->profile->save();
-            }
-            echo 'updated';
-        }
-        else echo 'nothing to update';
+           if ($name || $country || $bdate || $job || $wdate || $pic || $web || $des) {
+               if ($name) {
+                   $user->name = $name;
+                   $user->save();
+               }
+               if ($country) {
+                   $user->profile->country = $country;
+                   $user->profile->save();
+               }
+               if ($bdate) {
+                   $user->profile->bdate = $bdate;
+                   $user->profile->save();
+               }
+               if ($job) {
+                   $user->profile->job = $job;
+                   $user->profile->save();
+               }
+               if ($wdate) {
+                   $user->profile->wdate = $wdate;
+                   $user->profile->save();
+               }
+               if ($pic) {
+                   $user->profile->pic = $pic;
+                   $user->profile->save();
+               }
+               if ($des) {
+                   $user->profile->description = $des;
+                   $user->profile->save();
+               }
+               if ($web) {
+                   $user->profile->website = $web;
+                   $user->profile->save();
+               }
+               echo 'updated';
+           } else echo 'nothing to update';
 
         return redirect()->route('profile.show', $user);
-
     }
 
 

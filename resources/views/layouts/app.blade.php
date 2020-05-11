@@ -68,7 +68,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle"
+                                       id="navbarDropdown"
+                                       role="button"
+                                       data-toggle="dropdown"
+                                       aria-haspopup="true"
+                                       aria-expanded="false">
                                         Profile Settings
                                     </a>
                                     <div class="dropdown-menu"
@@ -77,9 +82,10 @@
                                            href="{{ route('profile.edit', Auth::user()->id) }}">
                                             Edit Profile
                                         </a>
-                                        <a class="dropdown-item" href="#">Change Password</a>
+                                        <a class="dropdown-item" href="{{ route('password.request') }}">
+                                            Change Password</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <a class="dropdown-item" href="#">anything else</a>
                                     </div>
                                 </li>
                             @elseif(Route::current()->getName() == 'profile.edit')

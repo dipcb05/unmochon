@@ -39,7 +39,7 @@
     <div><p>{{ $user->profile->description ?? 'N/A' }}</p></div>
     <div class="pr-3"><strong>website: </strong></div>
    <div>
-       <a href = "{{ $user->profile->website }} ?? #">{{ $user->website ?? 'N/A' }}</a>
+       <a href = "{{ $user->profile->website }} ?? #">{{ $user->website }} ?? 'N/A'</a>
    </div>
 </div>
     @foreach($posts as $post)
@@ -50,7 +50,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $post -> pcaption }}</h5>
                     <p class="card-text">short description</p>
-                    <a href="/storage/{{ $post -> posts }}" class="btn btn-primary">Read</a>
+                    <a href="/storage/{{ $post -> posts }}" class="btn btn-primary">download</a>
                 </div>
             </div>
         </div>
