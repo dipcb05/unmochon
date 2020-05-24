@@ -31,6 +31,7 @@ Route::post('/edit', 'ProfileController@update')->name('profile.update');//profi
 Route::get('/p/create', 'PostsController@create')->name('posts.create');//posts
 Route::post('/p', 'PostsController@store')->name('posts.store');//posts storing process
 Route::get('/p/{posts}', 'PostsController@showdata')->name('posts.show'); //posts show
+Route::get('/p/{posts}/delete', 'PostsController@post_delete')->name('posts.delete'); //post delete
  //query section
 Route::get('/query/{key}', 'firstpageController@see_paper')->name('query.show');//paper see query 1st page
 //review & comment section
@@ -42,7 +43,8 @@ Route::post('p/{posts}/r', 'ReviewController@update')->name('reviews.update'); /
  Route::get('p/{posts}/review/by{user}/{review}/newcomment', 'ReviewController@postcomment')->name('comment.create');
  Route::post('{posts}/{reviews}/commentupdate', 'ReviewController@comment')->name('comment.update');
  //experiment
-Route::post('/test', '/Auth/RegisterController@ipfinder');
+Route::get('/test', 'Auth\RegisterController@ipfinder');
+Route::get('/test2', 'admin\Auth\auth@writeMsg');
  //admin login not worked yet
 //Route::get('/custom_login', 'AuthController@login')->name('custom_login');
 //Route::posts('posts-login', 'AuthController@postLogin')->name('login_confirm');

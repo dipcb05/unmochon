@@ -123,7 +123,7 @@
                                     <div class="modal-header">
                                         <h5 class="modal-title"
                                             id="exampleModalLabel">
-                                            Edit Profile
+                                            post update
                                         </h5>
                                         <button type="button"
                                                 class="close"

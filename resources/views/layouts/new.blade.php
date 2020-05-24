@@ -60,12 +60,16 @@
                 </li>
             @endguest
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle"
+                   href="#" id="navbarDropdown"
+                   role="button" data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
                     See paper
                 </a>
                 <div class="dropdown-menu" aria-labelledby="DropDown">
                     <a class="dropdown-item" href="#"></a>
-                    <a class="dropdown-item" href="#">Subject</a>
+                    <a class="dropdown-item" href="{{ route('query.show', 'subject') }}">Subject</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('query.show', 'author') }}">Author</a>
                 </div>

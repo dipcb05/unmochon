@@ -39,6 +39,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
     public function username()
     {
         $login = request()->input('identity');
@@ -46,6 +47,7 @@ class LoginController extends Controller
         request()->merge([$field => $login]);
         return $field;
     }
+
     protected function validateLogin(Request $request)
     {
         $messages = [
@@ -62,4 +64,5 @@ class LoginController extends Controller
             'username' => 'string|exists:users',
         ], $messages);
     }
+
 }

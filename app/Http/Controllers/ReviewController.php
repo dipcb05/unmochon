@@ -129,6 +129,14 @@ class ReviewController extends Controller
         return view('posts.reviews.reviewshow',
             ['posts' => $posts, 'user' => $user, 'review' => $review, 'total' => $e, 'comments' => $com]);
     }
+    public function review_delete($review)
+    {
+        DB::table('reviews')
+            ->where('id', '=', $review)
+            ->delete();
+        //$user = User::find(Auth::id());
+        //return redirect()->route('profile.show', $user);
+    }
     public function postcomment(posts $posts, User $user, Review $review)
     {
 

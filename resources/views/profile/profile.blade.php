@@ -51,6 +51,7 @@
                     <h5 class="card-title">{{ $post -> pcaption }}</h5>
                     <p class="card-text">short description</p>
                     <a href="/storage/{{ $post -> posts }}" class="btn btn-primary">download</a>
+                    <a href=" {{ route('posts.delete', $post->id) }}" class="btn btn-outline-danger">delete</a>
                 </div>
             </div>
         </div>

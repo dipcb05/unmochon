@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Mail\WelcomeMail;
 use App\posts;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
 class PostsController extends Controller
 {
@@ -36,6 +35,7 @@ class PostsController extends Controller
         if($data['author'])
         $post->author = $data['author'];
         $post->subject = $data['subject'];
+
          Auth()->user()->posts()->create(
            [
                'pcaption' => $post->pcaption,
@@ -59,9 +59,13 @@ class PostsController extends Controller
         return view('posts.postview', ['file' => $path]);
     }
 
-
-
-
-
+    public function post_delete($post)
+    {
+        DB::table('posts')
+            ->where('id', '=', $post)
+            ->delete();
+        $user = User::find(Auth::id());
+        return redirect()->route('profile.show', $user);
+    }
 
     }

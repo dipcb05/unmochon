@@ -14,7 +14,9 @@ class ProfileController extends Controller
     {
 
         $use = User::find($user);
-        $posts = DB::table('posts')->where('users_id', $user)->get();
+        $posts = DB::table('posts')
+                 ->where('users_id', $user)
+                 ->get();
         $count_review = DB::table('reviews')
                         ->select(DB::raw('count(id) as review_count'))
                         ->where('users_id', '=', $user)
@@ -24,9 +26,9 @@ class ProfileController extends Controller
                       ->where('users_id', '=', $user)
                       ->get();
         $count_comment = DB::table('comments')
-            ->select(DB::raw('count(id) as comment_count'))
-            ->where('users_id', '=', $user)
-            ->get();
+                         ->select(DB::raw('count(id) as comment_count'))
+                         ->where('users_id', '=', $user)
+                         ->get();
 
         return view('profile.profile',
                            ['user' => $use,
@@ -59,36 +61,63 @@ class ProfileController extends Controller
         if($pic) $pic = $pic->store('upload/pro_pic', 'public');
            if ($name || $country || $bdate || $job || $wdate || $pic || $web || $des) {
                if ($name) {
-                   $user->name = $name;
-                   $user->save();
+
+                   DB::table('users')
+                       ->where('id', '=', $user->id)
+                       ->update(['name' => $name]);
+                   //$user->name = $name;
+                   //$user->save();
                }
                if ($country) {
-                   $user->profile->country = $country;
-                   $user->profile->save();
+                   //$user->profile->country = $country;
+                   //$user->profile->save();
+                   DB::table('profiles')
+                       ->where('users_id', '=', $user->id)
+                       ->update(['country' => $country]);
                }
                if ($bdate) {
-                   $user->profile->bdate = $bdate;
-                   $user->profile->save();
+//                   $user->profile->bdate = $bdate;
+//                   $user->profile->save();
+                   DB::table('users')
+                       ->where('users_id', '=', $user->id)
+                       ->update(['bdate' => $bdate]);
                }
                if ($job) {
-                   $user->profile->job = $job;
-                   $user->profile->save();
+
+                   DB::table('users')
+                       ->where('users_id', '=', $user->id)
+                       ->update(['bdate' => $bdate]);
+
+//                   $user->profile->job = $job;
+//                   $user->profile->save();
                }
                if ($wdate) {
-                   $user->profile->wdate = $wdate;
-                   $user->profile->save();
+                   DB::table('users')
+                       ->where('users_id', '=', $user->id)
+                       ->update(['wdate' => $wdate]);
+//                   $user->profile->wdate = $wdate;
+//                   $user->profile->save();
                }
                if ($pic) {
-                   $user->profile->pic = $pic;
-                   $user->profile->save();
+                   DB::table('users')
+                       ->where('users_id', '=', $user->id)
+                       ->update(['pic' => $pic]);
+//                   $user->profile->pic = $pic;
+//                   $user->profile->save();
                }
                if ($des) {
-                   $user->profile->description = $des;
-                   $user->profile->save();
+                   DB::table('users')
+                       ->where('users_id', '=', $user->id)
+                       ->update(['description' => $des]);
+//                   $user->profile->description = $des;
+//                   $user->profile->save();
                }
                if ($web) {
-                   $user->profile->website = $web;
-                   $user->profile->save();
+                   DB::table('users')
+                       ->where('users_id', '=', $user->id)
+                       ->update(['web' => $web]);
+//                   $user->profile->website = $web;
+//                   $user->profile->save();
                }
                echo 'updated';
            } else echo 'nothing to update';

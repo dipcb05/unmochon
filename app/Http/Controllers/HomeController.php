@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\posts;
-use App\Profile;
-use Illuminate\Http\Request;
-use App\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -28,7 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts')->get();
+        $posts = DB::table('posts')
+               ->select('*')
+               ->orderBy('id', 'DESC')
+               ->get();
         $users = DB::table('users')
             ->join('posts', 'users.id', '=', 'posts.users_id')
             ->select('users.name')
