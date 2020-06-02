@@ -1,14 +1,31 @@
 <?php
-
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 class firstpageController extends Controller
 {
    public function index ()
     {
-    return view('homeview.firstpage');
+        $posts = DB::table('posts')
+            ->select('*')
+            ->orderBy('id', 'DESC')
+            ->limit(4)
+            ->get();
+    return view('homeview.firstpage', ['post' => $posts]);
+    }
+    public function search(Request $request)
+    {
+        $post = DB::table('posts')
+            ->whereRaw('pcaption or author like ?',
+            ["%{$request->get('search')}%"])
+            ->get();
+        $user = DB::table('users')
+            ->whereRaw('name like ?',
+                ["%{$request->get('search')}%"])
+            ->get();
+        //dd($post, $user);
+        return view('query.search', ['query_name' => $request->get('search'),
+        'posts' => $post, 'user' => $user]);
     }
 
     public function see_paper($element)
@@ -17,11 +34,12 @@ class firstpageController extends Controller
         if($element == 'author') {
 
             $find = DB::table('posts')
-                ->select(DB::raw('count(posts) as number_of_post, users_id'))
+                ->join('users', 'posts.users_id', '=', 'users.id')
+                ->select(DB::raw('count(posts) as number_of_post, users_id, name'))
                 ->groupBy('users_id')
                 ->orderByRaw('count(posts) DESC')
+                ->take(3)
                 ->get();
-
         }
         else if ($element == 'subject')
         {
@@ -30,14 +48,10 @@ class firstpageController extends Controller
                 ->select(DB::raw('count(posts) as number_of_post, subject'))
                 ->groupBy('subject')
                 ->orderByRaw('count(posts) DESC')
+                ->take(3)
                 ->get();
-//            $users = DB::table('users')
-//                ->join('posts', 'users.id', '=', 'posts.user_id')
-//                ->select('users.name', 'users.job')
-//                ->get();
         }
-        dd($find);
-       // return view('query.author', ['find' => $find]);
+       return view('query.author', ['query_name' => $element, 'find' => $find]);
     }
 
 }

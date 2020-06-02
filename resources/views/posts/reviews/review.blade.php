@@ -9,10 +9,10 @@
                         <h1><b>{{ $posts->pcaption }}</b></h1>
                     </div>
                     <div>
-                            <h4>uploader name: <i>{{ $user[0] -> name }}</i></h4>
+                            <h4>uploader name: <i>{{ $posts -> author }}</i></h4>
                     </div>
                           <div>
-                              <h5>subject: jnbhbhbhbh</h5>
+                              <h5>subject: {{ $posts -> subject }}</h5>
                               <b>uploaded time: {{ $posts->created_at }}</b>
                           </div>
 

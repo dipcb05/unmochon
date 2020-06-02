@@ -33,7 +33,8 @@ Route::post('/p', 'PostsController@store')->name('posts.store');//posts storing 
 Route::get('/p/{posts}', 'PostsController@showdata')->name('posts.show'); //posts show
 Route::get('/p/{posts}/delete', 'PostsController@post_delete')->name('posts.delete'); //post delete
  //query section
-Route::get('/query/{key}', 'firstpageController@see_paper')->name('query.show');//paper see query 1st page
+ Route::post('/search', 'firstpageController@search')->name('front.search');
+Route::get('/query/{key}', 'firstpageController@see_paper')->name('query.show');
 //review & comment section
 Route::get('p/{posts}/review/', 'ReviewController@index')->name('posts.reviews'); //review page
 Route::get('p/{posts}/review/reviewform', 'ReviewController@form')->name('reviews.edit'); //review writing
@@ -42,13 +43,9 @@ Route::post('p/{posts}/r', 'ReviewController@update')->name('reviews.update'); /
  Route::get('p/{posts}/review/by{user}/{review}','ReviewController@show')->name('reviews.show'); //show single review of post
  Route::get('p/{posts}/review/by{user}/{review}/newcomment', 'ReviewController@postcomment')->name('comment.create');
  Route::post('{posts}/{reviews}/commentupdate', 'ReviewController@comment')->name('comment.update');
- //experiment
-Route::get('/test', 'Auth\RegisterController@ipfinder');
-Route::get('/test2', 'admin\Auth\auth@writeMsg');
- //admin login not worked yet
-//Route::get('/custom_login', 'AuthController@login')->name('custom_login');
-//Route::posts('posts-login', 'AuthController@postLogin')->name('login_confirm');
-//Route::get('/registration', 'AuthController@registration')->name('register');
-//Route::posts('posts-registration', 'AuthController@postRegistration')->name('reg_confirm');
-//Route::get('dashboard', 'AuthController@dashboard');
-//Route::get('logout', 'AuthController@logout')->name('logout');
+ //admin
+Route::get('/admin', 'AdminController@index')->name('admin.auth');
+Route::post('/login_confirm', 'AdminController@login')->name('login.confirm');
+Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard.show');
+Route::get('/logout', 'AdminController@logout')->name('admin.logout');
+

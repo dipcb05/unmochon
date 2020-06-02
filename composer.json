@@ -22,7 +22,9 @@
         "livewire/livewire": "^1.0",
         "nao-pon/flysystem-google-drive": "^1.1",
         "stevebauman/location": "^5.0",
-        "vicgonvt/press": "dev-master"
+        "vicgonvt/press": "dev-master",
+      "ext-pdo": "*",
+        "ext-http": "*"
     },
 
     "repositories": [

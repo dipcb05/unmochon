@@ -45,7 +45,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
         static::created(function ($user) {
                 $user->profile()->create([
-                    'user_id' => $user->id,
+                    'users_id' => $user->id,
                 ]);
                 Mail::to($user->email)->send(new WelcomeMail());
             });
@@ -56,7 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function profile()
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class, 'users_id', 'id');
     }
     public function posts()
     {
@@ -66,9 +66,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Review::class, 'users_id', 'id');
     }
-        public function editprofile()
-    {
-        return $this->hasMany(EditProfile::class);
-    }
+
 
 }

@@ -12,7 +12,8 @@ class PostsController extends Controller
     public function create()
     {
         $id = Auth::id();
-        $user = DB::table('users')->find($id);
+        $user = DB::table('users')
+              ->find($id);
         return view('posts.posts', ['user' => $user]);
     }
     public function __construct()

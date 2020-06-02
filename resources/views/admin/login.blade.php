@@ -1,13 +1,29 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container-fluid">
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'Unmochon') }}</title>
+    <!-- Scripts -->
+    <!-- Stylesheet -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @livewireStyles
+</head>
+<body>
+<div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Login') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login_confirm') }}">
+                        <form method="POST" action="{{ route('login.confirm') }}">
                             @csrf
 
                             <div class="form-group row">
@@ -44,24 +60,11 @@
                                            class="form-control @error('password') is-invalid @enderror"
                                            name="password"
                                            required autocomplete="current-password">
-
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" value="{{ old('remember') ? ('checked') : '' }}">
-
-                                        <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
 
@@ -71,13 +74,7 @@
                                         {{ __('Login') }}
                                     </button>
 
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                    @endif
-                                </div>
-                                <a class="btn btn-primary" href="{{ route('firstpage') }}" role="button">Cancel</a>
+                            </div>
                             </div>
                         </form>
                     </div>
@@ -85,4 +82,5 @@
             </div>
         </div>
     </div>
-@endsection
+
+</body>
