@@ -6,6 +6,7 @@ use App\Mail\WelcomeMail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -44,9 +45,11 @@ class User extends Authenticatable implements MustVerifyEmail
         parent::boot();
 
         static::created(function ($user) {
-                $user->profile()->create([
-                    'users_id' => $user->id,
-                ]);
+              DB::table('profiles')
+              ->insert(['users_id' => $user->id]);
+//                $user->profile()->create([
+//                    'users_id' => $user->id,
+//                ]);
                 Mail::to($user->email)->send(new WelcomeMail());
             });
 

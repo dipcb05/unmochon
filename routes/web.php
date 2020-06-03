@@ -32,14 +32,17 @@ Route::get('/p/create', 'PostsController@create')->name('posts.create');//posts
 Route::post('/p', 'PostsController@store')->name('posts.store');//posts storing process
 Route::get('/p/{posts}', 'PostsController@showdata')->name('posts.show'); //posts show
 Route::get('/p/{posts}/delete', 'PostsController@post_delete')->name('posts.delete'); //post delete
+Route::get('/preq', 'HomeController@paper_req')->name('paper.req');
+Route::post('/{user}/adminsend', 'HomeController@admin_task')->name('req.save');
  //query section
  Route::post('/search', 'firstpageController@search')->name('front.search');
 Route::get('/query/{key}', 'firstpageController@see_paper')->name('query.show');
+Route::post('/homesearch', 'HomeController@search')->name('home.search');
 //review & comment section
 Route::get('p/{posts}/review/', 'ReviewController@index')->name('posts.reviews'); //review page
 Route::get('p/{posts}/review/reviewform', 'ReviewController@form')->name('reviews.edit'); //review writing
 Route::post('p/{posts}/r', 'ReviewController@update')->name('reviews.update'); //review posts
-
+Route::get('p/{posts}/r/{reviews}/delete', 'ReviewController@review_delete')->name('reviews.delete');
  Route::get('p/{posts}/review/by{user}/{review}','ReviewController@show')->name('reviews.show'); //show single review of post
  Route::get('p/{posts}/review/by{user}/{review}/newcomment', 'ReviewController@postcomment')->name('comment.create');
  Route::post('{posts}/{reviews}/commentupdate', 'ReviewController@comment')->name('comment.update');

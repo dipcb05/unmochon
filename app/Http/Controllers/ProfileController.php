@@ -42,7 +42,7 @@ class ProfileController extends Controller
         try {
             $this->authorize('update', $user->profile);
         } catch (AuthorizationException $e) {
-            echo "hoynai";
+            echo "not possible";
         }
         return view('profile.EditProfile', ['user' => $user]);
     }
@@ -78,13 +78,13 @@ class ProfileController extends Controller
                if ($bdate) {
 //                   $user->profile->bdate = $bdate;
 //                   $user->profile->save();
-                   DB::table('users')
+                   DB::table('profiles')
                        ->where('users_id', '=', $user->id)
                        ->update(['bdate' => $bdate]);
                }
                if ($job) {
 
-                   DB::table('users')
+                   DB::table('profiles')
                        ->where('users_id', '=', $user->id)
                        ->update(['bdate' => $bdate]);
 
@@ -92,30 +92,30 @@ class ProfileController extends Controller
 //                   $user->profile->save();
                }
                if ($wdate) {
-                   DB::table('users')
+                   DB::table('profiles')
                        ->where('users_id', '=', $user->id)
                        ->update(['wdate' => $wdate]);
 //                   $user->profile->wdate = $wdate;
 //                   $user->profile->save();
                }
                if ($pic) {
-                   DB::table('users')
+                   DB::table('profiles')
                        ->where('users_id', '=', $user->id)
                        ->update(['pic' => $pic]);
 //                   $user->profile->pic = $pic;
 //                   $user->profile->save();
                }
                if ($des) {
-                   DB::table('users')
+                   DB::table('profiles')
                        ->where('users_id', '=', $user->id)
                        ->update(['description' => $des]);
 //                   $user->profile->description = $des;
 //                   $user->profile->save();
                }
                if ($web) {
-                   DB::table('users')
+                   DB::table('profiles')
                        ->where('users_id', '=', $user->id)
-                       ->update(['web' => $web]);
+                       ->update(['website' => $web]);
 //                   $user->profile->website = $web;
 //                   $user->profile->save();
                }

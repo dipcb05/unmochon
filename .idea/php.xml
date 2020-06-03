@@ -98,10 +98,6 @@
       <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
       <path value="$PROJECT_DIR$/vendor/aws/aws-sdk-php" />
       <path value="$PROJECT_DIR$/vendor/mtdowling/jmespath.php" />
-      <path value="$PROJECT_DIR$/vendor/maxmind-db/reader" />
-      <path value="$PROJECT_DIR$/vendor/stevebauman/location" />
-      <path value="$PROJECT_DIR$/vendor/maxmind/web-service-common" />
-      <path value="$PROJECT_DIR$/vendor/geoip2/geoip2" />
       <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
       <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
       <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
@@ -111,17 +107,25 @@
       <path value="$PROJECT_DIR$/vendor/google/apiclient" />
       <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
-      <path value="$PROJECT_DIR$/vendor/league/flysystem-cached-adapter" />
-      <path value="$PROJECT_DIR$/vendor/nao-pon/flysystem-google-drive" />
-      <path value="$PROJECT_DIR$/vendor/nao-pon/flysystem-cached-extra" />
-      <path value="$PROJECT_DIR$/vendor/livewire/livewire" />
       <path value="$PROJECT_DIR$/vendor/vicgonvt/press" />
-      <path value="$PROJECT_DIR$/vendor/erusev/parsedown" />
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
       <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
       <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
       <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
       <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/livewire/livewire" />
+      <path value="$PROJECT_DIR$/vendor/maxmind/web-service-common" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem-cached-adapter" />
+      <path value="$PROJECT_DIR$/vendor/nao-pon/flysystem-cached-extra" />
+      <path value="$PROJECT_DIR$/vendor/nao-pon/flysystem-google-drive" />
+      <path value="$PROJECT_DIR$/vendor/maxmind-db/reader" />
+      <path value="$PROJECT_DIR$/vendor/geoip2/geoip2" />
+      <path value="$PROJECT_DIR$/vendor/stevebauman/location" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

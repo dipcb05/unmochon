@@ -34,18 +34,14 @@
                                          style="width: 100%; height: 50%">
                                         <h5 class="card-title">
                                             <br><b>Author: </b>
-                                            {{ $user[$post]->name}}</h5>
+                                            {{ $new -> author}}</h5>
                                         <h5>
-                                            <b>Uploaded: </b></h5>
-{{--                                        <a href="{{ route('posts.show', $new->id) }}"--}}
-{{--                                           class="btn btn-light">read</a>--}}
+                                            <b>Uploaded: {{ $new -> created_at }}</b></h5>
                                         <a href="/storage/{{ $new -> posts }}"
                                            class="btn btn-primary">download</a>
                                         <div class="btn btn-secondary">upvote</div>
                                         <a href="{{ route('posts.reviews', $new->id) }}"
                                            class="btn btn-outline-success">reviews</a>
-{{--                                        <a href="/storage/{{ $new -> posts }}"--}}
-{{--                                           class="btn btn-outline-dark">save</a>--}}
                                     </div>
                                 </div>
                                 </div>

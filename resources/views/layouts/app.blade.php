@@ -60,6 +60,28 @@
                                         {{ __('Profile') }}
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <form class="form-inline my-2 my-lg-0"
+                                          method = "POST"
+                                          action = "{{ route('home.search') }}">
+                                        <input
+                                            name="search"
+                                            class="form-control mr-sm-2"
+                                            type="search"
+                                            placeholder="Search"
+                                            aria-label="Search">
+                                        <button
+                                            class="btn btn-outline-success my-2 my-sm-0"
+                                            type="submit">Search</button>
+                                        @csrf
+                                    </form>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="{{ route('paper.req') }}">
+                                        {{ __('New Paper Request to admin') }}
+                                    </a>
+                                </li>
                             @elseif(Route::current()->getName() == 'profile.show')
                                 <li class="nav-item">
                                     <a class="nav-link"

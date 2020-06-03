@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Facades\DB;
 use PDO;
 use PDOException;
@@ -14,7 +13,6 @@ class AdminController extends Controller
     }
     function login()
     {
-        try {
 
             if (isset($_POST['identity']) && isset($_POST['password'])) {
                 $identity = $_POST['identity'];
@@ -24,7 +22,7 @@ class AdminController extends Controller
             }
 
             try {
-                $conn = new PDO("mysql:host=localhost:3306; dbname=try", "root", "abcdef12");
+                $conn = new PDO("mysql:host=localhost:3306; dbname=unmochon", "root", "abcdef12");
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $ex) {
                 echo "error";
@@ -39,11 +37,7 @@ class AdminController extends Controller
                $_SESSION["isloggedin"] = true;
                return redirect()->route('dashboard.show');
             } else echo "failed, return back and try to login";
-        }
-        catch (Exception $e)
-        {
 
-        }
         }
         function dashboard()
         {
@@ -62,12 +56,14 @@ class AdminController extends Controller
                     ->select(DB::raw('COUNT(*) as count_today_account'))
                     ->whereDate('created_at', today()->toDateString())
                     ->get();
-
+                $p4 = DB::table('admin_tasks')
+                    ->select('*')
+                    ->get();
                 return view('admin.dashboard', ['total_post' => $p[0]->count_total_posts,
                     'total_profiles' => $p1[0]->count_total_profiles,
                     'today_post' => $p2[0]->count_today_post,
-                    'today_ac' => $p3[0]->count_today_account
-
+                    'today_ac' => $p3[0]->count_today_account,
+                    'req' => $p4
                 ]);
             }
             else echo 'you have to log in first as a admin';

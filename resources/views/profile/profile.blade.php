@@ -4,13 +4,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
     <div class="card">
-
     <div class="card-header">
         {{ __('Profile') }}
     </div>
-
 <div class = "card-body">
-
     <div>
     @if(is_null($user->profile->pic))
      @if($user->gender == 'male')
