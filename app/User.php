@@ -9,6 +9,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * @method static find(int|string|null $id)
+ */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
@@ -45,11 +48,9 @@ class User extends Authenticatable implements MustVerifyEmail
         parent::boot();
 
         static::created(function ($user) {
-              DB::table('profiles')
-              ->insert(['users_id' => $user->id]);
-//                $user->profile()->create([
-//                    'users_id' => $user->id,
-//                ]);
+                  $user->profile()->create([
+                    'users_id' => $user->id,
+                ]);
                 Mail::to($user->email)->send(new WelcomeMail());
             });
 

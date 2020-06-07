@@ -23,6 +23,7 @@ class AdminController extends Controller
 
             try {
                 $conn = new PDO("mysql:host=localhost:3306; dbname=unmochon", "root", "abcdef12");
+              
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $ex) {
                 echo "error";

@@ -22,7 +22,6 @@ class ReviewController extends Controller
     public function index($post)
     {
         $posts = posts::find($post);
-        //dd($posts);
         $users = DB::table('users')
             ->leftJoin('posts', 'users.id', '=', 'users_id')
             ->where('posts.id', $posts->id)
@@ -73,7 +72,8 @@ class ReviewController extends Controller
             $link = $request->input('link');
             $resources = $request->file('res');
             if ($resources)
-                $resources = $resources->store('upload/review_resources', 'public');
+                $resources = $resources->store('upload/review_resources',
+                    'public');
             if ($summary || $algo || $sub || $link || $resources) {
                 $review->posts_id = $post->id;
                 $review->users_id = $user->id;
@@ -127,7 +127,11 @@ class ReviewController extends Controller
             ->get();
         $e = ($total->isEmpty()) ? '0' : $total;
         return view('posts.reviews.reviewshow',
-            ['posts' => $posts, 'user' => $user, 'review' => $review, 'total' => $e, 'comments' => $com]);
+            ['posts' => $posts,
+                'user' => $user,
+                'review' => $review,
+                'total' => $e,
+                'comments' => $com]);
     }
 
     public function review_delete($post, $review)

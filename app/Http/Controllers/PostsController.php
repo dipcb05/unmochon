@@ -37,34 +37,24 @@ class PostsController extends Controller
         $post->author = $data['author'];
         $post->subject = $data['subject'];
 
-//         Auth()->user()->posts()->create(
-//           [
-//               'pcaption' => $post->pcaption,
-//               'posts'     => $post->posts,
-//               'author'   => $post->author,
-//               'subject'  => $post->subject,
-//            ]);
-
-        DB::table('posts')
-            ->insert(
-                ['subject' => $post->subject,
-                    'author' => $post->author,
-                    'posts' => $post->posts,
-                    'pcaption' => $post->pcaption,
-                    'users_id' => Auth::id()]
-
-        );
+         Auth()->user()->posts()->create(
+           [
+               'pcaption' => $post->pcaption,
+               'posts'     => $post->posts,
+               'author'   => $post->author,
+               'subject'  => $post->subject,
+            ]);
          return redirect()->route('home');
     }
 
-//
-//    public function showpdf($post)
-//    {
-//        $file = DB::table('posts')->find($post);
-//        $header = ['Content-Type', 'application/pdf'];
-//        $path = storage_path('app/public/'.$file->post);
-//        return view('posts.postview', ['file' => $path]);
-//    }
+
+    public function showpdf($post)
+    {
+        $file = DB::table('posts')->find($post);
+        $header = ['Content-Type', 'application/pdf'];
+        $path = storage_path('app/public/'.$file->post);
+        return view('posts.postview', ['file' => $path]);
+    }
 
     public function post_delete($post)
     {
