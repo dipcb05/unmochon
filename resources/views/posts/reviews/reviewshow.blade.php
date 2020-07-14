@@ -52,6 +52,8 @@
                                 </div>
                         @endif
 
+                                <div class ="
+
                         <div class="pb-2 pl-2">
                             <a class="btn btn-primary"
                                href="{{ route('comment.create',

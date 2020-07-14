@@ -8,7 +8,7 @@ class firstpageController extends Controller
     {
         $posts = DB::table('posts')
             ->select('*')
-            ->orderBy('id', 'DESC')
+            ->orderBy('created_at', 'DESC')
             ->limit(4)
             ->get();
     return view('homeview.firstpage', ['post' => $posts]);

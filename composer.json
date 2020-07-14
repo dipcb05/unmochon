@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "ext-pdo": "*",
         "aws/aws-sdk-php": "~3.0",
         "barryvdh/laravel-dompdf": "^0.8.6",
         "doctrine/dbal": "^2.10",
@@ -19,11 +20,11 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "vicgonvt/press": "dev-master",
         "livewire/livewire": "^1.0",
         "nao-pon/flysystem-google-drive": "^1.1",
+        "pusher/pusher-php-server": "^4.1",
         "stevebauman/location": "^5.0",
-        "ext-pdo": "*"
+        "vicgonvt/press": "dev-master"
     },
 
 

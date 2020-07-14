@@ -51,4 +51,7 @@ Route::get('/admin', 'AdminController@index')->name('admin.auth');
 Route::post('/login_confirm', 'AdminController@login')->name('login.confirm');
 Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard.show');
 Route::get('/logout', 'AdminController@logout')->name('admin.logout');
-
+//message
+ Route::get('/message', 'MsgController@index');
+ Route::get('/receive_messages', 'MsgController@fetchMessages');
+ Route::post('/send_messages', 'MsgController@sendMessage');
