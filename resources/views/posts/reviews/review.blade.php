@@ -5,16 +5,11 @@
         <div class="card">
             <div class = "row justify-content-center">
                 <div class = "col-8 p-5">
-                    <div>
-                        <h1><b>{{ $posts->pcaption }}</b></h1>
-                    </div>
-                    <div>
-                            <h4>uploader name: <i>{{ $posts -> author }}</i></h4>
-                    </div>
-                          <div>
-                              <h5>subject: {{ $posts -> subject }}</h5>
-                              <b>uploaded time: {{ $posts->created_at }}</b>
-                          </div>
+                    <div><h1><b>{{ $posts->pcaption }}</b></h1></div>
+                    <div><h4>authors: <b>{{ $posts -> author }}</b></h4></div>
+                    <div><h4>uploader name: {{ $user -> name}}</i></h4></div>
+                    <div><h4>uploaded time: {{ $posts->created_at }}</h4></div>
+                    <div><h5>subject: {{ $posts -> subject }}</h5></div>
 
                     </div>
                 </div>

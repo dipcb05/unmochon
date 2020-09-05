@@ -23,6 +23,8 @@ class CreatePostsTable extends Migration
             $table->string('posts');
             $table->string('author');
             $table->string('subject');
+            $table->string('journal');
+            $table->string('time');
             $table->timestamps();
         });
     }

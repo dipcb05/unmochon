@@ -32,7 +32,7 @@ class ReviewController extends Controller
             ->select('users.name', 'reviews.users_id', 'reviews.posts_id', 'reviews.id')
             ->get();
         return view('posts.reviews.review',
-            ['posts' => $posts, 'user' => $users, 'reviews' => $reviews]);
+            ['posts' => $posts, 'user' => $users[0], 'reviews' => $reviews]);
     }
     public function form($post)
     {

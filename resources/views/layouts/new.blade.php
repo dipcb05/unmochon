@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="icon" href="{{ asset('images/logo & icon/default_favicon.ico') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/front_page.css')}}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <title>Unmochon</title>
+    <title>ExplorerHub</title>
 </head>
-
 <body>
-
 <div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
-    <a class="navbar-brand" href="/">Unmochon</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="/">
+        <img src="{{ asset('images/logo & icon/Ex n b.png') }}"
+             alt="logo"
+             style="width:300px;height:100px;">
+    </a>
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -24,7 +28,6 @@
             aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
@@ -66,14 +69,38 @@
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true"
                    aria-expanded="false">
-                    See paper
+                    Browse
                 </a>
                 <div class="dropdown-menu" aria-labelledby="DropDown">
                     <a class="dropdown-item" href="#"></a>
-                    <a class="dropdown-item" href="{{ route('query.show', 'subject') }}">Subject</a>
+                    <a class="dropdown-item" href="{{ route('query.show', 'subject') }}">By Subject</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('query.show', 'author') }}">Author</a>
+                    <a class="dropdown-item" href="{{ route('query.show', 'author') }}">By Author</a>
                 </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="#">
+                    About Us
+                    <span class="sr-only">
+                        (current)
+                    </span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="#">
+                    Contact Us
+                    <span class="sr-only">
+                        (current)
+                    </span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="#">
+                    Subscription
+                    <span class="sr-only">
+                        (current)
+                    </span></a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0"
@@ -97,10 +124,10 @@
         @yield('content')
     </main>
 </div>
-</body>
 <footer>
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
-        <a href="https://sites.google.com/view/dip-chakraborty"> Unmochon</a>
+        <a href="#"> ExplorerTech</a>
     </div>
 </footer>
+</body>
 </html>

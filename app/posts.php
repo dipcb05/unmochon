@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class posts extends Model
 {
 	protected $guarded = [];
-    protected $fillable = ['pcaption', 'posts', 'author', 'subject'];
+    protected $fillable = ['pcaption', 'posts', 'author', 'subject', 'journal', 'time'];
     protected $table = 'posts';
     /**
      * @var mixed

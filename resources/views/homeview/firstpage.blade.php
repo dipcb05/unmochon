@@ -1,82 +1,29 @@
 @extends('layouts.new')
 @section('content')
-<div id="carousel01" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item">
-            <img class="d-block w-100" src="{{ asset('images/1.jpeg') }}" alt="First slide">
-            <div class="carousel-caption">
-                <h3>Unmochon</h3>
-                    <p>A reseacher blog</p>
-            </div>
-        </div>
-        <div class="carousel-item active">
-            <img class="d-block w-100" src="{{ asset('images/3.jpg') }}" alt="Second slide">
-            <div class="carousel-caption">
-                <h3>Unmochon</h3>
-                    <p>A reseacher blog</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="{{ asset('images/5.jpg') }}" alt="Third slide">
-            <div class="carousel-caption">
-                <h3>Unmochon</h3>
-                    <p>A reseacher blog</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="{{ asset('images/6.jpg') }}" alt="fourth slide">
-            <div class="carousel-caption">
-                <h3>Unmochon</h3>
-                    <p>A reseacher blog</p>
-            </div>
-        </div>
+    <div>
+        <p> <img src="{{ asset('images/carosol/5.jpg') }}" alt="hello" height="300px" width="500px">
+                Join to Our Community
+        <button class="btn-outline-primary"><a href="/register"> Sign Up</a></button>
+        </p>
     </div>
-    <a class="carousel-control-prev" href="#" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+<div>
+    <br><br><br>
 </div>
-
-<section class = "my-5">
-    <h3 class = "text-center">Trending Researchs highlights</h3>
-</section>
-
-<section class = "my-5">
-
-    <div class="row">
-        @foreach($post as $new)
-            @if(is_null($new->posts))<div class = "text-center">
-                <h3><br>No New Posts</h3>
-            </div>
-            @else
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="card" style="width: 35rem; height: 35rem;">
-                            <div class = "card-body">
-                                <div class="card-header">{{ $new->pcaption }}</div>
-                                <img class="card-img"
-                                     src=" {{ asset('images/1.jpeg') }}"
-                                     alt="image of paper"
-                                     style="width: 100%; height: 50%">
-                                <h5 class="card-title">
-                                    <br><b>Author: </b>
-                                    {{ $new->author}}</h5>
-                                <h5>
-                                    <b>Uploaded: {{ $new->created_at }}</b></h5>
-                                <a href="/storage/{{ $new -> posts }}"
-                                   class="btn btn-primary">download</a>
-                                <div class="btn btn-secondary">upvote</div>
-                                <a href="{{ route('posts.reviews', $new->id) }}"
-                                   class="btn btn-outline-success">reviews</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-        @endforeach
-    </div>
+    <section id = "bas">
+        <div id="bas_title"><h3>Basic Idea</h3></div>
+        <div><p>
+                The World Wide Fund for
+                Nature (WWF) is an international
+                organization working on issues regarding the conservation,
+                research and restoration of the environment, formerly named the World Wildlife Fund.
+                WWF was founded in 1961.
+            </p></div>
+    </section>
+    <div><br><br><br></div>
+    <section id = "Impact">
+        <div id="con_title"><h3>User's Comments about US</h3></div>
+        <div><p>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            </p></div>
+    </section>
 @endsection

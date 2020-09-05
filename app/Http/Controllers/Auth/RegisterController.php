@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Stevebauman\Location\Facades\Location;
 
 class RegisterController extends Controller
 {
@@ -46,7 +44,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -55,10 +53,10 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'gender' =>['required', 'string', 'max:255'],
+            'phone' => ['required', 'numeric', 'integer','unique:users'],
+            'gender' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-
 
     }
 
@@ -66,42 +64,46 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \App\User
      */
     protected function create(array $data)
     {
 
-         return User::create([
+        return User::create([
             'name' => $data['name'],
             'username' => $data['username'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'gender' => $data['gender'],
             'password' => Hash::make($data['password']),
         ]);
     }
-    public function ipfinder(Request $request)
-    {
-        $ip = $this->getIp();
-        $ip2 = $request->ip();
-        $ip3 = request()->ip();
-        $data = Location::get($ip);
-        $data2 = Location::get($ip2);
-        dd($data2);
-    }
-    private function getIp()
-    {
-        foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key){
-            if (array_key_exists($key, $_SERVER) === true){
-                foreach (explode(',', $_SERVER[$key]) as $ip){
-                    $ip = trim($ip); // just to be safe
-                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false)
-                    {
-                        return $ip;
-                    }
-                }
-            }
-        }
-    }
-
+//
+//    protected function verify(Request $request)
+//    {
+//        $data = $request->validate([
+//            'verification_code' => ['required', 'numeric'],
+//            'phone_number' => ['required', 'string'],
+//        ]);
+//        /* Get credentials from .env */
+//        $token = getenv("TWILIO_AUTH_TOKEN");
+//        $twilio_sid = getenv("TWILIO_SID");
+//        $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
+//        $twilio = new Client($twilio_sid, $token);
+//        $verification = $twilio
+//                       ->verify
+//                       ->v2
+//                       ->services($twilio_verify_sid)
+//                       ->verificationChecks
+//                       ->create($data['verification_code'], array('to' => $data['phone_number']));
+//        if ($verification->valid) {
+//            $user = tap(User::where('phone_number', $data['phone_number']))->update(['isVerified' => true]);
+//            /* Authenticate user */
+//            Auth::login($user->first());
+//            return redirect()->route('home')->with(['message' => 'Phone number verified']);
+//        }
+//        return back()->with(['phone_number' => $data['phone_number'], 'error' => 'Invalid verification code entered!']);
+//    }
 }
+

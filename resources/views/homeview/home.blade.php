@@ -18,32 +18,45 @@
                         <div class = "text-center">
                             <h3><br>New Posts</h3>
                         </div>
-                        @foreach($posts as $post => $new)
-                            @if(is_null($new->posts))<div class = "text-center">
+                        @foreach($posts as $post)
+                            @if(is_null($post->posts))
+                                <div class = "text-center">
                                 <h3><br>No New Posts</h3>
                             </div>
                             @else
                             <div class="row justify-content-center">
                                 <div class="col-md-8">
-                                <div class="card" style="width: 35rem; height: 35rem;">
-                                    <div class = "card-body">
-                                        <div class="card-header">{{ $new->pcaption }}</div>
-                                    <img class="card-img"
-                                         src=" {{ asset('images/1.jpeg') }}"
-                                         alt="image of paper"
-                                         style="width: 100%; height: 50%">
-                                        <h5 class="card-title">
-                                            <br><b>Author: </b>
-                                            {{ $new -> author}}</h5>
-                                        <h5>
-                                            <b>Uploaded: {{ $new -> created_at }}</b></h5>
-                                        <a href="/storage/{{ $new -> posts }}"
-                                           class="btn btn-primary">download</a>
-                                        <div class="btn btn-secondary">upvote</div>
-                                        <a href="{{ route('posts.reviews', $new->id) }}"
-                                           class="btn btn-outline-success">reviews</a>
+                                    <div class="card" style="width: 30rem;">
+                                        <div class="card-header">
+                                           published on {{ $post -> journal }}
+                                        </div>
+                                        <img src="{{ asset('images/logo & icon/Ex n b.png') }}" class="card-img-top" alt="site_logo"
+                                        height="40px" width="30px">
+                                        <div class="card-body">
+                                            <h5 class="card-title">title: {{ $post -> pcaption }}</h5>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Authors: {{ $post -> author }}</li>
+                                            <li class="list-group-item">Topic: {{ $post -> subject }}</li>
+                                            <li class="list-group-item">Uploaded at: {{ $post -> created_at }}</li>
+                                            <li class="list-group-item">Uploader:
+                                                @php
+                                                   {{ $use = App\User::find($post->users_id); echo $use->name;}}
+                                                @endphp</li>
+                                        </ul>
+                                        <div class="card-body">
+                                            <a href="{{ $post -> posts }}" class="card-link">Paper link</a>
+                                            <a href="{{ route('posts.reviews', $post->id) }}"
+                                               class="btn btn-outline-success">reviews section</a>
+                                            <a href="#"
+                                               class="btn btn-outline-dark">rate it</a>
+                                            <a href="#"
+                                               class="btn btn-outline-success">discussion section</a>
+                                        </div>
+                                        <div class = "card-footer">
+                                            published in {{ $post -> time }}
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                             @endif

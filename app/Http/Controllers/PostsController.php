@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function create()
     {
         $id = Auth::id();
@@ -16,44 +20,33 @@ class PostsController extends Controller
               ->find($id);
         return view('posts.posts', ['user' => $user]);
     }
-    public function __construct()
-    {
-    	$this->middleware('auth');
-    }
-
     public function store(Request $request)
     {
         $data = $request->validate([
             'pcaption' => 'required',
             'posts' => 'required',
-            'author' => '',
-            'subject' => 'required'
+            'author' => 'required',
+            'subject' => 'required',
+            'journal' => 'required',
+            'time' => 'required'
         ]);
-        $path = request('posts')->store('upload/posts', 'public');
         $post = new posts();
         $post->pcaption = $data['pcaption'];
-        $post->posts = $path;
-        if($data['author'])
+        $post->posts = $data['posts'];
         $post->author = $data['author'];
         $post->subject = $data['subject'];
-
+        $post->journal = $data['journal'];
+        $post->time = $data['time'];
          Auth()->user()->posts()->create(
            [
-               'pcaption' => $post->pcaption,
+               'pcaption'  => $post->pcaption,
                'posts'     => $post->posts,
-               'author'   => $post->author,
-               'subject'  => $post->subject,
+               'author'    => $post->author,
+               'subject'   => $post->subject,
+               'journal'   => $post->journal,
+               'time'      => $post->time,
             ]);
          return redirect()->route('home');
-    }
-
-
-    public function showpdf($post)
-    {
-        $file = DB::table('posts')->find($post);
-        $header = ['Content-Type', 'application/pdf'];
-        $path = storage_path('app/public/'.$file->post);
-        return view('posts.postview', ['file' => $path]);
     }
 
     public function post_delete($post)
