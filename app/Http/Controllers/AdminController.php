@@ -30,9 +30,11 @@ class AdminController extends Controller
     }
     function index2($admin)
     {
+        
         $admin = Admin::find($admin);
-        $use = User::find($admin);
-        if($use[0]->role == 2) {
+        $use = User::find($admin->users_id);
+        
+        if($use->role == 2) {
             if ($admin->active == "no")
                 return view('admin.profiles.editprofile', ['id' => $admin]);
             else return redirect()->route('admin');
@@ -48,9 +50,10 @@ class AdminController extends Controller
     function generate_ac()
     {
         $u = User::find(Auth::id());
+
         if($u)
         {
-            if($u[0]->role == 2) {
+            if($u->role == 2) {
                 Auth::user()->admin()->create([
                     'users_id' => $u->id,
 
@@ -59,8 +62,8 @@ class AdminController extends Controller
                     ->select('id')
                     ->where('users_id', '=', Auth::id())
                     ->get();
-
-                return redirect()->route('admin_editprofile', ['admin' => $admin_id]);
+                
+                return redirect()->route('admin_editprofile', ['id' => $admin_id[0]->id]);
             }
             else return redirect()->route('home');
         }
@@ -69,7 +72,7 @@ class AdminController extends Controller
     function profile_update($id, Request $request)
     {
         $u = User::find(Auth::id());
-        if($u[0]->role == 2) {
+        if($u->role == 2) {
             $office_id = $request->input('office_id');
             $position = $request->input('position');
             $joining_date = $request->input('joining_date');

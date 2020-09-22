@@ -52,7 +52,7 @@ Route::post('/homesearch', 'HomeController@search')->name('home.search');
  Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin');
 Route::get('/a', 'AdminController@generate_ac')->name('admin_first_time');
 Route::get('/admin/stat', 'AdminController@stats')->name('admin.stat');
-Route::get('/admin_editprofile/{admin}', 'AdminController@index2')->name('admin_editprofile');
+Route::get('/admin_editprofile/{id}', 'AdminController@index2')->name('admin_editprofile');
 Route::post('/{admin}/aep', 'AdminController@profile_update')->name('admin.profile_update');
 Route::get('/admin/paper_req', 'AdminController@paper_request')->name('check_paper_req');
 Route::get('/admin/edit_req', 'AdminController@edit_request')->name('check_edit_req');
