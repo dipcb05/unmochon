@@ -23,7 +23,6 @@ class firstpageController extends Controller
             ->whereRaw('name like ?',
                 ["%{$request->get('search')}%"])
             ->get();
-        //dd($post, $user);
         return view('query.search', ['query_name' => $request->get('search'),
         'posts' => $post, 'user' => $user]);
     }

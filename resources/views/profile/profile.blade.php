@@ -19,7 +19,8 @@
         <img class="img-thumbnail img-fluid rounded mx-auto d-block" src = " /storage/{{ $user->profile->pic }}" alt = "profile picture">
     @endif
     </div>
-
+    <a href="{{ route('message.person', $user->id) }}"
+       class="btn btn-outline-dark">Message</a>
 
 <div class="justify-content-center">
     <div><h2>{{ $user->name }}</h2></div>
@@ -48,7 +49,9 @@
                     <h5 class="card-title">{{ $post -> pcaption }}</h5>
                     <p class="card-text">short description</p>
                     <a href="/storage/{{ $post -> posts }}" class="btn btn-primary">download</a>
-                    <a href=" {{ route('posts.delete', $post->id) }}" class="btn btn-outline-danger">delete</a>
+                    @if(!is_null($button))
+                        <a href=" {{ route('posts.delete', $post->id) }}" class="btn btn-outline-danger">delete</a>
+                    @endif
                 </div>
             </div>
         </div>

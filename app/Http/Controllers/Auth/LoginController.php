@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -43,6 +44,7 @@ class LoginController extends Controller
     public function username()
     {
         $login = request()->input('identity');
+
         $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         request()->merge([$field => $login]);
         return $field;
@@ -63,6 +65,27 @@ class LoginController extends Controller
             'email' => 'email|exists:users',
             'username' => 'string|exists:users',
         ], $messages);
+    }
+
+    public function redirectTo()
+    {
+        switch (Auth::user()->role) {
+            case 2:
+                $this->redirectTo = route('admin');
+                return $this->redirectTo;
+                break;
+            case 3:
+                $this->redirectTo = '/peer';
+                return $this->redirectTo;
+                break;
+            case 1:
+                $this->redirectTo = '/home';
+                return $this->redirectTo;
+                break;
+            default:
+                $this->redirectTo = '/login';
+                return $this->redirectTo;
+        }
     }
 
 }

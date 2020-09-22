@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Unmochon'),
+    'name' => env('APP_NAME', 'ExplorerHub'),
 
     /*
     |--------------------------------------------------------------------------
@@ -123,6 +123,7 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -174,7 +175,6 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Stevebauman\Location\LocationServiceProvider::class,
     ],
 
     /*
@@ -226,7 +226,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Location' => 'Stevebauman\Location\Facades\Location',
 
     ],
 

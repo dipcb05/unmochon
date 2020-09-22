@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Profile;
+use App\Models\Profile;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -10,8 +10,8 @@ class ProfilesPolicy
 {
     use HandlesAuthorization;
 
-//    protected $user;
-//    public function __construct(User $user) {
+//      protected $user;
+//     public function __construct(User $user) {
 //        $this->user = $user;
 //    }
     /**
@@ -29,12 +29,12 @@ class ProfilesPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Profile  $profile
+     * @param  \App\Models\Profile  $profile
      * @return mixed
      */
     public function view(User $user, Profile $profile)
     {
-        //
+
     }
 
     /**
@@ -52,14 +52,13 @@ class ProfilesPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Profile  $profile
+     * @param  \App\Models\Profile  $profile
      * @return mixed
      */
 
     public function update(User $user, Profile $profile)
     {
 
-        return $user->id == $profile->user_id;
 
     }
 

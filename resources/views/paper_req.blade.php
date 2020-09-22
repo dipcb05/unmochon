@@ -36,6 +36,54 @@
                                 </div>
                             </div>
 
+
+                            <div class="form-group row">
+                                <label for="author">
+                                    authors
+                                </label>
+                                <div class="col-md-7">
+
+                                    <input
+                                        id="author"
+                                        type="text"
+                                        class="form-control
+                                       @error('author') is-invalid @enderror"
+                                        name="author">
+
+                                    @error('author')
+                                    <span
+                                        class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="publisher">
+                                    publisher
+                                </label>
+                                <div class="col-md-7">
+
+                                    <input
+                                        id="publisher"
+                                        type="text"
+                                        class="form-control
+                                       @error('publisher') is-invalid @enderror"
+                                        name="publisher">
+
+                                    @error('publisher')
+                                    <span
+                                        class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+
+
                             <div class="form-group row">
                                 <label for="year">
                                     year

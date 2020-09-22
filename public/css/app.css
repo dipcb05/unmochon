@@ -1,5 +1,6 @@
-@charset "UTF-8";
-@import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;);
+@import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;
+
+600&display=swap);@charset "UTF-8";
 
 :root {
   --blue: #3490dc;
@@ -98,8 +99,8 @@ abbr[title],
 abbr[data-original-title] {
   text-decoration: underline;
   -webkit-text-decoration: underline dotted;
-
-    cursor: help;
+          text-decoration: underline dotted;
+  cursor: help;
   border-bottom: 0;
   -webkit-text-decoration-skip-ink: none;
           text-decoration-skip-ink: none;
@@ -239,6 +240,8 @@ button {
 }
 
 button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
 }
 
 input,
@@ -2182,22 +2185,12 @@ pre code {
   box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
 }
 
-.form-control::-webkit-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
-}
-
 .form-control::-moz-placeholder {
   color: #6c757d;
   opacity: 1;
 }
 
 .form-control:-ms-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
-}
-
-.form-control::-ms-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -5102,7 +5095,7 @@ input[type=button].btn-block {
   }
 
   .card-deck .card {
-    flex: 1 0 0;
+    flex: 1 0 0%;
     margin-right: 15px;
     margin-bottom: 0;
     margin-left: 15px;
@@ -5120,7 +5113,7 @@ input[type=button].btn-block {
   }
 
   .card-group > .card {
-    flex: 1 0 0;
+    flex: 1 0 0%;
     margin-bottom: 0;
   }
 
@@ -6526,7 +6519,8 @@ a.close.disabled {
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
-    text-align: start;
+  text-align: left;
+  text-align: start;
   text-decoration: none;
   text-shadow: none;
   text-transform: none;

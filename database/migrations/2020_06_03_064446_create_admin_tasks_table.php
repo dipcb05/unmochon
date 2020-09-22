@@ -13,10 +13,12 @@ class CreateAdminTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('admin_tasks', function (Blueprint $table) {
+        Schema::create('admin_paper_request', function (Blueprint $table) {
             $table->id();
             $table->string('from');
             $table->string('name');
+            $table->string('authors');
+            $table->string('publisher');
             $table->string('year');
             $table->timestamps();
         });

@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\comments;
-use App\posts;
-use App\Review;
+use App\Models\comments;
+use App\Models\posts;
+use App\Models\Review;
+use App\Models\View;
 use App\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ReviewController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -43,16 +44,16 @@ class ReviewController extends Controller
 
     public function update($post, Request $request)
     {
-          $user = DB::table('users')
-                ->find(Auth::id());
-          $post = DB::table('posts')
-                ->find($post);
+        $user = DB::table('users')
+            ->find(Auth::id());
+        $post = DB::table('posts')
+            ->find($post);
 
-          $status = DB::table('reviews')
-                ->select(DB::raw('count(users_id) as status, posts_id'))
-                ->groupBy('posts_id')
-                ->where('reviews.users_id', '=', $user->id)
-                ->get();
+        $status = DB::table('reviews')
+            ->select(DB::raw('count(users_id) as status, posts_id'))
+            ->groupBy('posts_id')
+            ->where('reviews.users_id', '=', $user->id)
+            ->get();
         if($status->isEmpty())
             $e = 0;
         else
@@ -113,7 +114,14 @@ class ReviewController extends Controller
     }
     public function show(posts $posts, User $user, Review $review)
     {
-
+        $p = $posts->id;
+        $r = $review->id;
+        $u = Auth::id();
+        $view = new View();
+        $view->posts_id = $p;
+        $view->reviews_id = $r;
+        $view->users_id = $u;
+        $view->save();
         $total = DB::table('comments')
             ->select(DB::raw('count(*) as count, comments.reviews_id'))
             ->groupBy('comments.reviews_id')
@@ -126,14 +134,19 @@ class ReviewController extends Controller
             ->select('comments.*', 'reviews.id', 'users.name', 'comments.users_id')
             ->get();
         $e = ($total->isEmpty()) ? '0' : $total;
+        if($review->users_id == Auth::id())
+            $button = 'yes';
+        else $button = null;
+
         return view('posts.reviews.reviewshow',
             ['posts' => $posts,
                 'user' => $user,
                 'review' => $review,
                 'total' => $e,
-                'comments' => $com]);
+                'comments' => $com,
+                'button' => $button
+            ]);
     }
-
     public function review_delete($post, $review)
     {
         DB::table('comments')
@@ -145,12 +158,46 @@ class ReviewController extends Controller
 
         return redirect()->route('posts.show', $post);
     }
-    public function postcomment(posts $posts, User $user, Review $review)
+    public function reviews_edit($review)
     {
-
-        return view('posts.reviews.comments.reviewcomment',
-            ['posts' => $posts, 'user' => $user,'reviews' => $review]);
+        $review = Review::find($review);
+        return view('posts.reviews.reviewedit', ['review' => $review]);
     }
+    public function reviews_editpost($review, Request $request)
+    {
+        $review = Review::find($review);
+        $s = similar_text($review->summary,$request->input('summary'),$percent);
+        $a = similar_text($review->algo,$request->input('algo'),$percent);
+        $su = similar_text($review->sub,$request->input('sub'),$percent);
+        $li = similar_text($review->link,$request->input('link'),$percent);
+
+        if($review->edit) {
+        $review->edit()->create([
+                'posts_id' => $review->posts_id,
+                'reviews_id' => $review->id,
+                'summary' => $request->input('summary'),
+                'algo' => $request->input('algo'),
+                'sub' => $request->input('sub'),
+                'link' => $request->input('link'),
+                'res'  => 'null',
+                'sum_percent' => $s,
+                'algo_percent' => $a,
+                'sub_percent' => $su,
+                'li_percent' => $li
+            ]);
+            $resources = $request->file('res');
+            if($resources)
+                $resources = $resources->store('upload/edit/review_resources', 'public');
+             DB::table('reviews_edit')
+                 ->where('reviews_id', '=', $review->id)
+                 ->update(['res' => $resources]);
+             $review->edit = '0';
+             $review->save();
+        }
+       else echo 'not possible';
+
+    }
+
     public function comment(posts $posts, Review $reviews, Request $request)
     {
         $comment = new comments();

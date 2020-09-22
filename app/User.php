@@ -3,6 +3,12 @@
 namespace App;
 
 use App\Mail\WelcomeMail;
+use App\Models\Admin;
+use App\Models\comments;
+use App\Models\message;
+use App\Models\posts;
+use App\Models\Profile;
+use App\Models\Review;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'phone', 'gender', 'password', 'isVerified'
+        'name', 'username', 'email', 'phone', 'gender', 'password', 'isVerified', 'role'
     ];
 
     /**
@@ -61,6 +67,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Profile::class, 'users_id', 'id');
     }
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'users_id', 'id');
+    }
     public function posts()
     {
     return $this->hasMany(posts::class, 'users_id', 'id');
@@ -69,9 +79,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Review::class, 'users_id', 'id');
     }
-    public function messages()
+    public function comments()
     {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(comments::class, 'users_id', 'id');
+    }
+    public function message()
+    {
+        return $this->hasMany(message::class, 'users_id', 'id');
     }
 
 }

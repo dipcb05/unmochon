@@ -15,15 +15,15 @@
                  hello {{ Auth::user()->name }}   You are logged in!
           <a href="{{ route('posts.create') }}">Create New Post</a>
                    </div>
-                        <div class = "text-center">
-                            <h3><br>New Posts</h3>
-                        </div>
-                        @foreach($posts as $post)
-                            @if(is_null($post->posts))
-                                <div class = "text-center">
+                        @if((is_null($posts)))
+                            <div class = "text-center">
                                 <h3><br>No New Posts</h3>
                             </div>
-                            @else
+                        @else
+                            <div class = "text-center">
+                                <h3><br>New Posts</h3>
+                            </div>
+                        @foreach($posts as $post)
                             <div class="row justify-content-center">
                                 <div class="col-md-8">
                                     <div class="card" style="width: 30rem;">
@@ -39,10 +39,7 @@
                                             <li class="list-group-item">Authors: {{ $post -> author }}</li>
                                             <li class="list-group-item">Topic: {{ $post -> subject }}</li>
                                             <li class="list-group-item">Uploaded at: {{ $post -> created_at }}</li>
-                                            <li class="list-group-item">Uploader:
-                                                @php
-                                                   {{ $use = App\User::find($post->users_id); echo $use->name;}}
-                                                @endphp</li>
+                                            <li class="list-group-item">Uploader:    {{ $post->name }}</li>
                                         </ul>
                                         <div class="card-body">
                                             <a href="{{ $post -> posts }}" class="card-link">Paper link</a>
@@ -59,9 +56,8 @@
                                     </div>
                                 </div>
                             </div>
-                            @endif
                         @endforeach
-
+                        @endif
                 </div>
                         </div>
                     </div>

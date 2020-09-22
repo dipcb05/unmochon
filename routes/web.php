@@ -30,8 +30,8 @@ Route::post('/edit', 'ProfileController@update')->name('profile.update');//profi
  //posts section
 Route::get('/p/create', 'PostsController@create')->name('posts.create');//posts
 Route::post('/p', 'PostsController@store')->name('posts.store');//posts storing process
-Route::get('/p/{posts}', 'PostsController@showdata')->name('posts.show'); //posts show
-Route::get('/p/{posts}/delete', 'PostsController@post_delete')->name('posts.delete'); //post delete
+Route::get('/p/{post}', 'PostsController@showdata')->name('posts.show'); //posts show
+Route::get('/p/{post}/delete', 'PostsController@post_delete')->name('posts.delete'); //post delete
 Route::get('/preq', 'HomeController@paper_req')->name('paper.req');
 Route::post('/{user}/adminsend', 'HomeController@admin_task')->name('req.save');
  //query section
@@ -39,19 +39,28 @@ Route::post('/{user}/adminsend', 'HomeController@admin_task')->name('req.save');
 Route::get('/query/{key}', 'firstpageController@see_paper')->name('query.show');
 Route::post('/homesearch', 'HomeController@search')->name('home.search');
 //review & comment section
-Route::get('p/{posts}/review/', 'ReviewController@index')->name('posts.reviews'); //review page
-Route::get('p/{posts}/review/reviewform', 'ReviewController@form')->name('reviews.edit'); //review writing
-Route::post('p/{posts}/r', 'ReviewController@update')->name('reviews.update'); //review posts
-Route::get('p/{posts}/r/{reviews}/delete', 'ReviewController@review_delete')->name('reviews.delete');
- Route::get('p/{posts}/review/by{user}/{review}','ReviewController@show')->name('reviews.show'); //show single review of post
- Route::get('p/{posts}/review/by{user}/{review}/newcomment', 'ReviewController@postcomment')->name('comment.create');
- Route::post('{posts}/{reviews}/commentupdate', 'ReviewController@comment')->name('comment.update');
+ Route::get('p/{posts}/review/', 'ReviewController@index')->name('posts.reviews'); //review page
+ Route::get('p/{posts}/review/reviewform', 'ReviewController@form')->name('reviews.edit'); //review writing
+ Route::post('p/{posts}/r', 'ReviewController@update')->name('reviews.update'); //review posts
+ Route::get('p/{posts}/r/{reviews}/delete', 'ReviewController@review_delete')->name('reviews.delete');
+ Route::get('p/{posts}/review/by{user}/{review}','ReviewController@show')->name('reviews.show'); //show single reviews
+
+ Route::post('{posts}/{reviews}/commentupdate', 'ReviewController@comment')->name('comment.update'); //admin
+ Route::get('r/{review}/edit', 'ReviewController@reviews_edit')->name('reviews.editget');
+ Route::post('r/{review}/p', 'ReviewController@reviews_editpost')->name('reviews.editpost');
  //admin
-Route::get('/admin', 'AdminController@index')->name('admin.auth');
-Route::post('/login_confirm', 'AdminController@login')->name('login.confirm');
-Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard.show');
-Route::get('/logout', 'AdminController@logout')->name('admin.logout');
+ Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin');
+Route::get('/a', 'AdminController@generate_ac')->name('admin_first_time');
+Route::get('/admin/stat', 'AdminController@stats')->name('admin.stat');
+Route::get('/admin_editprofile/{admin}', 'AdminController@index2')->name('admin_editprofile');
+Route::post('/{admin}/aep', 'AdminController@profile_update')->name('admin.profile_update');
+Route::get('/admin/paper_req', 'AdminController@paper_request')->name('check_paper_req');
+Route::get('/admin/edit_req', 'AdminController@edit_request')->name('check_edit_req');
+Route::post('/er/app/{reviews}', 'AdminController@editreq_approve')->name('editreq.approve');
+Route::post('/er/dec/{req}', 'AdminController@editreq_decline')->name('editreq.decline');
 //message
- Route::get('/message', 'MsgController@index');
- Route::get('/receive_messages', 'MsgController@fetchMessages');
- Route::post('/send_messages', 'MsgController@sendMessage');
+ Route::get('/message/{other}', 'MessageController@index')->name('message.person');
+ Route::post('/m/{other}', 'MessageController@update')->name('message.update');
+ //discussion
+ Route::get('/discussion', 'DiscussionController@index')->name('discussion');
+ Route::post('/dis/', 'DiscussionController@update')->name('qus.update');

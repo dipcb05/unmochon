@@ -28,9 +28,12 @@ class HomeController extends Controller
     public function index()
     {
         $posts = DB::table('posts')
-               ->select('*')
+               ->leftJoin('users', 'posts.users_id', '=', 'users.id')
+               ->select('posts.*', 'users.name')
                ->orderBy('id', 'DESC')
                ->get();
+        if($posts == '[]')
+            $posts = null;
         return view('homeview.home', ['posts' => $posts]);
 
       }
@@ -55,14 +58,15 @@ class HomeController extends Controller
                ->select('name')
                ->where('id', '=', $user)
                ->get();
-           DB::table('admin_tasks')
+           DB::table('admin_paper_request')
                ->insert([
-                  'from' => $n[0]->name,
-                  'name' => $request->get('name'),
-                  'year' => $request->get('year')
+                   'from'      => $n[0]->name,
+                   'name'      => $request->get('name'),
+                   'publisher' => $request->get('publisher'),
+                   'authors'    => $request->get('author'),
+                   'year'      => $request->get('year')
                ]);
-           echo 'successfully done';
-           redirect()->route('home');
+        return redirect()->route('home');
     }
 
 

@@ -28,76 +28,80 @@ class ProfileController extends Controller
                          ->select(DB::raw('count(id) as comment_count'))
                          ->where('users_id', '=', $user)
                          ->get();
-
+        if($use->users_id == Auth::id())
+            $button = 'yes';
+        else $button = null;
         return view('profile.profile',
                            ['user' => $use,
                             'posts' => $posts,
                             'count_review' => $count_review[0]->review_count,
                             'count_post' => $count_post[0]->post_count,
-                            'count_comment' => $count_comment[0]->comment_count]);
+                            'count_comment' => $count_comment[0]->comment_count,
+                            'button' => $button]
+                  );
     }
-    public function edit(User $user)
+    public function edit($user)
     {
-        try {
-            $this->authorize('update', $user->profile);
-        } catch (AuthorizationException $e) {
-            echo "not possible";
-        }
+        $user = User::find($user);
+
+        if(Auth::id() == $user->profile->users_id)
         return view('profile.EditProfile', ['user' => $user]);
+        else return redirect()->route('profile.show', ['user' => $user]);
     }
 
     public function update(Request $request)
     {
         $user = User::find(Auth::id());
-        $name = $request->input('name');
-        $country = $request->input('country');
-        $bdate = $request->input('bdate');
-        $job  = $request->input('job');
-        $wdate = $request->input('wdate');
-        $des = $request->input('description');
-        $web = $request->input('website');
-        $pic = request('pic');
-        if($pic) $pic = $pic->store('upload/pro_pic', 'public');
-           if ($name || $country || $bdate || $job || $wdate || $pic || $web || $des) {
-               if ($name) {
-                   $user->name = $name;
-                   $user->save();
-               }
-               if ($country) {
-                   $user->profile->country = $country;
-                   $user->profile->save();
-               }
-               if ($bdate) {
-                   $user->profile->bdate = $bdate;
-                   $user->profile->save();
-               }
-               if ($job) {
-                   $user->profile->job = $job;
-                   $user->profile->save();
-               }
-               if ($wdate){
-                   $user->profile->wdate = $wdate;
-                   $user->profile->save();
-               }
-               if ($pic) {
-                   $user->profile->pic = $pic;
-                   $user->profile->save();
-               }
-               if ($des) {
+        if(Auth::id() == $user->profile->users_id) {
+            $name = $request->input('name');
+            $country = $request->input('country');
+            $bdate = $request->input('bdate');
+            $job = $request->input('job');
+            $wdate = $request->input('wdate');
+            $des = $request->input('description');
+            $web = $request->input('website');
+            $pic = request('pic');
+            if ($pic) $pic = $pic->store('upload/pro_pic', 'public');
+            if ($name || $country || $bdate || $job || $wdate || $pic || $web || $des) {
+                if ($name) {
+                    $user->name = $name;
+                    $user->save();
+                }
+                if ($country) {
+                    $user->profile->country = $country;
+                    $user->profile->save();
+                }
+                if ($bdate) {
+                    $user->profile->bdate = $bdate;
+                    $user->profile->save();
+                }
+                if ($job) {
+                    $user->profile->job = $job;
+                    $user->profile->save();
+                }
+                if ($wdate) {
+                    $user->profile->wdate = $wdate;
+                    $user->profile->save();
+                }
+                if ($pic) {
+                    $user->profile->pic = $pic;
+                    $user->profile->save();
+                }
+                if ($des) {
 
-                   $user->profile->description = $des;
-                   $user->profile->save();
-               }
-               if ($web) {
+                    $user->profile->description = $des;
+                    $user->profile->save();
+                }
+                if ($web) {
 
-             $user->profile->website = $web;
-                   $user->profile->save();
-               }
-               echo 'updated';
-           } else echo 'nothing to update';
+                    $user->profile->website = $web;
+                    $user->profile->save();
+                }
+                echo 'updated';
+            } else echo 'nothing to update';
 
-        return redirect()->route('profile.show', $user);
+            return redirect()->route('profile.show', $user);
+        }
+        else return redirect()->route('home');
     }
-
-
 }

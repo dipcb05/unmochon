@@ -30,6 +30,7 @@ class CreateReviewsTable extends Migration
             $table->string('sub')->nullable();
             $table->string('link')->nullable();
             $table->string('res')->nullable();
+            $table->boolean('edit')->default('1');
             $table->timestamps();
         });
     }

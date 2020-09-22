@@ -1,16 +1,24 @@
-<h1>today's report</h1>
-<h3>total post: {{ $total_post }}</h3>
-<h3>total account so far: {{ $total_profiles }}</h3>
-<h3>today's post: {{ $today_post }}</h3>
-<h3>today's account: {{ $today_ac }}</h3>
-@foreach($req as $request)
-    <div><h4>{{ $request -> id }}</h4></div>
-    <div><h4>{{ $request -> from }}</h4></div>
-    <div><h4>{{ $request -> name }}</h4></div>
-    <div><h4>{{ $request -> year }}</h4></div>
-@endforeach
-<a class = 'btn-outline-danger'
-   href="{{  route('admin.logout') }}"
-   role = "button">
-    logout
-</a>
+@extends('layouts.app')
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Dashboard</div>
+                    <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                        You are in ADMIN Dashboard!
+                    </div>
+                    <div class="align-content-center"><a href = "{{ route('check_edit_req') }}">Check edit request</a></div>
+                    <div class="align-content-center"><a href = "">Assign new </a></div>
+                    <div class="align-content-center"><a href = "{{ route('check_paper_req') }}">Check new paper request</a></div>
+                    <div class="align-content-center"><a href = "{{ route('admin.stat') }}">Check statistics</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

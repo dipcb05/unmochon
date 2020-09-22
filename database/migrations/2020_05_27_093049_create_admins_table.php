@@ -15,12 +15,15 @@ class CreateAdminsTable extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('username');
-            $table->string('email');
-            $table->integer('office_id');
-            $table->string('name');
-            $table->string('position');
-            $table->date('join date');
+            $table->unsignedBigInteger('users_id');
+            $table->foreign('users_id')
+                ->references('id')
+                ->on('users');
+            $table->integer('office_id')->default(null);
+            $table->string('position')->default(null);
+            $table->string('active')
+                  ->default('no');
+            $table->date('joining_date')->default(null);
             $table->timestamps();
         });
     }
