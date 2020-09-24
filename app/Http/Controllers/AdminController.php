@@ -30,10 +30,10 @@ class AdminController extends Controller
     }
     function index2($admin)
     {
-        
+
         $admin = Admin::find($admin);
         $use = User::find($admin->users_id);
-        
+
         if($use->role == 2) {
             if ($admin->active == "no")
                 return view('admin.profiles.editprofile', ['id' => $admin]);
@@ -43,7 +43,7 @@ class AdminController extends Controller
     }
     function index3($id)
     {
-        //$use = User::find($admin);
+        $use = User::find($id);
         if($use[0]->role == 2)
         return view('admin.profile', ['id' => $id]);
     }
@@ -62,7 +62,7 @@ class AdminController extends Controller
                     ->select('id')
                     ->where('users_id', '=', Auth::id())
                     ->get();
-                
+
                 return redirect()->route('admin_editprofile', ['id' => $admin_id[0]->id]);
             }
             else return redirect()->route('home');
