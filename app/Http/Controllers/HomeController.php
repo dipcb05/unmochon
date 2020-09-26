@@ -43,8 +43,7 @@ class HomeController extends Controller
               ->whereRaw('pcaption or author like ?',
                   ["%{$request->get('search')}%"])
               ->get();
-
-          redirect()->route('home', ['posts' => $post]);
+          return view('query.home', ['posts' =>$post, 'query_name' => $request->get('search')]);
 
       }
       public function paper_req()

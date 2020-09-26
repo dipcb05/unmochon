@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function index(posts $posts, Review $review)
+    public function index(Review $review)
     {
         return response()->json($review->comments()->with('user')->latest()->get());
     }

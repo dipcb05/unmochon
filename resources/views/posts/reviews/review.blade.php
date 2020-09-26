@@ -31,6 +31,9 @@
                 <div>
                     <h4><b>other reviews of this paper</b></h4>
                 </div>
+                @if(is_null($reviews))
+                    <div>no one reviews yet</div>
+                @else
                 <div>
                     @foreach($reviews as $rev)
                         <div class="row">
@@ -40,6 +43,7 @@
                     @endforeach
 
             </div>
+                    @endif
 
 
 

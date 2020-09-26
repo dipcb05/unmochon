@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\DB;
 class ProfileController extends Controller
 {
 
-    public function index($user)
+    public function index($user, Request $request)
     {
         $use = User::find($user);
         $posts = DB::table('posts')
-                 ->where('users_id', $user)
+                 ->where('users_id', '=', $user)
                  ->get();
         $count_review = DB::table('reviews')
                         ->select(DB::raw('count(id) as review_count'))
@@ -28,16 +28,13 @@ class ProfileController extends Controller
                          ->select(DB::raw('count(id) as comment_count'))
                          ->where('users_id', '=', $user)
                          ->get();
-        if($use->users_id == Auth::id())
-            $button = 'yes';
-        else $button = null;
         return view('profile.profile',
                            ['user' => $use,
                             'posts' => $posts,
                             'count_review' => $count_review[0]->review_count,
                             'count_post' => $count_post[0]->post_count,
                             'count_comment' => $count_comment[0]->comment_count,
-                            'button' => $button]
+                            ]
                   );
     }
     public function edit($user)

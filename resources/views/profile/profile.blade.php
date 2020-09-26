@@ -19,8 +19,10 @@
         <img class="img-thumbnail img-fluid rounded mx-auto d-block" src = " /storage/{{ $user->profile->pic }}" alt = "profile picture">
     @endif
     </div>
+    @if($user->id != \Illuminate\Support\Facades\Auth::id())
     <a href="{{ route('message.person', $user->id) }}"
        class="btn btn-outline-dark">Message</a>
+    @endif
 
 <div class="justify-content-center">
     <div><h2>{{ $user->name }}</h2></div>
@@ -37,19 +39,31 @@
     <div><p>{{ $user->profile->description ?? 'N/A' }}</p></div>
     <div class="pr-3"><strong>website: </strong></div>
    <div>
-       <a href = "{{ $user->profile->website }} ?? #">{{ $user->website }} ?? 'N/A'</a>
+       @if(is_null($user->profile->website))
+           <a href = "#">No Website</a>
+       @else
+       <a href = "{{ $user->profile->website }}">User Website</a>
+           @endif
    </div>
 </div>
     @foreach($posts as $post)
         <div class = "row justify-content-center">
         <div class="col-sm-3 pt-4">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{ asset('images/1.jpeg') }}" alt="image of paper">
+                <div class="card-header">
+                    published on {{ $post -> journal }}
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ $post -> pcaption }}</h5>
-                    <p class="card-text">short description</p>
-                    <a href="/storage/{{ $post -> posts }}" class="btn btn-primary">download</a>
-                    @if(!is_null($button))
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Authors: {{ $post -> author }}</li>
+                                    <li class="list-group-item">Topic: {{ $post -> subject }}</li>
+                                    <li class="list-group-item">Uploaded at: {{ $post -> created_at }}</li>
+                                    <li class="list-group-item">Uploader:   <a href="{{ route('profile.show', $post->users_id) }}">{{ $user->name }}</a></li>
+                                </ul>
+                                    <a href="{{ $post -> posts }}" class="card-link">Paper link</a>
+                                    <a href="{{ route('posts.reviews', $post->id) }}"
+                                       class="btn btn-outline-success">reviews section</a>
+                    @if($post -> users_id == \Illuminate\Support\Facades\Auth::id())
                         <a href=" {{ route('posts.delete', $post->id) }}" class="btn btn-outline-danger">delete</a>
                     @endif
                 </div>

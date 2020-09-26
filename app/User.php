@@ -9,6 +9,7 @@ use App\Models\message;
 use App\Models\posts;
 use App\Models\Profile;
 use App\Models\Review;
+use App\Models\Session;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -26,9 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'username', 'email', 'phone', 'gender', 'password', 'isVerified', 'role'
-    ];
+    protected $fillable = ['name', 'username', 'email', 'phone', 'gender', 'password', 'isVerified', 'role', 'api_token'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -38,7 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    protected $with = ['sessions'];
     /**
      * The attributes that should be cast to native types.
      *
@@ -56,6 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail
                   $user->profile()->create([
                     'users_id' => $user->id,
                 ]);
+                redirect()->route('newapitoken');
                 Mail::to($user->email)->send(new WelcomeMail());
             });
 
@@ -86,6 +86,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function message()
     {
         return $this->hasMany(message::class, 'users_id', 'id');
+    }
+    public function sessions()
+    {
+        return $this->hasMany(Session::class);
     }
 
 }

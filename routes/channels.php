@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Broadcast;
 use App\Models\Session;
 
@@ -27,6 +28,10 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 
 Broadcast::channel('Chat', function ($user) {
     return $user;
+});
+
+Broadcast::channel('chat', function () {
+    return Auth::check();
 });
 
 Broadcast::channel('Chat.{session}', function ($user, Session $session) {

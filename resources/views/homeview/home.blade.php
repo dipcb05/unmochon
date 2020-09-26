@@ -24,6 +24,7 @@
                                 <h3><br>New Posts</h3>
                             </div>
                         @foreach($posts as $post)
+                            <div><br><br></div>
                             <div class="row justify-content-center">
                                 <div class="col-md-8">
                                     <div class="card" style="width: 30rem;">
@@ -39,7 +40,7 @@
                                             <li class="list-group-item">Authors: {{ $post -> author }}</li>
                                             <li class="list-group-item">Topic: {{ $post -> subject }}</li>
                                             <li class="list-group-item">Uploaded at: {{ $post -> created_at }}</li>
-                                            <li class="list-group-item">Uploader:    {{ $post->name }}</li>
+                                            <li class="list-group-item">Uploader:   <a href="{{ route('profile.show', $post->users_id) }}">{{ $post->name }}</a></li>
                                         </ul>
                                         <div class="card-body">
                                             <a href="{{ $post -> posts }}" class="card-link">Paper link</a>

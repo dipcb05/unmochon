@@ -6,19 +6,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'ExplorerHub') }}</title>
     <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <!-- Stylesheet -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Stylesheet -->
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="icon" href="{{ asset('images/logo & icon/default_favicon.ico') }}" />
-    @livewireStyles
-</head>
 <body>
 <div id="app">
     <div>
@@ -38,7 +32,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                @guest
+                    @guest
                         <li class="nav-item">
                             <a class="nav-link"
                                href="{{ route('login') }}">
@@ -63,41 +57,33 @@
                                     </a>
                                 </li>
                             @endif
-                                    <li class="nav-item active">
-                                        <a class="nav-link"
-                                           href="{{ route('home') }}">
-                                            Home
-                                            <span class="sr-only">
-                        (current)
-                    </span></a>
-                                    </li>
+                                <li class="nav-item">
+                                    <form class="form-inline my-2 my-lg-0"
+                                          method = "POST"
+                                          action = "{{ route('home.search') }}">
+                                        <input
+                                            name="search"
+                                            class="form-control mr-sm-2"
+                                            type="search"
+                                            placeholder="Search"
+                                            aria-label="Search">
+                                        <button
+                                            class="btn btn-outline-success my-2 my-sm-0"
+                                            type="submit">Search</button>
+                                        @csrf
+                                    </form>
+                                </li>
                             <li class="nav-item">
                                 <a class="nav-link"
                                    href="{{ route('profile.show', Auth::user()->id) }}">
                                     {{ __('Profile') }}
                                 </a>
                             </li>
-                                <li class="nav-item">
-                                    <a class="nav-link"
-                                       href="{{ route('discussion') }}">
-                                        {{ __('Discussion') }}
-                                    </a>
-                                </li>
                             <li class="nav-item">
-                                <form class="form-inline my-2 my-lg-0"
-                                      method = "POST"
-                                      action = "{{ route('home.search') }}">
-                                    <input
-                                        name="search"
-                                        class="form-control mr-sm-2"
-                                        type="search"
-                                        placeholder="Search"
-                                        aria-label="Search">
-                                    <button
-                                        class="btn btn-outline-success my-2 my-sm-0"
-                                        type="submit">Search</button>
-                                    @csrf
-                                </form>
+                                <a class="nav-link"
+                                   href="{{ route('discussion') }}">
+                                    {{ __('Discussion') }}
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link"
@@ -114,23 +100,21 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle"
-                                   id="navbarDropdown"
+                                   id="pro_edit"
                                    role="button"
                                    data-toggle="dropdown"
                                    aria-haspopup="true"
-                                   aria-expanded="false">
+                                aria-expanded="false">
                                     Profile Settings
                                 </a>
                                 <div class="dropdown-menu"
-                                     aria-labelledby="navbarDropdown">
+                                     aria-labelledby="pro_edit">
                                     <a class="dropdown-item"
                                        href="{{ route('profile.edit', Auth::user()->id) }}">
                                         Edit Profile
                                     </a>
                                     <a class="dropdown-item" href="{{ route('password.request') }}">
                                         Change Password</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">anything else</a>
                                 </div>
                             </li>
 
@@ -174,6 +158,31 @@
                                 </a>
                             </li>
                         @elseif(Route::current()->getName() == 'reviews.show')
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('posts.reviews', $review->posts_id) }}">
+                                    {{ __('Post') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('home') }}">
+                                    {{ __('Home') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('profile.show', Auth::user()->id) }}">
+                                    {{ __('Profile') }}
+                                </a>
+                            </li>
+                        @elseif(Route::current()->getName() == 'reviews.editget')
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('reviews.show', [$review->posts_id, $review->users_id, $review->id]) }}">
+                                    {{ __('Reviews') }}
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link"
                                    href="{{ route('posts.reviews', $review->posts_id) }}">
@@ -247,6 +256,20 @@
                                     {{ __('Dashboard') }}
                                 </a>
                             </li>
+                            @elseif(Route::current()->getName() == 'home.search')
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('home') }}">
+                                    {{ __('Home') }}
+                                </a>
+                            </li>
+                        @elseif(Route::current()->getName() == 'paper.req')
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('home') }}">
+                                    {{ __('Home') }}
+                                </a>
+                            </li>
                         @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown"
@@ -276,7 +299,7 @@
                                 </form>
                             </div>
                         </li>
-                    @endguest
+                        @endguest
                 </ul>
             </div>
         </nav>

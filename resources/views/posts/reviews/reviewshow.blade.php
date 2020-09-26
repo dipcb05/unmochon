@@ -7,7 +7,7 @@
                     <div class="card-header">review</div>
                     <div class="card-body">
                         <div class = "card">
-                            <div class="card-header">reviews by {{ $review->user->name }}</div>
+                            <div class="card-header">reviews by <a href = "{{ route('profile.show', $review->users_id) }}">{{ $review->user->name }}</a></div>
                             <div class="card-body">
                                 <div>pre requisite subjects</div>
                                 <div>{{ $review->sub }}</div>
@@ -92,88 +92,8 @@
                                     </div>
                                  </form>
 
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
-{{--                                <h3>Comments:</h3>--}}
-{{--                                <div id = "app1" style="margin-bottom:50px;">--}}
-{{--                                    <label>--}}
-{{--                                        <textarea class="form-control"--}}
-{{--                                                  rows="3"--}}
-{{--                                                  name="body"--}}
-{{--                                                  placeholder="Leave a comment"--}}
-{{--                                                  v-model="commentBox"></textarea>--}}
-{{--                                    </label>--}}
-{{--                                    <button class="btn btn-success"--}}
-{{--                                            style="margin-top:10px"--}}
-{{--                                            @click.prevent="postComment">Save Comment</button>--}}
-{{--                                </div>--}}
-
-{{--                                <div v-else>--}}
-{{--                                    <h4>You must be logged in to submit a comment!</h4> <a href="/login">Login Now >></a>--}}
-{{--                                </div>--}}
-
-
-{{--                                <div class="media" style="margin-top:20px;" v-for="comment in comments">--}}
-{{--                                    <div class="media-left">--}}
-{{--                                        <a href="#">--}}
-{{--                                            <img class="media-object" src="http://placeimg.com/80/80" alt="...">--}}
-{{--                                        </a>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="media-body">--}}
-{{--                                        <h4 class="media-heading">@{{comment.user.name}} said...</h4>--}}
-{{--                                        <p>--}}
-{{--                                            @{{comment.body}}--}}
-{{--                                        </p>--}}
-{{--                                        <span style="color: #aaa;">on @{{comment.created_at}}</span>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--        @section('scripts')--}}
-{{--            <script>--}}
-{{--                const app1 = new Vue({--}}
-{{--                    el: '#app1',--}}
-{{--                    data: {--}}
-{{--                        commentBox: '',--}}
-{{--                        comments: {},--}}
-{{--                        review: {!! $review->toJson() !!},--}}
-{{--                    },--}}
-{{--                    mounted() {--}}
-{{--                        this.getComments();--}}
-{{--                    },--}}
-
-{{--                    methods: {--}}
-{{--                        getComments() {--}}
-{{--                            console.log(this.commentBox)--}}
-{{--                            axios.get('/reviews/'+ this.review.id + '/' + '/comments')--}}
-{{--                                .then((response) => {--}}
-{{--                                    this.comments = response.data--}}
-{{--                                })--}}
-{{--                                .catch(function (error) {--}}
-{{--                                        console.log(error);--}}
-{{--                                    }--}}
-{{--                                );--}}
-{{--                        },--}}
-
-{{--                        postComment() {--}}
-{{--                            console.log('hello world!');--}}
-{{--                            axios.post('/reviews/'+ this.review.id+ '/comment', {--}}
-{{--                                body: this.commentBox--}}
-{{--                            })--}}
-{{--                                .then((response) => {--}}
-{{--                                    this.comments.unshift(response.data);--}}
-{{--                                    this.commentBox = '';--}}
-{{--                                })--}}
-{{--                                .catch((error) => {--}}
-{{--                                    console.log(error);--}}
-
-{{--                                })--}}
-{{--                        }--}}
-{{--                    }--}}
-{{--                })--}}
-{{--            </script>--}}
-{{--@endsection--}}

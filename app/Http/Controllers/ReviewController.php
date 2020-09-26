@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\comments;
 use App\Models\posts;
 use App\Models\Review;
@@ -194,8 +195,13 @@ class ReviewController extends Controller
              $review->edit = '0';
              $review->save();
         }
-       else echo 'not possible';
 
+    else {
+        $msg = 'not possible. limit over';
+        $link = url()->previous();
+        return view('error', ['msg' => $msg, 'link' => $link]);
+    }
+    return redirect()->route('reviews.show', $review->post_id, Auth::id(), $review);
     }
 
     public function comment(posts $posts, Review $reviews, Request $request)
@@ -209,4 +215,17 @@ class ReviewController extends Controller
         $user = User::find(Auth::id());
         return redirect()->route('reviews.show', [$posts, $user, $reviews]);
     }
+    public function comments(Review $reviews, Request $request)
+    {
+        $comment = $reviews->comments()->create([
+            'body' => $request->body,
+            'user_id' => Auth::id()
+        ]);
+
+        $comment = Comment::where('id', $comment->id)->with('user')->first();
+
+        return $comment->toJson();
+
+    }
+
 }

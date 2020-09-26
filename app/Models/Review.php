@@ -27,4 +27,5 @@ class Review extends Model
     {
         return $this->hasOne(Edit::class, 'reviews_id', 'id');
     }
+
 }

@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use App\User;
-use App\Message;
+use App\Models\message;
 
 class MessageSent implements ShouldBroadcast
 {
@@ -22,7 +22,7 @@ class MessageSent implements ShouldBroadcast
      * @param User $user
      * @param Message $message
      */
-    public function __construct(User $user, Message $message)
+    public function __construct(User $user, message $message)
     {
         $this->user = $user;
         $this->message = $message;

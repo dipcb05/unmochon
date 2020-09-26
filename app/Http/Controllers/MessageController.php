@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\message;
 use App\User;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +18,6 @@ class MessageController extends Controller
 
     public function index($other)
     {
-       // , ['others_id', '=', $other]
-        if($other != Auth::id()) {
             $fetch_msg = DB::table('messages')
                 ->join('users', 'messages.users_id', '=', 'users.id')
                 ->select('messages.*', 'users.name')
@@ -30,9 +29,7 @@ class MessageController extends Controller
                 ->get();
             if ($fetch_msg == '[]')
                 $fetch_msg = null;
-            return view('chat.chat', ['msg' => $fetch_msg, 'other' => $other]);
-        }
-        else echo 'can not self message';
+            return view('chat', ['msg' => $fetch_msg, 'other' => $other]);
     }
     public function update($others, Request $request)
     {
@@ -41,7 +38,35 @@ class MessageController extends Controller
         $message->others_id = $others;
         $message->message = $request->input('msg');
         $message->save();
-        $user = User::find(Auth::id());
         return redirect()->route('message.person', [$others]);
     }
+
+
+    /**
+     * Fetch all messages
+     *
+     * @return message|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function fetchMessages()
+    {
+        return Message::with('user')->get();
+    }
+
+    /**
+     * Persist message to database
+     *
+     * @param  Request $request
+     * @return string[]
+     */
+    public function sendMessage(Request $request)
+    {
+        $user = Auth::user();
+
+        $message = $user->messages()->create([
+            'message' => $request->input('message')
+        ]);
+
+        return ['status' => 'Message Sent!'];
+    }
+
 }

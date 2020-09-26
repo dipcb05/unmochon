@@ -21,6 +21,7 @@
  });
 Auth::routes(['verify' => true]);
 //home section
+ Route::get('/apitoken', 'Auth/ApiTokenController@update')->name('newapitoken');
 Route::get('/', 'firstpageController@index')->name('firstpage');// very first page
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');//home
  //profile section
@@ -61,6 +62,10 @@ Route::post('/er/dec/{req}', 'AdminController@editreq_decline')->name('editreq.d
 //message
  Route::get('/message/{other}', 'MessageController@index')->name('message.person');
  Route::post('/m/{other}', 'MessageController@update')->name('message.update');
+
+ Route::get('messages', 'MessageController@fetchMessages');
+ Route::post('messages', 'MessageController@sendMessage');
  //discussion
  Route::get('/discussion', 'DiscussionController@index')->name('discussion');
  Route::post('/dis/', 'DiscussionController@update')->name('qus.update');
+ Route::get('/ses', 'UserController@show');
