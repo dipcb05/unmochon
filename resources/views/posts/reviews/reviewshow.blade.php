@@ -14,11 +14,16 @@
                                 <div>pre requisite subjects</div>
                                 <div>{{ $review->sub }}</div>
                                 <div>short summary</div>
-                                <div class="justify-content-center" style="background-color: #95c5ed">  {{ $review->summary }} </div>
+                                <div class="justify-content-center" style="background-color: #95c5ed">
+                                    @markdown ``` {{ $review->summary }} ``` @endmarkdown
+                                   </div>
                                 <div>key algorithm</div>
-                                @markdown
-                                <div class = "text-center" style="background-color: #95999c"> ```{{ $review->algo }}```</div>
-                                @endmarkdown
+
+                                <div class = "text-center" style="background-color: #95999c">
+                                    @markdown ```{{ $review->algo }}``` @endmarkdown
+
+                                </div>
+
                                 @if(is_null($review->res))
                                     <div>no additional resources</div>
                                 @else
