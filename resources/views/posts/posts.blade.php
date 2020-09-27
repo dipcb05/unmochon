@@ -15,7 +15,7 @@
 
                             <div class="form-group row">
                             <label for="pcaption"
-                             class="col-md-1 col-form-label ">
+                                   class="col-md-1 col-form-label">
                              title
                             </label>
 
@@ -38,22 +38,24 @@
 
                                 <div class="form-group row">
                                     <label for="posts"
-                                           class="col-md-1 col-form-label text-md-right">
-                                        {{ __('the paper link') }}
-                                    </label>
-<div class = "col-md-8">
-      <input id = "posts"
-       type = "text"
-       class = "form-control-file @error('posts') is-invalid @enderror pt-2 pl-6"
-       name  = "posts"
-      autocomplete="posts">
-      @error('posts')
-       <span class="invalid-feedback" role="alert">
-       <strong>{{ $message }}</strong>
-       </span>
-      @enderror
-    </div></div>
-
+                                           class="col-md-1 col-form-label">
+                                        URL</label>
+                                    <div class="input-group mb-3 col-md-8">
+                                        <div class = "col-md-8">
+                                            <input type="text"
+                                                   class="form-control @error('posts') is-invalid @enderror pt-2 pl-6"
+                                                   id="posts"
+                                                   name = "posts"
+                                                   aria-describedby="posts"
+                                                   autocomplete="posts">
+                                        </div>
+                                        @error('posts')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
 
                 <div class="form-group row">
                     <label for="author"
@@ -237,7 +239,7 @@
                                             Close
                                         </button>
                                         <a class="btn btn-danger"
-                                           href="{{ route('profile.show', Auth::id()) }}"
+                                           href="{{ route('profile.show', \Illuminate\Support\Facades\Auth::id()) }}"
                                            role="button">
                                             Confirm
                                         </a>

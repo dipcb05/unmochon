@@ -26,7 +26,7 @@
 
                                             </label>
 
-                                            <div class="col-md-8">
+                                            <div class="col-md-7">
                                                 <input id="keyword"
                                                        type="text"
                                                        class="form-control @error('pcaption') is-invalid @enderror"
@@ -46,20 +46,22 @@
                                         <div class="form-group row">
                                             <div>  {{ __('Your Question') }}</div>
                                             <label for="question"
-                                                   class="col-md-1 col-form-label text-md-right">
+                                                   class="col-md-1 col-form-label">
                                             </label>
                                             <div class = "col-md-8">
-                                                <input id = "question"
-                                                       type = "text"
-                                                       class = "form-control-file @error('posts') is-invalid @enderror pt-2 pl-6"
-                                                       name  = "question"
-                                                       autocomplete="question">
+                                                <textarea
+                                                    class="form-control @error('posts') is-invalid @enderror pt-2 pl-6"
+                                                    rows="5" id="question"  name  = "question"
+                                                    autocomplete="question">
+                                                </textarea>
                                                 @error('question')
                                                 <span class="invalid-feedback" role="alert">
-       <strong>{{ $message }}</strong>
-       </span>
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                                 @enderror
-                                            </div></div>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group row">
                                             <div class="col-md-4  offset-md-4">
                                                 <button type="submit"
@@ -96,12 +98,13 @@
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item">by: {{ $post -> name }}</li>
                                                 <li class="list-group-item">Uploaded at: {{ $post -> created_at }}</li>
+                                            </ul>
                                             <a href = " {{ route('dis.show', [$post->id]) }}"
                                                class="btn btn-outline-info"
                                                role="button">
                                                View Discussion
                                             </a>
-                                            </ul>
+
                                         </div>
                                     </div>
                                 </div>
