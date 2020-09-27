@@ -7,7 +7,9 @@
                     <div class="card-header">review</div>
                     <div class="card-body">
                         <div class = "card">
-                            <div class="card-header">reviews by <a href = "{{ route('profile.show', $review->users_id) }}">{{ $review->user->name }}</a></div>
+                            <div class="card-header">reviews by <a href = "{{ route('profile.show', $review->users_id) }}">{{ $review->user->name }}</a>
+                                <div>{{ $m }}</div>
+                            </div>
                             <div class="card-body">
                                 <div>pre requisite subjects</div>
                                 <div>{{ $review->sub }}</div>

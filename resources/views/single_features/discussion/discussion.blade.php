@@ -95,8 +95,12 @@
                                             </div>
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item">by: {{ $post -> name }}</li>
-                                                <li class="list-group-item">Total 16 comments</li>
                                                 <li class="list-group-item">Uploaded at: {{ $post -> created_at }}</li>
+                                            <a href = " {{ route('dis.show', [$post->id]) }}"
+                                               class="btn btn-outline-info"
+                                               role="button">
+                                               View Discussion
+                                            </a>
                                             </ul>
                                         </div>
                                     </div>

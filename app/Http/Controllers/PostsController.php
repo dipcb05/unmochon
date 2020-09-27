@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\posts;
+use App\Models\Ratings;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +47,9 @@ class PostsController extends Controller
                'journal'   => $post->journal,
                'time'      => $post->time,
             ]);
+          $r = Ratings::find(Auth::id());
+          $r->ratings = $r->ratings+10;
+          $r->save();
          return redirect()->route('home');
     }
 

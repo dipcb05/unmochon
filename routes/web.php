@@ -61,14 +61,18 @@ Route::get('/admin/edit_req', 'AdminController@edit_request')->name('check_edit_
 Route::post('/er/app/{reviews}', 'AdminController@editreq_approve')->name('editreq.approve');
 Route::post('/er/dec/{req}', 'AdminController@editreq_decline')->name('editreq.decline');
 //message
- Route::get('/m/{other}', 'MessageController@index')->name('message.person');
- Route::post('/m/{other}', 'MessageController@update')->name('message.update');
+ Route::get('/m/{other}', 'HomeController@msg_index')->name('message.person');
+ Route::post('/m/{other}', 'HomeController@msg_update')->name('message.update');
  //follow
  Route::post('follow/{user}', 'ProfileController@follow_store');
  //discussion
  Route::get('/discussion', 'HomeController@dis_index')->name('discussion');
  Route::post('/dis/', 'HomeController@dis_update')->name('qus.update');
+ Route::get('/dis/{id}', 'HomeController@dis_show')->name('dis.show');
+ Route::post('/dis/comment/{id}', 'HomeController@dis_comment')->name('dis.comment');
 //rating
  Route::get('rating/{type}/{id}', 'RatingController@get')->name('rating.get');
  Route::post('r/{type}/{id}', 'RatingController@update')->name('rating.update');
 
+//peer
+ Route::get('norev', 'HomeController@peer_activity')->name('noreviews');

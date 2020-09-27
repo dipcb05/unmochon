@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Discussion extends Model
 {
     protected $guarded = [];
-    protected $fillable = ['users_id', 'keyword', 'question'];
+    protected $fillable = ['users_id', 'keyword', 'question', 'rating'];
     protected $table = "discussions";
 
     public function user()

@@ -13,7 +13,7 @@ class ProfileController extends Controller
     public function index(User $user, Request $request)
     {
         //$use = User::find($user);
-        $follows = (auth()->user()) ? auth()->user()->following->contains($user->id) : false;
+        //$follows = (auth()->user()) ? auth()->user()->following->contains($user->id) : false;
         $posts = DB::table('posts')
                  ->where('users_id', '=', $user->id)
                  ->get();
@@ -32,7 +32,7 @@ class ProfileController extends Controller
         return view('profile.profile',
                            ['user' => $user,
                             'posts' => $posts,
-                            'follows' => $follows,
+                           // 'follows' => $follows,
                             'count_review' => $count_review[0]->review_count,
                             'count_post' => $count_post[0]->post_count,
                             'count_comment' => $count_comment[0]->comment_count,

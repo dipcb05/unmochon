@@ -11,9 +11,9 @@
     <div>
     @if(is_null($user->profile->pic))
      @if($user->gender == 'male')
-        <img class="img-thumbnail img-fluid rounded mx-auto d-block max-width: 100% height: auto" src = " {{ asset('images/default_pro_pic/default.jpg')}}" alt = "profile picture">
+        <img class="img-thumbnail img-fluid rounded mx-auto d-block max-width: 50% height: 50%" src = " {{ asset('images/default_pro_pic/profile_male.jpeg')}}" alt = "profile picture">
             @else
-                <img class="img-thumbnail img-fluid rounded mx-auto d-block max-width: 100% height: auto" src = " {{ asset('images/default_pro_pic/defaultfemale.jpg')}}" alt = "profile picture">
+                <img class="img-thumbnail img-fluid rounded mx-auto d-block max-width: 100% height: auto" src = " {{ asset('images/default_pro_pic/profile_female.png')}}" alt = "profile picture">
     @endif
                 @else
         <img class="img-thumbnail img-fluid rounded mx-auto d-block" src = " /storage/{{ $user->profile->pic }}" alt = "profile picture">
@@ -21,7 +21,7 @@
     </div>
     @if($user->id != \Illuminate\Support\Facades\Auth::id())
         <div>
-            <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
+{{--            <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>--}}
             <div><br><a href="{{ route('message.person', $user->id) }}" class="btn btn-outline-dark">Message</a></div>
         </div>
     @endif

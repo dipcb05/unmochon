@@ -26,7 +26,7 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
             <a class="navbar-brand" href="/">
-                <img src="{{ asset('images/logo & icon/Ex n b.png') }}"
+                <img src="{{ asset('images/logo & icon/explorerhub_logo.png') }}"
                      alt="logo"
                      style="width:300px;height:100px;">
             </a>
@@ -65,6 +65,14 @@
                                     </a>
                                 </li>
                             @endif
+                                @if((\Illuminate\Support\Facades\Auth::user()->role) == 3)
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           href="{{ route('noreviews') }}">
+                                            {{ __('No reviews') }}
+                                        </a>
+                                    </li>
+                                @endif
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle"
                                        href="#" id="navbarDropdown"
@@ -122,6 +130,12 @@
                                 <a class="nav-link"
                                    href="{{ route('home') }}">
                                     {{ __('Home') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('discussion') }}">
+                                    {{ __('Discussion') }}
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
@@ -300,6 +314,64 @@
                                 <a class="nav-link"
                                    href="{{ route('home') }}">
                                     {{ __('Home') }}
+                                </a>
+                            </li>
+                        @elseif(Route::current()->getName() == 'dis.show')
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('home') }}">
+                                    {{ __('Home') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('discussion') }}">
+                                    {{ __('Discussions') }}
+                                </a>
+                            </li>
+                        @elseif(Route::current()->getName() == 'search')
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('home') }}">
+                                    {{ __('Home') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('discussion') }}">
+                                    {{ __('Discussions') }}
+                                </a>
+                            </li>
+                        @elseif(Route::current()->getName() == 'query.show')
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('home') }}">
+                                    {{ __('Home') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('discussion') }}">
+                                    {{ __('Discussions') }}
+                                </a>
+                            </li>
+                        @elseif(Route::current()->getName() == 'noreviews')
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('home') }}">
+                                    {{ __('Home') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('discussion') }}">
+                                    {{ __('Discussions') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('profile.show', \Illuminate\Support\Facades\Auth::id()) }}">
+                                    {{ __('profile') }}
                                 </a>
                             </li>
                         @endif

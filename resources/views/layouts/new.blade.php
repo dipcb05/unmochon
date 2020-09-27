@@ -17,7 +17,7 @@
 <div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
     <a class="navbar-brand" href="/">
-        <img src="{{ asset('images/logo & icon/Ex n b.png') }}"
+        <img src="{{ asset('images/logo & icon/explorerhub_logo.png') }}"
              alt="logo"
              style="width:300px;height:100px;">
     </a>

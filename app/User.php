@@ -6,6 +6,7 @@ use App\Models\comments;
 use App\Models\message;
 use App\Models\posts;
 use App\Models\Profile;
+use App\Models\Ratings;
 use App\Models\Review;
 use App\Models\Upvote;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -51,6 +52,9 @@ class User extends Authenticatable implements MustVerifyEmail
                   $user->profile()->create([
                     'users_id' => $user->id,
                 ]);
+                  $user->ratings()->create([
+                'users_id' => $user->id,
+            ]);
                 redirect()->route('newapitoken');
                 Mail::to($user->email)->send(new WelcomeMail());
             });
@@ -60,6 +64,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function profile()
     {
         return $this->hasOne(Profile::class, 'users_id', 'id');
+    }
+    public function ratings()
+    {
+        return $this->hasOne(Ratings::class, 'users_id', 'id');
     }
     public function admin()
     {
@@ -83,7 +91,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function following()
     {
-        return $this->belongsToMany(Profile::class);
+        return $this->belongsToMany(Profile::class, 'profiles', 'profile_id');
     }
     public function upvote()
     {

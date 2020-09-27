@@ -74,10 +74,6 @@ class LoginController extends Controller
                 $this->redirectTo = route('admin');
                 return $this->redirectTo;
                 break;
-            case 3:
-                $this->redirectTo = '/peer';
-                return $this->redirectTo;
-                break;
             case 1:
                 $this->redirectTo = '/home';
                 return $this->redirectTo;

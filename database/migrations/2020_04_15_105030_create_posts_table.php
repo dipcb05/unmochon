@@ -25,6 +25,7 @@ class CreatePostsTable extends Migration
             $table->string('subject');
             $table->string('journal');
             $table->string('time');
+            $table->unsignedBigInteger('rating')->nullable();
             $table->timestamps();
         });
     }

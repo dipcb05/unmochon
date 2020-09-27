@@ -30,8 +30,16 @@
                                             <div class="card-header">
                                                 published on {{ $post -> journal }}
                                             </div>
-                                            <img src="{{ asset('images/logo & icon/Ex n b.png') }}" class="card-img-top" alt="site_logo"
-                                                 height="40px" width="30px">
+                                            @if($post-> journal == 'IEEE' || $post-> journal == 'IEEE explorer')
+                                            <img src="{{ asset('images/default_paper/ieee.png') }}" class="card-img-top" alt="site_logo"
+                                                 height="90px" width="30px">
+                                                @elseif($post-> journal == 'springer')
+                                                    <img src="{{ asset('images/default_paper/springer.jpeg') }}" class="card-img-top" alt="site_logo"
+                                                         height="90px" width="30px">
+                                            @else
+                                                    <img src="{{ asset('images/default_paper/doc_default.png') }}" class="card-img-top" alt="site_logo"
+                                                         height="90px" width="30px">
+                                            @endif
                                             <div class="card-body">
                                                 <h5 class="card-title">title: {{ $post -> pcaption }}</h5>
                                             </div>

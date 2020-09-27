@@ -13,7 +13,8 @@
                                             <div>there is no message. let's chat</div>
                                         @else
                                             @foreach($msg as $msg1)
-                                                <div>{{ $msg1->name }} Says -> {{ $msg1 -> message }}</div>
+                                                <div>{{ $msg1->name }} Says -> {{ $msg1 -> message }} </div>
+                                                <div>post time: {{  $msg1->created_at  }}</div>
                                             @endforeach
                                         @endif
                                     </div>

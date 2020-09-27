@@ -31,6 +31,7 @@ class CreateReviewsTable extends Migration
             $table->string('link')->nullable();
             $table->string('res')->nullable();
             $table->boolean('edit')->default('1');
+            $table->unsignedBigInteger('rating')->nullable();
             $table->timestamps();
         });
     }

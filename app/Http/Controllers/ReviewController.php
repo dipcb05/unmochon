@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Comment;
 use App\Models\comments;
 use App\Models\posts;
+use App\Models\Ratings;
 use App\Models\Review;
 use App\Models\View;
 use App\User;
-use Illuminate\Auth\Access\AuthorizationException;
+use Doctrine\DBAL\DBALException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -33,8 +32,17 @@ class ReviewController extends Controller
             ->where('reviews.posts_id', '=', $posts->id)
             ->select('users.name', 'reviews.users_id', 'reviews.posts_id', 'reviews.id')
             ->get();
+        if($reviews == '[]')$reviews = null;
+        $v = DB::table('views')
+            ->join('users', 'views.users_id', '=', 'users.id')
+            ->where('posts_id', '=', $post)
+            ->where('role', '=', '3')
+            ->select('reviews_id')
+            ->distinct()
+            ->get();
+        if($v == '[]')$v = null;
         return view('posts.reviews.review',
-            ['posts' => $posts, 'user' => $users[0], 'reviews' => $reviews]);
+            ['posts' => $posts, 'user' => $users[0], 'reviews' => $reviews, 'v' => $v]);
     }
     public function form($post)
     {
@@ -100,7 +108,9 @@ class ReviewController extends Controller
                     $review->res = $resources;
                     $review->save();
                 }
-
+                $r = Ratings::find($user->id);
+                $r->ratings = $r->ratings+20;
+                $r->save();
                 return redirect()->route('reviews.show', [$pos, $use,$review]);
             }
             else {
@@ -122,11 +132,15 @@ class ReviewController extends Controller
     {
         $p = $posts->id;
         $r = $review->id;
-        $u = Auth::id();
+        $e = DB::table('users')
+            ->where('id' , '=', Auth::id())
+            ->select('role')
+            ->get();
+        ($e[0]->role == 3) ? $m = "peer reviewed" : $m = " ";
         $view = new View();
         $view->posts_id = $p;
         $view->reviews_id = $r;
-        $view->users_id = $u;
+        $view->users_id = Auth::id();
         $view->save();
         $total = DB::table('comments')
             ->select(DB::raw('count(*) as count, comments.reviews_id'))
@@ -158,7 +172,8 @@ class ReviewController extends Controller
                 'total' => $e,
                 'comments' => $com,
                 'button' => $button,
-                'button2' => $button2
+                'button2' => $button2,
+                'm' => $m
             ]);
     }
     public function review_delete($post, $review)
@@ -219,6 +234,9 @@ class ReviewController extends Controller
 
     public function comment(posts $posts, Review $reviews, Request $request)
     {
+        $r = Ratings::find(Auth::id());
+        $r->ratings = $r->ratings+2;
+        $r->save();
         $comment = new comments();
         $comment->users_id = Auth::id();
         $comment->posts_id = $posts->id;

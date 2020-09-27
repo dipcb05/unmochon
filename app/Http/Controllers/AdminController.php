@@ -43,13 +43,6 @@ class AdminController extends Controller
         } else return redirect()->route('home');
     }
 
-    function index3($id)
-    {
-        $use = User::find($id);
-        if ($use[0]->role == 2)
-            return view('admin.profile', ['id' => $id]);
-    }
-
     function generate_ac()
     {
         $u = User::find(Auth::id());
@@ -83,7 +76,7 @@ class AdminController extends Controller
             $admin->position = $position;
             $admin->joining_date = $joining_date;
             $admin->save();
-            return redirect()->route('admin.profile', $admin);
+            return redirect()->route('admin', $admin);
         } else return redirect()->route('home');
     }
 
@@ -184,49 +177,15 @@ class AdminController extends Controller
 
     function assign_peer()
     {
-        $r = DB::table('reviews')
-            ->select('rating', 'users_id')
-            ->orderBy('rating', 'DESC')
+        $r = DB::table('user_ratings')
+            ->leftJoin('users', 'user_ratings.users_id', '=', 'users.id')
+            ->select('ratings', 'users_id', 'name')
+            ->where('role', '=', 1)
+            ->orderBy('ratings', 'DESC')
             ->limit(5)
             ->get();
 
-        foreach ($r as $rr) {
-            $p[] = DB::table('posts')
-                ->select('rating', 'users_id')
-                ->where('users_id', '=', $rr->users_id)
-                ->orderBy('rating', 'DESC')
-                ->limit(3)
-                ->get()
-                ->pluck('users_id')
-                ->toArray();
-        }
-        for ($i = 0; $i <= 3; $i++) {
-                if( (!empty($p[$i])) && ($p[$i] != null) ) {
-                    $u[] = DB::table('users')
-                         ->select('*')
-                        ->where('id', '=', $p[$i][0])
-                        ->where('role', '=', 1)
-                        ->get();
-                    $count_review[] = DB::table('reviews')
-                        ->select(DB::raw('count(id) as review_count'))
-                        ->where('users_id', '=', $p[$i][0])
-                        ->get();
-                    $count_post[] = DB::table('posts')
-                        ->select(DB::raw('count(id) as post_count'))
-                        ->where('users_id', '=', $p[$i][0])
-                        ->get();
-                    $count_comment[] = DB::table('comments')
-                        ->select(DB::raw('count(id) as comment_count'))
-                        ->where('users_id', '=', $p[$i][0])
-                        ->get();
-
-
-                }
-
-        }
-
-
-        return view('admin.tasks.peer', ['user' => $u]);
+        return view('admin.tasks.peer', ['r' => $r]);
 
     }
 

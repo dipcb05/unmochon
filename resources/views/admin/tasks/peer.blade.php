@@ -7,21 +7,19 @@
                     Candidates
                 </div>
     <div class="card-body">
-    @for($i = 0 ; $i <= 3 ; $i++)
-        @if(!empty($user[$i]) and (!is_null($user[$i])))
+    @foreach($r as $rr)
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <form action ="{{ route('peer.assign', [$user[$i][0]->id]) }}"
+                                <form action ="{{ route('peer.assign', [$rr->users_id]) }}"
                                       enctype="multipart/form-data" method="post">
                                     @csrf
                                 <div>
-                                    <a href="{{ route('profile.show', $user[$i][0]->id) }}"> {{ $user[$i][0]->name }}</a>
+                                    <a href="{{ route('profile.show', $rr->users_id) }}"> {{ $rr->name }} </a> {{ $rr->ratings }} points
                                     <button class="btn btn-secondary" type="submit">Assign</button>
                                 </div>
                                 </form>
                             </li>
-                            @endif
-    @endfor
+    @endforeach
                         </ul>
     </div>
             </div>

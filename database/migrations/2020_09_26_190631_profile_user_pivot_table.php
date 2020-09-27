@@ -16,7 +16,7 @@ class ProfileUserPivotTable extends Migration
         Schema::create('profile_user', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('profile_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('users_id');
             $table->timestamps();
         });
     }

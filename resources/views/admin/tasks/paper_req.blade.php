@@ -29,6 +29,7 @@
                                             <li class="list-group-item">Publishers: {{ $post -> publisher }}</li>
                                             <li class="list-group-item">Published in: {{ $post -> year }}</li>
                                         </ul>
+                                        <a href="http://google.com" class="btn btn-success">search</a>
                                     </div>
                                 </div>
                             </div>
