@@ -36,9 +36,8 @@ Route::get('/p/{post}/delete', 'PostsController@post_delete')->name('posts.delet
 Route::get('/preq', 'HomeController@paper_req')->name('paper.req');
 Route::post('/{user}/adminsend', 'HomeController@admin_task')->name('req.save');
  //query section
- Route::post('/search', 'firstpageController@search')->name('front.search');
-Route::get('/query/{key}', 'firstpageController@see_paper')->name('query.show');
-Route::post('/homesearch', 'HomeController@search')->name('home.search');
+ Route::post('/search', 'HomeController@search')->name('search');
+Route::get('/query/{key}', 'HomeController@see_paper')->name('query.show');
 //review & comment section
  Route::get('p/{posts}/review/', 'ReviewController@index')->name('posts.reviews'); //review page
  Route::get('p/{posts}/review/reviewform', 'ReviewController@form')->name('reviews.edit'); //review writing
@@ -53,6 +52,8 @@ Route::post('/homesearch', 'HomeController@search')->name('home.search');
  Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin');
 Route::get('/a', 'AdminController@generate_ac')->name('admin_first_time');
 Route::get('/admin/stat', 'AdminController@stats')->name('admin.stat');
+Route::get('/admin/ap', 'AdminController@assign_peer')->name('admin.peerassign');
+ Route::post('/admin/ap/{user}', 'AdminController@peer_assign')->name('peer.assign');
 Route::get('/admin_editprofile/{id}', 'AdminController@index2')->name('admin_editprofile');
 Route::post('/{admin}/aep', 'AdminController@profile_update')->name('admin.profile_update');
 Route::get('/admin/paper_req', 'AdminController@paper_request')->name('check_paper_req');
@@ -60,12 +61,14 @@ Route::get('/admin/edit_req', 'AdminController@edit_request')->name('check_edit_
 Route::post('/er/app/{reviews}', 'AdminController@editreq_approve')->name('editreq.approve');
 Route::post('/er/dec/{req}', 'AdminController@editreq_decline')->name('editreq.decline');
 //message
- Route::get('/message/{other}', 'MessageController@index')->name('message.person');
+ Route::get('/m/{other}', 'MessageController@index')->name('message.person');
  Route::post('/m/{other}', 'MessageController@update')->name('message.update');
-
- Route::get('messages', 'MessageController@fetchMessages');
- Route::post('messages', 'MessageController@sendMessage');
+ //follow
+ Route::post('follow/{user}', 'ProfileController@follow_store');
  //discussion
- Route::get('/discussion', 'DiscussionController@index')->name('discussion');
- Route::post('/dis/', 'DiscussionController@update')->name('qus.update');
- Route::get('/ses', 'UserController@show');
+ Route::get('/discussion', 'HomeController@dis_index')->name('discussion');
+ Route::post('/dis/', 'HomeController@dis_update')->name('qus.update');
+//rating
+ Route::get('rating/{type}/{id}', 'RatingController@get')->name('rating.get');
+ Route::post('r/{type}/{id}', 'RatingController@update')->name('rating.update');
+

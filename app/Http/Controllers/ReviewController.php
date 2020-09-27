@@ -104,13 +104,18 @@ class ReviewController extends Controller
                 return redirect()->route('reviews.show', [$pos, $use,$review]);
             }
             else {
-                echo 'nothing to update';
-                return redirect()->route('reviews.edit', ['posts' => $pos]);
+                $msg = 'nothing to update';
+                $link = url()->previous();
+                return view('single_features.error', ['msg' => $msg, 'link' => $link]);
             }
 
         }
-        else echo 'you cant give more than one review. you can edit request your previous one to admin';
-        return redirect()->route('posts.reviews', ['posts' => $pos]);
+        else
+        {
+            $msg = 'you cant give more than one review. you can edit request your previous one to admin';
+            $link = url()->previous();
+            return view('single_features.error', ['msg' => $msg, 'link' => $link]);
+        }
 
     }
     public function show(posts $posts, User $user, Review $review)
@@ -135,6 +140,13 @@ class ReviewController extends Controller
             ->select('comments.*', 'reviews.id', 'users.name', 'comments.users_id')
             ->get();
         $e = ($total->isEmpty()) ? '0' : $total;
+        $q = DB::table('upvotes')
+            ->where('users_id', '=', Auth::id())
+            ->where('type', '=', 'review')
+            ->where('type_id', '=', $r)
+            ->get();
+        if($q == '[]')$button2 = 'yes';
+        else $button2 = null;
         if($review->users_id == Auth::id())
             $button = 'yes';
         else $button = null;
@@ -145,7 +157,8 @@ class ReviewController extends Controller
                 'review' => $review,
                 'total' => $e,
                 'comments' => $com,
-                'button' => $button
+                'button' => $button,
+                'button2' => $button2
             ]);
     }
     public function review_delete($post, $review)
@@ -201,7 +214,7 @@ class ReviewController extends Controller
         $link = url()->previous();
         return view('error', ['msg' => $msg, 'link' => $link]);
     }
-    return redirect()->route('reviews.show', $review->post_id, Auth::id(), $review);
+    return redirect()->route('reviews.show', [$review->post_id, Auth::id(), $review]);
     }
 
     public function comment(posts $posts, Review $reviews, Request $request)
@@ -214,18 +227,6 @@ class ReviewController extends Controller
         $comment->save();
         $user = User::find(Auth::id());
         return redirect()->route('reviews.show', [$posts, $user, $reviews]);
-    }
-    public function comments(Review $reviews, Request $request)
-    {
-        $comment = $reviews->comments()->create([
-            'body' => $request->body,
-            'user_id' => Auth::id()
-        ]);
-
-        $comment = Comment::where('id', $comment->id)->with('user')->first();
-
-        return $comment->toJson();
-
     }
 
 }

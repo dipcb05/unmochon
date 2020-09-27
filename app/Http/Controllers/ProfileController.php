@@ -10,27 +10,29 @@ use Illuminate\Support\Facades\DB;
 class ProfileController extends Controller
 {
 
-    public function index($user, Request $request)
+    public function index(User $user, Request $request)
     {
-        $use = User::find($user);
+        //$use = User::find($user);
+        $follows = (auth()->user()) ? auth()->user()->following->contains($user->id) : false;
         $posts = DB::table('posts')
-                 ->where('users_id', '=', $user)
+                 ->where('users_id', '=', $user->id)
                  ->get();
         $count_review = DB::table('reviews')
                         ->select(DB::raw('count(id) as review_count'))
-                        ->where('users_id', '=', $user)
+                        ->where('users_id', '=', $user->id)
                         ->get();
         $count_post = DB::table('posts')
                       ->select(DB::raw('count(id) as post_count'))
-                      ->where('users_id', '=', $user)
+                      ->where('users_id', '=', $user->id)
                       ->get();
         $count_comment = DB::table('comments')
                          ->select(DB::raw('count(id) as comment_count'))
-                         ->where('users_id', '=', $user)
+                         ->where('users_id', '=', $user->id)
                          ->get();
         return view('profile.profile',
-                           ['user' => $use,
+                           ['user' => $user,
                             'posts' => $posts,
+                            'follows' => $follows,
                             'count_review' => $count_review[0]->review_count,
                             'count_post' => $count_post[0]->post_count,
                             'count_comment' => $count_comment[0]->comment_count,
@@ -100,5 +102,9 @@ class ProfileController extends Controller
             return redirect()->route('profile.show', $user);
         }
         else return redirect()->route('home');
+    }
+    public function follow_store(User $user)
+    {
+        return auth()->user()->following()->toggle($user->profile);
     }
 }

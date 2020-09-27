@@ -21,10 +21,18 @@
                                     <div>additional resources</div>
                                     <div><a href = "/storage/{{ $review->res }}">download here</a></div>
                                 @endif
+                                <form action ="{{ route('rating.update', ['review', $review->id]) }}"
+                                      enctype="multipart/form-data" method="post">
+                                    @csrf
                                 @if(!is_null($button))
                                     <a href="{{ route('reviews.editget', $review->id) }}"
                                        class="btn btn-outline-dark">Edit the Review</a>
                                 @endif
+                                @if(!is_null($button2))
+                                        <button class="btn btn-secondary" type="submit">Upvote</button>
+                                    @else upvoted
+                                @endif
+                                </form>
                             </div>
                         </div>
 

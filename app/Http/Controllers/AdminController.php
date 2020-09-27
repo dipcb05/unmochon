@@ -18,42 +18,44 @@ class AdminController extends Controller
         $this->middleware('verified');
 
     }
+
     function index()
     {
         $admin_id_active = DB::table('admins')
             ->select('active')
             ->where('users_id', '=', Auth::id())
             ->get();
-        if(($admin_id_active == '[]') or ($admin_id_active[0]->active == "no"))
+        if (($admin_id_active == '[]') or ($admin_id_active[0]->active == "no"))
             return redirect()->route('admin_first_time');
         else return view('admin.dashboard');
     }
+
     function index2($admin)
     {
 
         $admin = Admin::find($admin);
         $use = User::find($admin->users_id);
 
-        if($use->role == 2) {
+        if ($use->role == 2) {
             if ($admin->active == "no")
                 return view('admin.profiles.editprofile', ['id' => $admin]);
             else return redirect()->route('admin');
-        }
-        else return redirect()->route('home');
+        } else return redirect()->route('home');
     }
+
     function index3($id)
     {
         $use = User::find($id);
-        if($use[0]->role == 2)
-        return view('admin.profile', ['id' => $id]);
+        if ($use[0]->role == 2)
+            return view('admin.profile', ['id' => $id]);
     }
+
     function generate_ac()
     {
         $u = User::find(Auth::id());
 
-        if($u)
-        {
-            if($u->role == 2) {
+        if ($u) {
+            if ($u->role == 2) {
                 Auth::user()->admin()->create([
                     'users_id' => $u->id,
 
@@ -64,15 +66,14 @@ class AdminController extends Controller
                     ->get();
 
                 return redirect()->route('admin_editprofile', ['id' => $admin_id[0]->id]);
-            }
-            else return redirect()->route('home');
-        }
-        else return redirect()->route('home');
+            } else return redirect()->route('home');
+        } else return redirect()->route('home');
     }
+
     function profile_update($id, Request $request)
     {
         $u = User::find(Auth::id());
-        if($u->role == 2) {
+        if ($u->role == 2) {
             $office_id = $request->input('office_id');
             $position = $request->input('position');
             $joining_date = $request->input('joining_date');
@@ -83,106 +84,157 @@ class AdminController extends Controller
             $admin->joining_date = $joining_date;
             $admin->save();
             return redirect()->route('admin.profile', $admin);
-        }
-        else return redirect()->route('home');
+        } else return redirect()->route('home');
     }
+
     function stats()
-        {
-                $p = DB::table('posts')
-                    ->select(DB::raw('COUNT(*) as count_total_posts'))
-                    ->get();
-                $p1 = DB::table('profiles')
-                    ->select(DB::raw('COUNT(*) as count_total_profiles'))
-                    ->get();
-                $p2 = DB::table('posts')
-                    ->select(DB::raw('COUNT(*) as count_today_post'))
-                    ->whereDate('created_at', today()->toDateString())
-                    ->get();
-                $p3 = DB::table('profiles')
-                    ->select(DB::raw('COUNT(*) as count_today_account'))
-                    ->whereDate('created_at', today()->toDateString())
-                    ->get();
-                return view('admin.tasks.stat', ['total_post' => $p[0]->count_total_posts,
-                    'total_profiles' => $p1[0]->count_total_profiles,
-                    'today_post' => $p2[0]->count_today_post,
-                    'today_ac' => $p3[0]->count_today_account,
-                ]);
-        }
-        function paper_request()
-        {
-            $u = User::find(Auth::id());
-            if($u->role == 2) {
-                $p = DB::table('admin_paper_request')
-                    ->select('*')
-                    ->get();
-                if ($p == '[]')
-                    $p = null;
-                return view('admin.tasks.paper_req', ['posts' => $p]);
+    {
+        $p = DB::table('posts')
+            ->select(DB::raw('COUNT(*) as count_total_posts'))
+            ->get();
+        $p1 = DB::table('profiles')
+            ->select(DB::raw('COUNT(*) as count_total_profiles'))
+            ->get();
+        $p2 = DB::table('posts')
+            ->select(DB::raw('COUNT(*) as count_today_post'))
+            ->whereDate('created_at', today()->toDateString())
+            ->get();
+        $p3 = DB::table('profiles')
+            ->select(DB::raw('COUNT(*) as count_today_account'))
+            ->whereDate('created_at', today()->toDateString())
+            ->get();
+        return view('admin.tasks.stat', ['total_post' => $p[0]->count_total_posts,
+            'total_profiles' => $p1[0]->count_total_profiles,
+            'today_post' => $p2[0]->count_today_post,
+            'today_ac' => $p3[0]->count_today_account,
+        ]);
+    }
+
+    function paper_request()
+    {
+        $u = User::find(Auth::id());
+        if ($u->role == 2) {
+            $p = DB::table('admin_paper_request')
+                ->select('*')
+                ->get();
+            if ($p == '[]')
+                $p = null;
+            return view('admin.tasks.paper_req', ['posts' => $p]);
+        } else return redirect()->route('home');
+    }
+
+    function edit_request()
+    {
+        $u = User::find(Auth::id());
+        if ($u->role == 2) {
+            $all = DB::table('reviews_edit')
+                ->join('reviews', 'reviews_edit.reviews_id', '=', 'reviews.id')
+                ->join('users', 'reviews.users_id', '=', 'users.id')
+                ->select('reviews_edit.*', 'users.name', 'users.email')
+                ->get();
+            if ($all == '[]')
+                $all = null;
+            return view('admin.tasks.reviewedit_req', ['posts' => $all]);
+        } else return redirect()->route('home');
+    }
+
+    function editreq_approve($reviews)
+    {
+        $u = User::find(Auth::id());
+        if ($u->role == 2) {
+            $r = Review::find($reviews);
+            $all = DB::table('reviews_edit')
+                ->where('reviews_id', '=', $reviews)
+                ->select('*')
+                ->get();
+            $r->summary = $all[0]->summary;
+            $r->algo = $all[0]->algo;
+            $r->sub = $all[0]->sub;
+            $r->link = $all[0]->link;
+            $r->res = $all[0]->res;
+            $r->save();
+            $visitor_id = DB::table('reviews_edit')
+                ->rightJoin('views', 'reviews_edit.reviews_id', '=', 'views.reviews_id')
+                ->select('views.users_id', 'views.reviews_id', 'reviews_edit.posts_id')
+                ->distinct()
+                ->get();
+            foreach ($visitor_id as $data) {
+                $a = User::find($data->users_id);
+                $link = 'localhost:8000' . '/p/' . $data->posts_id . '/review/by' . $data->users_id . '/' . $data->reviews_id;
+                Mail::to($a->email)->send(new change($link));
             }
-            else return redirect()->route('home');
+            DB::table('reviews_edit')
+                ->where('id', '=', $all[0]->id)
+                ->delete();
+            return redirect()->route('check_edit_req');
+        } else return redirect()->route('home');
+    }
+
+    function editreq_decline($req)
+    {
+        $u = User::find(Auth::id());
+        if ($u->role == 2) {
+            DB::table('reviews_edit')
+                ->where('id', '=', $req)
+                ->delete();
+            return redirect()->route('check_edit_req');
+        } else return redirect()->route('home');
+
+    }
+
+    function assign_peer()
+    {
+        $r = DB::table('reviews')
+            ->select('rating', 'users_id')
+            ->orderBy('rating', 'DESC')
+            ->limit(5)
+            ->get();
+
+        foreach ($r as $rr) {
+            $p[] = DB::table('posts')
+                ->select('rating', 'users_id')
+                ->where('users_id', '=', $rr->users_id)
+                ->orderBy('rating', 'DESC')
+                ->limit(3)
+                ->get()
+                ->pluck('users_id')
+                ->toArray();
         }
-        function edit_request()
-        {
-            $u = User::find(Auth::id());
-            if($u->role == 2) {
-                $all = DB::table('reviews_edit')
-                    ->join('reviews', 'reviews_edit.reviews_id', '=', 'reviews.id')
-                    ->join('users', 'reviews.users_id', '=', 'users.id')
-                    ->select('reviews_edit.*', 'users.name', 'users.email')
-                    ->get();
-                if($all == '[]')
-                    $all = null;
-                return view('admin.tasks.reviewedit_req', ['posts' => $all]);
-            }
-            else return redirect()->route('home');
-        }
-        function editreq_approve($reviews)
-        {
-            $u = User::find(Auth::id());
-            if($u->role == 2) {
-                $r = Review::find($reviews);
-                $all = DB::table('reviews_edit')
-                    ->where('reviews_id', '=', $reviews)
-                    ->select('*')
-                    ->get();
-                $r->summary = $all[0]->summary;
-                $r->algo = $all[0]->algo;
-                $r->sub = $all[0]->sub;
-                $r->link = $all[0]->link;
-                $r->res = $all[0]->res;
-                $r->save();
-                $visitor_id = DB::table('reviews_edit')
-                    ->rightJoin('views', 'reviews_edit.reviews_id', '=', 'views.reviews_id')
-                    ->select('views.users_id', 'views.reviews_id', 'reviews_edit.posts_id')
-                    ->distinct()
-                    ->get();
-                foreach ($visitor_id as $data) {
-                    $a = User::find($data->users_id);
-                    $link = 'localhost:8000' . '/p/' . $data->posts_id . '/review/by' . $data->users_id . '/' . $data->reviews_id;
-                    Mail::to($a->email)->send(new change($link));
+        for ($i = 0; $i <= 3; $i++) {
+                if( (!empty($p[$i])) && ($p[$i] != null) ) {
+                    $u[] = DB::table('users')
+                         ->select('*')
+                        ->where('id', '=', $p[$i][0])
+                        ->where('role', '=', 1)
+                        ->get();
+                    $count_review[] = DB::table('reviews')
+                        ->select(DB::raw('count(id) as review_count'))
+                        ->where('users_id', '=', $p[$i][0])
+                        ->get();
+                    $count_post[] = DB::table('posts')
+                        ->select(DB::raw('count(id) as post_count'))
+                        ->where('users_id', '=', $p[$i][0])
+                        ->get();
+                    $count_comment[] = DB::table('comments')
+                        ->select(DB::raw('count(id) as comment_count'))
+                        ->where('users_id', '=', $p[$i][0])
+                        ->get();
+
+
                 }
-                DB::table('reviews_edit')
-                    ->where('id', '=', $all[0]->id)
-                    ->delete();
-                return redirect()->route('check_edit_req');
-            }
-           else return redirect()->route('home');
-        }
-         function editreq_decline($req)
-         {
-             $u = User::find(Auth::id());
-             if($u->role == 2) {
-                 DB::table('reviews_edit')
-                     ->where('id', '=', $req)
-                     ->delete();
-                 return redirect()->route('check_edit_req');
-             }
-             else return redirect()->route('home');
-
-         }
-
-        function assigning_peer()
-        {
 
         }
+
+
+        return view('admin.tasks.peer', ['user' => $u]);
+
+    }
+
+    public function peer_assign(User $user)
+    {
+        $user->role = 3;
+        $user->save();
+        return redirect()->route('admin');
+    }
+
 }

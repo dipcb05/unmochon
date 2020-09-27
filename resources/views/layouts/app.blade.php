@@ -4,15 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="userId" content="{{ \Illuminate\Support\Facades\Auth::check() ? \Illuminate\Support\Facades\Auth::id() : '' }}">
     <title>{{ config('app.name', 'ExplorerHub') }}</title>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
     <!-- Stylesheet -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 <body>
 <div id="app">
     <div>
@@ -57,10 +65,28 @@
                                     </a>
                                 </li>
                             @endif
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle"
+                                       href="#" id="navbarDropdown"
+                                       role="button" data-toggle="dropdown"
+                                       aria-haspopup="true"
+                                       aria-expanded="false">
+                                        Browse
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="DropDown">
+                                        <a class="dropdown-item" href="#"></a>
+                                        <a class="dropdown-item" href="{{ route('query.show', 'subject') }}">By Subject</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('query.show', 'author') }}">By Author</a>
+                                    </div>
+                                </li>
+
+
+
                                 <li class="nav-item">
                                     <form class="form-inline my-2 my-lg-0"
                                           method = "POST"
-                                          action = "{{ route('home.search') }}">
+                                          action = "{{ route('search') }}">
                                         <input
                                             name="search"
                                             class="form-control mr-sm-2"
@@ -206,6 +232,12 @@
                                 <a class="nav-link"
                                    href="{{ route('home') }}">
                                     {{ __('Home') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('profile.show', \Illuminate\Support\Facades\Auth::id()) }}">
+                                    {{ __('Profile') }}
                                 </a>
                             </li>
                         @elseif(Route::current()->getName() == 'discussion')

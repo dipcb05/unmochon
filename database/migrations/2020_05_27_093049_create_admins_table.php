@@ -19,8 +19,8 @@ class CreateAdminsTable extends Migration
             $table->foreign('users_id')
                 ->references('id')
                 ->on('users');
-            $table->integer('office_id')->default(null);
-            $table->string('position')->default(null);
+            $table->integer('office_id')->nullable();
+            $table->string('position')->nullable();
             $table->string('active')
                   ->default('no');
             $table->date('joining_date')->default(null);

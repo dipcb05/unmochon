@@ -20,9 +20,12 @@
     @endif
     </div>
     @if($user->id != \Illuminate\Support\Facades\Auth::id())
-    <a href="{{ route('message.person', $user->id) }}"
-       class="btn btn-outline-dark">Message</a>
+        <div>
+            <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
+            <div><br><a href="{{ route('message.person', $user->id) }}" class="btn btn-outline-dark">Message</a></div>
+        </div>
     @endif
+
 
 <div class="justify-content-center">
     <div><h2>{{ $user->name }}</h2></div>

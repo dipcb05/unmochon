@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "laravel-echo": "^1.8.1",
+    "node-forge": ">=0.10.0",
     "pusher-js": "^6.0.3",
-    "vue-chat-scroll": "^1.4.0",
-    "node-forge": ">=0.10.0"
+    "vue-chat-scroll": "^1.4.0"
   }
 }

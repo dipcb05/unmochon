@@ -1,7 +1,5 @@
 <?php
-
 namespace App;
-
 use App\Mail\WelcomeMail;
 use App\Models\Admin;
 use App\Models\comments;
@@ -9,12 +7,11 @@ use App\Models\message;
 use App\Models\posts;
 use App\Models\Profile;
 use App\Models\Review;
-use App\Models\Session;
+use App\Models\Upvote;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
-
 /**
  * @method static find(int|string|null $id)
  */
@@ -37,7 +34,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
-    protected $with = ['sessions'];
     /**
      * The attributes that should be cast to native types.
      *
@@ -59,9 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 Mail::to($user->email)->send(new WelcomeMail());
             });
 
-
     }
-
 
     public function profile()
     {
@@ -87,9 +81,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(message::class, 'users_id', 'id');
     }
-    public function sessions()
+    public function following()
     {
-        return $this->hasMany(Session::class);
+        return $this->belongsToMany(Profile::class);
     }
+    public function upvote()
+    {
+        return $this->hasMany(Upvote::class, 'users_id', 'id');
+    }
+
 
 }

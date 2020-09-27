@@ -14,7 +14,7 @@
                         You are in ADMIN Dashboard!
                     </div>
                     <div class="align-content-center"><a href = "{{ route('check_edit_req') }}">Check edit request</a></div>
-                    <div class="align-content-center"><a href = "">Assign new </a></div>
+                    <div class="align-content-center"><a href = "{{ route('admin.peerassign') }}">Assign new </a></div>
                     <div class="align-content-center"><a href = "{{ route('check_paper_req') }}">Check new paper request</a></div>
                     <div class="align-content-center"><a href = "{{ route('admin.stat') }}">Check statistics</a></div>
                 </div>
