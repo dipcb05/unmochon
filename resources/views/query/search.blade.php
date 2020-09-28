@@ -9,12 +9,12 @@
                         <div class = "text-center">
                             <h3><br>Search about {{ $query_name }}</h3>
                         </div>
-                        @foreach($posts as $new)
-                            @if(is_null($new->posts))
-                                <div class = "text-center">
+                        @if(is_null($posts))
+                            <div class = "text-center">
                                 <h3>No post found!!</h3>
                             </div>
-                            @else
+                        @else
+                        @foreach($posts as $new)
                                 <div class="row justify-content-center">
                                     <div class="col-md-8">
                                         <div class="card" style="width: 35rem; height: 35rem;">
@@ -29,40 +29,34 @@
                                                     {{ $new->author}}</h5>
                                                 <h5>
                                                     <b>Uploaded: </b></h5>
-                                                {{--                                        <a href="{{ route('posts.show', $new->id) }}"--}}
-                                                {{--                                           class="btn btn-light">read</a>--}}
                                                 <a href="/storage/{{ $new -> posts }}"
-                                                   class="btn btn-primary">download</a>
-                                                <div class="btn btn-secondary">upvote</div>
+                                                   class="btn btn-primary">read</a>
                                                 <a href="{{ route('posts.reviews', $new->id) }}"
                                                    class="btn btn-outline-success">reviews</a>
-                                                {{--                                        <a href="/storage/{{ $new -> posts }}"--}}
-                                                {{--                                           class="btn btn-outline-dark">save</a>--}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endif
                         @endforeach
-
+                        @endif
+                        @if(is_null($user))
+                            <div class = "text-center">
+                                <h3>No profile found!!</h3>
+                            </div>
+                        @else
                         <div>profiles</div>
-
                         @foreach($user as $new)
-                            @if(is_null($new))
-                                <div class = "text-center">
-                                    <h3>No profile found!!</h3>
-                                </div>
-                            @else
                                 <div>
                                     <a href="{{ route('profile.show', $new->id) }}">{{ $new->name }}</a>
                                 </div>
-                            @endif
                         @endforeach
+                            @endif
                     </div>
+                    <div class="card-footer"> <a href="{{ url()->previous() }}">Get Back</a></div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
 
 @endsection

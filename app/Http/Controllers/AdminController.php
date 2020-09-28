@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 use App\Mail\change;
 use App\Models\Admin;
+use App\Models\Ratings;
 use App\Models\Review;
+use App\Models\Review_files;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -123,7 +126,9 @@ class AdminController extends Controller
             $all = DB::table('reviews_edit')
                 ->join('reviews', 'reviews_edit.reviews_id', '=', 'reviews.id')
                 ->join('users', 'reviews.users_id', '=', 'users.id')
+                ->where('approve', '=', 0)
                 ->select('reviews_edit.*', 'users.name', 'users.email')
+                ->orderBy('created_at', 'DESC')
                 ->get();
             if ($all == '[]')
                 $all = null;
@@ -135,7 +140,10 @@ class AdminController extends Controller
     {
         $u = User::find(Auth::id());
         if ($u->role == 2) {
+
             $r = Review::find($reviews);
+            $p = Review::find($r->posts_id);
+            $u = Review::find($r->users_id);
             $all = DB::table('reviews_edit')
                 ->where('reviews_id', '=', $reviews)
                 ->select('*')
@@ -146,19 +154,48 @@ class AdminController extends Controller
             $r->link = $all[0]->link;
             $r->res = $all[0]->res;
             $r->save();
+            $content = (new ReviewController)->doc_generate($p, $r, $u, 'summary');
+            if(Storage::disk('public')->put($content['docs_link'], $content['docs']))
+                $summary_doc = $content['docs_link'];
+            if(Storage::disk('public')->put($content['txt_link'], $content['txt']))
+                $summary_txt = $content['txt_link'];
+            $content = (new ReviewController)->doc_generate($p, $r, $u, 'algo');
+            if(Storage::disk('public')->put($content['docs_link'], $content['docs']))
+                $algo_doc = $content['docs_link'];
+            if(Storage::disk('public')->put($content['txt_link'], $content['txt']))
+                $algo_txt = $content['txt_link'];
+            $content = (new ReviewController)->doc_generate($p, $r, $u, 'full');
+            if(Storage::disk('public')->put($content['docs_link'], $content['docs']))
+                $full_reviews_doc = $content['docs_link'];
+            if(Storage::disk('public')->put($content['txt_link'], $content['txt']))
+                $full_reviews_txt = $content['txt_link'];
+            DB::table('review_files')
+                ->where('id', '=', $r->id)
+                ->update([
+                   'summary_doc' => $summary_doc,
+                    'summary_txt' => $summary_txt,
+                    'algo_doc' => $algo_doc,
+                    'algo_txt' => $algo_txt,
+                    'full_reviews_doc' => $full_reviews_doc,
+                    'full_reviews_txt' => $full_reviews_txt,
+                ]);
             $visitor_id = DB::table('reviews_edit')
                 ->rightJoin('views', 'reviews_edit.reviews_id', '=', 'views.reviews_id')
                 ->select('views.users_id', 'views.reviews_id', 'reviews_edit.posts_id')
                 ->distinct()
                 ->get();
-            foreach ($visitor_id as $data) {
-                $a = User::find($data->users_id);
-                $link = 'localhost:8000' . '/p/' . $data->posts_id . '/review/by' . $data->users_id . '/' . $data->reviews_id;
-                Mail::to($a->email)->send(new change($link));
-            }
+//            foreach ($visitor_id as $data) {
+//                $a = User::find($data->users_id);
+//                $link = 'localhost:8000' . '/p/' . $data->posts_id . '/review/by' . $data->users_id . '/' . $data->reviews_id;
+//                Mail::to($a->email)->send(new change($link));
+//            }
+            $a = DB::table('admins')
+                ->where('users_id', '=', Auth::id())
+                ->select('id')
+                ->get();
             DB::table('reviews_edit')
                 ->where('id', '=', $all[0]->id)
-                ->delete();
+                ->update(['approve' => 1, 'admin_id' => $a[0]->id]);
             return redirect()->route('check_edit_req');
         } else return redirect()->route('home');
     }

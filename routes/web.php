@@ -39,16 +39,16 @@ Route::post('/{user}/adminsend', 'HomeController@admin_task')->name('req.save');
  Route::post('/search', 'HomeController@search')->name('search');
 Route::get('/query/{key}', 'HomeController@see_paper')->name('query.show');
 //review & comment section
- Route::get('p/{posts}/review/', 'ReviewController@index')->name('posts.reviews'); //review page
- Route::get('p/{posts}/review/reviewform', 'ReviewController@form')->name('reviews.edit'); //review writing
- Route::post('p/{posts}/r', 'ReviewController@update')->name('reviews.update'); //review posts
- Route::get('p/{posts}/r/{reviews}/delete', 'ReviewController@review_delete')->name('reviews.delete');
- Route::get('p/{posts}/review/by{user}/{review}','ReviewController@show')->name('reviews.show'); //show single reviews
-
- Route::post('{posts}/{reviews}/commentupdate', 'ReviewController@comment')->name('comment.update'); //admin
+ Route::get('p/{post}/review/', 'ReviewController@index')->name('posts.reviews'); //review page
+ Route::get('p/{post}/review/reviewform', 'ReviewController@form')->name('reviews.edit'); //review writing
+ Route::post('p/{post}/r', 'ReviewController@review_create')->name('reviews.update'); //review posts
+ Route::get('p/{post}/r/{reviews}/delete', 'ReviewController@review_delete')->name('reviews.delete');
+ Route::get('p/{post}/review/by{user}/{review}','ReviewController@show')->name('reviews.show'); //show single reviews
+ Route::post('{post}/{review}/commentupdate', 'ReviewController@comment')->name('comment.update');//comment
  Route::get('r/{review}/edit', 'ReviewController@reviews_edit')->name('reviews.editget');
  Route::post('r/{review}/p', 'ReviewController@reviews_editpost')->name('reviews.editpost');
- //admin
+ Route::get('r/{post}/{review}/prev', 'ReviewController@old_version')->name('edited_review');
+
  Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin');
 Route::get('/a', 'AdminController@generate_ac')->name('admin_first_time');
 Route::get('/admin/stat', 'AdminController@stats')->name('admin.stat');

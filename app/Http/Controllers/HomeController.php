@@ -64,6 +64,8 @@ class HomeController extends Controller
             ->whereRaw('name like ?',
                 ["%{$request->get('search')}%"])
             ->get();
+        if($post == '[]')$post = null;
+        if($user == '[]')$user = null;
         return view('query.search', ['query_name' => $request->get('search'),
             'posts' => $post, 'user' => $user]);
     }
@@ -190,11 +192,12 @@ class HomeController extends Controller
     public function msg_index($other)
     {
         $check = User::find($other);
+        $u = User::find(Auth::id());
         if ($check) {
             if ($other != Auth::id()) {
                 $fetch_msg = DB::table('messages')
                     ->join('users', 'messages.users_id', '=', 'users.id')
-                    ->select('messages.*', 'users.name')
+                    ->select('messages.*', 'users.username')
                     ->where('users_id', '=', Auth::id())
                     ->where('others_id', '=', $other)
                     ->orWhere('users_id', '=', $other)
@@ -203,7 +206,7 @@ class HomeController extends Controller
                     ->get();
                 if ($fetch_msg == '[]')
                     $fetch_msg = null;
-                return view('single_features.chat', ['msg' => $fetch_msg, 'other' => $other]);
+                return view('single_features.chat', ['msg' => $fetch_msg, 'other' => $other, 'u_name' => $u->username]);
             } else {
                 return redirect()->route('profile.show', $other);
             }

@@ -25,7 +25,11 @@ class Review extends Model
     }
     public function edit()
     {
-        return $this->hasOne(Edit::class, 'reviews_id', 'id');
+        return $this->hasMany(Edit::class, 'reviews_id', 'id');
+    }
+    public function review_files()
+    {
+        return $this->hasMany(Review_files::class, 'reviews_id', 'id');
     }
 
 }

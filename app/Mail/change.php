@@ -1,9 +1,6 @@
 <?php
 
 namespace App\Mail;
-use App\Models\posts;
-use App\Models\Review;
-use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;

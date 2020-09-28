@@ -56,6 +56,22 @@
                             </li>
                         @endif
                     @else
+                        <li class="nav-item">
+                            <form class="form-inline my-2 my-lg-0"
+                                  method = "POST"
+                                  action = "{{ route('search') }}">
+                                <input
+                                    name="search"
+                                    class="form-control mr-sm-2"
+                                    type="search"
+                                    placeholder="Search"
+                                    aria-label="Search">
+                                <button
+                                    class="btn btn-outline-success my-2 my-sm-0"
+                                    type="submit">Search</button>
+                                @csrf
+                            </form>
+                        </li>
                         @if(Route::current()->getName() == 'home')
                             @if((\Illuminate\Support\Facades\Auth::user()->role) == 2)
                                 <li class="nav-item">
@@ -87,25 +103,6 @@
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ route('query.show', 'author') }}">By Author</a>
                                     </div>
-                                </li>
-
-
-
-                                <li class="nav-item">
-                                    <form class="form-inline my-2 my-lg-0"
-                                          method = "POST"
-                                          action = "{{ route('search') }}">
-                                        <input
-                                            name="search"
-                                            class="form-control mr-sm-2"
-                                            type="search"
-                                            placeholder="Search"
-                                            aria-label="Search">
-                                        <button
-                                            class="btn btn-outline-success my-2 my-sm-0"
-                                            type="submit">Search</button>
-                                        @csrf
-                                    </form>
                                 </li>
                             <li class="nav-item">
                                 <a class="nav-link"

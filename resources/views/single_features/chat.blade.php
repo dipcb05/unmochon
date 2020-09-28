@@ -13,8 +13,18 @@
                                             <div>there is no message. let's chat</div>
                                         @else
                                             @foreach($msg as $msg1)
-                                                <div>{{ $msg1->name }} Says -> {{ $msg1 -> message }} </div>
-                                                <div>post time: {{  $msg1->created_at  }}</div>
+                                                @if($u_name == $msg1->username)
+                                                <div class = "text-left" style="background-color: #D3D3D3">
+                                                    <div>{{ $msg1->username }} Says -> {{ $msg1 -> message }}</div>
+                                                    <div>{{  $msg1->created_at  }}</div>
+                                                </div>
+                                                @else
+                                                    <div class = "text-center" style="background-color: #FFFFFF">
+                                                        <div>{{ $msg1->name }} Says -> {{ $msg1 -> message }} </div>
+                                                        <div>post time: {{  $msg1->created_at  }}</div>
+                                                    </div>
+                                                @endif
+                                                <br>
                                             @endforeach
                                         @endif
                                     </div>

@@ -9,21 +9,31 @@
                         <div class = "card">
                             <div class="card-header">reviews by <a href = "{{ route('profile.show', $review->users_id) }}">{{ $review->user->name }}</a>
                                 <div>{{ $m }}</div>
+                                <div><a href = {{ route('edited_review', [$posts->id, $review->id]) }}> {{ $m2 }}</a></div>
                             </div>
+
                             <div class="card-body">
                                 <div>pre requisite subjects</div>
                                 <div>{{ $review->sub }}</div>
+                                <div>referred links: </div>
+                                <div>{{ $review->link }}</div>
                                 <div>short summary</div>
                                 <div class="justify-content-center" style="background-color: #95c5ed">
                                     @markdown ``` {{ $review->summary }} ``` @endmarkdown
                                    </div>
+                                <br>
+                                <div>download as <a href="/storage/{{ $docs->summary_doc }}">docx file</a>/
+                                    <a href = "/storage/{{ $docs->summary_txt }}">text file</a></div>
+                                <br>
                                 <div>key algorithm</div>
 
-                                <div class = "text-center" style="background-color: #95999c">
+                                <div class = "text-center" style="background-color: #D3D3D3">
                                     @markdown ```{{ $review->algo }}``` @endmarkdown
-
                                 </div>
-
+                                <br>
+                                <div>download as <a href="/storage/{{ $docs->algo_doc }}">docx file</a>/
+                                    <a href = "/storage/{{ $docs->algo_txt }}">text file</a></div>
+                                <br>
                                 @if(is_null($review->res))
                                     <div>no additional resources</div>
                                 @else
@@ -43,6 +53,10 @@
                                 @endif
                                 </form>
                             </div>
+                            <div class="card-footer">
+                                <div>full review</div>
+                                download as <a href="/storage/{{ $docs->full_reviews_doc }}">docx file</a>/
+                                    <a href = "/storage/{{ $docs->full_reviews_txt }}">text file</a></div>
                         </div>
 
                         @if($total == '0')

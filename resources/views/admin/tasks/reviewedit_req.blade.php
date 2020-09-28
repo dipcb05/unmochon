@@ -44,7 +44,7 @@
                                                @if(is_null($post -> res))
                                                     Resources: No change
                                                @else
-                                                   Resources: <a href = {{ $post -> res }}>New Docs</a>
+                                                   Resources: <a href =" /storage/{{ $post -> res }}">New Docs</a>
                                                     <div> Changes: Yes</div>
                                                @endif
                                                 </li>
