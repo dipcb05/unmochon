@@ -157,7 +157,7 @@ class ReviewController extends Controller
             ->get();
         if($ed == '[]')$m2 = null;
         else{
-              ($ed[0]->approve) ? $m2 = "edited. watch for previous version" : $m = " ";}
+              ($ed[0]->approve) ? $m2 = "edited. watch for previous version" : $m2 = " ";}
         $view = new View();
         $view->posts_id = $p;
         $view->reviews_id = $r;

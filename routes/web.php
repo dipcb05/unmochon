@@ -22,7 +22,9 @@
 Auth::routes(['verify' => true]);
 //home section
  Route::get('/apitoken', 'Auth/ApiTokenController@update')->name('newapitoken');
-Route::get('/', 'firstpageController@index')->name('firstpage');// very first page
+Route::get('/', function() { 
+       return view('homeview.firstpage');
+});// very first page
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');//home
  //profile section
 Route::get('/profile/{user}', 'ProfileController@index')->name('profile.show');//profile showing

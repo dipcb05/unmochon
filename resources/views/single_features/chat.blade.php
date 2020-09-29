@@ -20,7 +20,7 @@
                                                 </div>
                                                 @else
                                                     <div class = "text-center" style="background-color: #FFFFFF">
-                                                        <div>{{ $msg1->name }} Says -> {{ $msg1 -> message }} </div>
+                                                        <div>{{ $msg1->username }} Says -> {{ $msg1 -> message }} </div>
                                                         <div>post time: {{  $msg1->created_at  }}</div>
                                                     </div>
                                                 @endif

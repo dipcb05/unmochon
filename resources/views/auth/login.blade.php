@@ -77,7 +77,7 @@
                                     </a>
                                 @endif
                             </div>
-                            <a class="btn btn-primary" href="{{ route('firstpage') }}" role="button">Cancel</a>
+                          <a class="btn btn-primary" href="\" role="button">Cancel</a>
                         </div>
                     </form>
                 </div>

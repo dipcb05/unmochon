@@ -184,11 +184,11 @@ class AdminController extends Controller
                 ->select('views.users_id', 'views.reviews_id', 'reviews_edit.posts_id')
                 ->distinct()
                 ->get();
-//            foreach ($visitor_id as $data) {
-//                $a = User::find($data->users_id);
-//                $link = 'localhost:8000' . '/p/' . $data->posts_id . '/review/by' . $data->users_id . '/' . $data->reviews_id;
-//                Mail::to($a->email)->send(new change($link));
-//            }
+            foreach ($visitor_id as $data) {
+                $a = User::find($data->users_id);
+                $link = 'localhost:8000' . '/p/' . $data->posts_id . '/review/by' . $data->users_id . '/' . $data->reviews_id;
+                Mail::to($a->email)->send(new change($link));
+            }
             $a = DB::table('admins')
                 ->where('users_id', '=', Auth::id())
                 ->select('id')
