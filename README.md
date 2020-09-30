@@ -1,5 +1,16 @@
-<p align="center"><img src="{{ assets('images/logo & icon/Ex n b.png') }}
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+<p align="center"><a href="https://laravel.com" target="_blank">
+<img src="https://user-images.githubusercontent.com/39948352/94713829-23179a00-036d-11eb-9f8a-cb65e38c66b5.png" width="400"></a></p>
+
+
+## About ExplorerHub
+
+ExplorerHub is a social networking site for scientists and researchers to share papers, ask and answer questions, and find collaborators.
+They can share their ideas, discuss with each other, and research about it, then they can work on it and write a new paper based on their research.
+They can summarize existing research papers which helps researchers to save their times a lot. 
+
+This site is in developing mode now. 
+
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
